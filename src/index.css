@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(224, 242, 254, 0.8);
+    box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  }
+
+  .glass-card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px -4px rgba(2, 132, 199, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
+    border-color: rgba(56, 189, 248, 0.6);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .tech-gradient-text {
+    background: linear-gradient(135deg, #0F172A 0%, #0284C7 50%, #00A3FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .tech-gradient-bg {
+    background: linear-gradient(135deg, #0F172A 0%, #0284C7 60%, #00A3FF 100%);
+  }
+
+  .azure-gradient-bg {
+    background: linear-gradient(135deg, #0284C7 0%, #38BDF8 100%);
+  }
+
+  .circuit-grid-bg {
+    background-image: radial-gradient(rgba(2, 132, 199, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f0f9ff;
+}
+::-webkit-scrollbar-thumb {
+  background: #bae6fd;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0284c7;
+}
+
+/* Keyframe animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes subtlePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-subtle-pulse {
+  animation: subtlePulse 3s ease-in-out infinite;
+}
