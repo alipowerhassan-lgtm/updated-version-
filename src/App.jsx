@@ -3,6 +3,7 @@ import TopUtilityBar from './components/TopUtilityBar';
 import Navbar from './components/Navbar';
 import HomeSection from './components/HomeSection';
 import ServicesSection from './components/ServicesSection';
+import CalculatorPage from './components/CalculatorPage';
 import TechnologiesSection from './components/TechnologiesSection';
 import ProjectsSection from './components/ProjectsSection';
 import PolicySection from './components/PolicySection';
@@ -11,8 +12,10 @@ import ContactSection from './components/ContactSection';
 import ServiceDetailModal from './components/ServiceDetailModal';
 import ProjectDetailModal from './components/ProjectDetailModal';
 import ProposalModal from './components/ProposalModal';
+import BrandSplashScreen from './components/BrandSplashScreen';
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
   const [activePage, setActivePage] = useState('home');
   const [proposalModalOpen, setProposalModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
@@ -21,12 +24,18 @@ export default function App() {
   const [projectDetailOpen, setProjectDetailOpen] = useState(false);
   const [proposalServiceDomain, setProposalServiceDomain] = useState('');
 
-  // Synchronize active page with hash on initial load
+  // Synchronize active page with hash on initial load & hash changes
   useEffect(() => {
-    const hash = window.location.hash.substring(1);
-    if (['home', 'services', 'technologies', 'projects', 'policy', 'feedback', 'contact'].includes(hash)) {
-      setActivePage(hash);
-    }
+    const handleHash = () => {
+      const hash = window.location.hash.substring(1);
+      if (['home', 'services', 'calculator', 'technologies', 'projects', 'policy', 'feedback', 'contact'].includes(hash)) {
+        setActivePage(hash);
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
   const handleNavigate = (pageId) => {
@@ -60,6 +69,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-sky-50/50 via-white to-sky-50/30 text-slate-900 selection:bg-sky-500 selection:text-white font-['Plus_Jakarta_Sans',sans-serif]">
+      {/* Brand Intro Splash Screen on Opening */}
+      {showSplash && (
+        <BrandSplashScreen onComplete={() => setShowSplash(false)} />
+      )}
+
       {/* 1. Dual-Tier Navigation Bar (Persistent Header) */}
       <TopUtilityBar />
       <Navbar
@@ -81,6 +95,12 @@ export default function App() {
           <ServicesSection
             onSelectService={handleSelectService}
             onBookConsultation={(service) => handleOpenProposal(service)}
+          />
+        )}
+
+        {activePage === 'calculator' && (
+          <CalculatorPage
+            onRequestProposal={(domain) => handleOpenProposal(domain)}
           />
         )}
 

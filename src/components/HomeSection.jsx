@@ -14,7 +14,10 @@ import {
   Target,
   Compass,
   ArrowRight,
-  CheckCircle2
+  CheckCircle2,
+  Globe2,
+  Building2,
+  MapPin
 } from 'lucide-react';
 
 export default function HomeSection({ onSelectService, onRequestProposal }) {
@@ -26,6 +29,37 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
     { name: 'Noor Fatima', title: 'UI/UX & Brand Designer', role: 'Product & Brand Design', avatar: 'NF', bg: 'bg-pink-600' },
     { name: 'Shiza Chishty', title: 'Digital Growth & Social Media Strategist', role: 'Growth & Marketing', avatar: 'SC', bg: 'bg-emerald-600' },
     { name: 'Muqdas Habib', title: 'Brand Expansion & Communications Specialist', role: 'Brand & Communications', avatar: 'MH', bg: 'bg-purple-600' },
+  ];
+
+  const globalPresence = [
+    {
+      country: 'Pakistan',
+      flag: '🇵🇰',
+      role: 'Global Headquarters & Primary Engineering Hub',
+      desc: 'Central architecture studio, R&D labs, and zero-trust engineering operations.',
+      badge: 'Global HQ'
+    },
+    {
+      country: 'USA (United States)',
+      flag: '🇺🇸',
+      role: 'Enterprise North America Client Operations',
+      desc: 'Serving enterprise SaaS, AI reasoning systems, and Cloud clients across North America.',
+      badge: 'Enterprise Hub'
+    },
+    {
+      country: 'UK (United Kingdom)',
+      flag: '🇬🇧',
+      role: 'European Financial & Logistics Network',
+      desc: 'Architecting high-speed edge gateways, fintech platforms, and logistics dashboards.',
+      badge: 'Financial Hub'
+    },
+    {
+      country: 'Saudi Arabia (KSA)',
+      flag: '🇸🇦',
+      role: 'MENA Digital Transformation & Vision 2030',
+      desc: 'Delivering production-grade software architectures for Middle East enterprises.',
+      badge: 'MENA Region'
+    }
   ];
 
   const servicesData = [
@@ -222,6 +256,51 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
               <span>Request Technical Proposal</span>
               <ArrowRight className="w-4 h-4 text-white" />
             </button>
+          </div>
+        </div>
+
+        {/* --- GLOBAL PRESENCE & OPERATIONAL FOOTPRINT SUB-BLOCK --- */}
+        <div className="glass-card rounded-3xl p-6 sm:p-10 border border-sky-150 shadow-md space-y-6">
+          <div className="text-center max-w-3xl mx-auto space-y-2">
+            <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200 inline-flex items-center gap-1.5">
+              <Globe2 className="w-3.5 h-3.5 text-indigo-600" />
+              <span>Global Operational Footprint</span>
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              Serving Enterprise Clients Across Key International Hubs
+            </h2>
+            <p className="text-slate-600 text-sm font-normal">
+              Volen Solution delivers resilient software architectures, automated AI pipelines, and zero-trust security across 4 core worldwide operational territories.
+            </p>
+          </div>
+
+          {/* 4 Countries Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {globalPresence.map((loc, idx) => (
+              <div
+                key={idx}
+                className="p-5 rounded-2xl bg-white/90 border border-sky-150 shadow-xs hover:border-sky-300 transition-all space-y-3 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-2xl">{loc.flag}</span>
+                    <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+                      {loc.badge}
+                    </span>
+                  </div>
+                  <h3 className="text-base font-extrabold text-slate-900">{loc.country}</h3>
+                  <div className="text-xs font-bold text-sky-600 mt-0.5">{loc.role}</div>
+                  <p className="text-slate-600 text-xs mt-2 leading-relaxed font-normal">
+                    {loc.desc}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-sky-100 flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                  <span>Active Deployment Region</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

@@ -8,6 +8,7 @@ export default function Navbar({ activePage, onNavigate, onRequestProposalClick 
   const navLinks = [
     { id: 'home', name: 'Home', href: '#home' },
     { id: 'services', name: 'Services', href: '#services' },
+    { id: 'calculator', name: 'Calculator 🧮', href: '#calculator' },
     { id: 'technologies', name: 'Technologies', href: '#technologies' },
     { id: 'projects', name: 'Projects', href: '#projects' },
     { id: 'policy', name: 'Policy', href: '#policy' },

@@ -12,7 +12,8 @@ import {
   Wrench,
   ArrowRight,
   Zap,
-  CheckCircle2
+  Calculator,
+  ExternalLink
 } from 'lucide-react';
 
 export default function ServicesSection({ onSelectService, onBookConsultation }) {
@@ -189,9 +190,9 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
 
   return (
     <section id="services" className="py-16 md:py-24 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
         {/* Header Section */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto mb-12">
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
           {/* Slogan Reference pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-sky-100/80 text-sky-900 border border-sky-200">
             <span>&lt;/&gt; Build</span> • <span>📈 Grow</span> • <span>🛡️ Secure</span>
@@ -211,8 +212,35 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
           </p>
         </div>
 
+        {/* PROMINENT STANDALONE CALCULATOR BANNER (OPENS IN NEW TAB) */}
+        <div className="glass-card rounded-3xl p-6 sm:p-8 border border-sky-200 shadow-lg bg-gradient-to-r from-sky-900 via-slate-900 to-sky-950 text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+          <div className="space-y-2 text-center md:text-left relative z-10">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-400/30">
+              <Calculator className="w-3.5 h-3.5 text-sky-400" />
+              Interactive Estimator Tool
+            </span>
+            <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+              Project Cost & Architecture Estimator Calculator
+            </h3>
+            <p className="text-xs sm:text-sm text-sky-200/80 max-w-xl">
+              Calculate instant budget estimates, timeline durations, and security SLA configurations tailored to your organization. Opens in a standalone tool view.
+            </p>
+          </div>
+
+          <a
+            href="#calculator"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative z-10 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-400 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 text-white font-bold text-xs shadow-lg shadow-sky-500/30 hover:-translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer shrink-0"
+          >
+            <Calculator className="w-4 h-4 text-white" />
+            <span>Open Calculator in New Tab</span>
+            <ExternalLink className="w-4 h-4 text-white" />
+          </a>
+        </div>
+
         {/* Filter Navigation Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+        <div className="flex flex-wrap justify-center gap-2">
           {[
             { label: 'All 9 Services', value: 'all', count: 9 },
             { label: '</> Build Modules', value: 'build', count: 4 },
