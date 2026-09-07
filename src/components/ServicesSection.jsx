@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import WipBadge from './WipBadge';
+import ThreeDTiltCard from './ThreeDTiltCard';
 import {
   Code,
   Smartphone,
@@ -13,13 +14,18 @@ import {
   ArrowRight,
   Zap,
   Calculator,
-  ExternalLink
+  ExternalLink,
+  Layers,
+  Rocket,
+  Clock,
+  Cpu
 } from 'lucide-react';
 
 export default function ServicesSection({ onSelectService, onBookConsultation }) {
+  const [activeTabCategory, setActiveTabCategory] = useState('current');
   const [filter, setFilter] = useState('all');
 
-  const servicesData = [
+  const currentServicesData = [
     {
       id: 1,
       title: 'Web Development',
@@ -184,9 +190,42 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
     }
   ];
 
+  const upcomingServicesData = [
+    {
+      id: 101,
+      title: 'Quantum Cloud Shielding',
+      categoryBadge: 'Next-Gen R&D',
+      techStack: ['Post-Quantum Crypto', 'Lattice Encryption', 'Key Vaults', 'HSM Integration'],
+      description: 'Next-generation post-quantum cryptography, lattice-based API encryption, and hardware-isolated key vaults.',
+      fullDescription: 'Engineering quantum-resilient cryptographic primitives and lattice-based key exchange protocols to safeguard enterprise APIs against future quantum computing decryption vectors.',
+      launchTag: 'Launch Q1 2027',
+      icon: <ShieldCheck className="w-6 h-6 text-cyan-500" />
+    },
+    {
+      id: 102,
+      title: 'Autonomous Robotics Workflows',
+      categoryBadge: 'Robotics R&D',
+      techStack: ['ROS2 Framework', 'Swarm AI', 'Spatial Telemetry', 'C++', 'Python'],
+      description: 'Multi-agent swarm intelligence, ROS2 framework orchestration, and real-time spatial robotics telemetry.',
+      fullDescription: 'Autonomous robotics orchestration engine uniting ROS2 middleware with multi-agent swarm intelligence for industrial automation and autonomous warehouse telemetry.',
+      launchTag: 'Launch Q2 2027',
+      icon: <Cpu className="w-6 h-6 text-indigo-500" />
+    },
+    {
+      id: 103,
+      title: 'Spatial Computing & AR Workspaces',
+      categoryBadge: 'Spatial Computing',
+      techStack: ['WebXR API', 'Three.js 3D', 'Apple Vision Pro', 'CAD Digital Twins'],
+      description: 'Immersive 3D web spatial interfaces, Apple Vision Pro WebXR frameworks, and interactive CAD digital twins.',
+      fullDescription: 'Designing WebXR 3D spatial computing environments for enterprise engineering. Features interactive real-time digital twin visualization and Vision Pro AR workspace synchronization.',
+      launchTag: 'Launch Q3 2027',
+      icon: <Layers className="w-6 h-6 text-purple-500" />
+    }
+  ];
+
   const filteredServices = filter === 'all'
-    ? servicesData
-    : servicesData.filter(s => s.sloganCategory.toLowerCase() === filter.toLowerCase());
+    ? currentServicesData
+    : currentServicesData.filter(s => s.sloganCategory.toLowerCase() === filter.toLowerCase());
 
   return (
     <section id="services" className="py-16 md:py-24 relative">
@@ -208,11 +247,11 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
           </div>
 
           <p className="text-slate-600 text-base leading-relaxed pt-2">
-            9 specialized engineering modules designed to build your product, grow your audience, and secure your infrastructure.
+            Explore our specialized engineering capabilities divided into Current Active Services and Next-Gen R&D Upcoming Capabilities.
           </p>
         </div>
 
-        {/* PROMINENT STANDALONE CALCULATOR BANNER (OPENS IN NEW TAB) */}
+        {/* STANDALONE CALCULATOR BANNER */}
         <div className="glass-card rounded-3xl p-6 sm:p-8 border border-sky-200 shadow-lg bg-gradient-to-r from-sky-900 via-slate-900 to-sky-950 text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
           <div className="space-y-2 text-center md:text-left relative z-10">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-400/30">
@@ -239,99 +278,178 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
           </a>
         </div>
 
-        {/* Filter Navigation Tabs */}
-        <div className="flex flex-wrap justify-center gap-2">
-          {[
-            { label: 'All 9 Services', value: 'all', count: 9 },
-            { label: '</> Build Modules', value: 'build', count: 4 },
-            { label: '📈 Grow Modules', value: 'grow', count: 3 },
-            { label: '🛡️ Secure Modules', value: 'secure', count: 2 },
-          ].map((tab) => (
-            <button
-              key={tab.value}
-              onClick={() => setFilter(tab.value)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-                filter === tab.value
-                  ? 'bg-slate-900 text-white shadow-md'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-sky-50 hover:text-sky-600'
-              }`}
-            >
-              <span>{tab.label}</span>
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
-                filter === tab.value ? 'bg-sky-500 text-white' : 'bg-slate-100 text-slate-600'
-              }`}>
-                {tab.count}
-              </span>
-            </button>
-          ))}
+        {/* TWO MAIN CATEGORY TABS: CURRENT SERVICES vs UPCOMING SERVICES */}
+        <div className="flex flex-wrap justify-center gap-3">
+          <button
+            onClick={() => setActiveTabCategory('current')}
+            className={`px-6 py-3 rounded-2xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
+              activeTabCategory === 'current'
+                ? 'bg-slate-900 text-white shadow-md'
+                : 'bg-white text-slate-600 border border-slate-200 hover:bg-sky-50'
+            }`}
+          >
+            <Layers className="w-4 h-4 text-sky-400" />
+            <span>Current Services (9 Core Active Modules)</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTabCategory('upcoming')}
+            className={`px-6 py-3 rounded-2xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
+              activeTabCategory === 'upcoming'
+                ? 'bg-gradient-to-r from-purple-900 to-indigo-900 text-white shadow-md'
+                : 'bg-white text-slate-600 border border-slate-200 hover:bg-purple-50'
+            }`}
+          >
+            <Rocket className="w-4 h-4 text-purple-400" />
+            <span>Upcoming Services (3 R&D Future Pipelines)</span>
+          </button>
         </div>
 
-        {/* 3x3 Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredServices.map((service) => (
-            <div
-              key={service.id}
-              onClick={() => onSelectService(service)}
-              className="glass-card glass-card-hover rounded-3xl p-6 border border-sky-100 flex flex-col justify-between cursor-pointer group relative overflow-hidden"
-            >
-              {/* Subtle top indicator bar */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-cyan-400 to-sky-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        {/* CURRENT SERVICES VIEW */}
+        {activeTabCategory === 'current' && (
+          <div className="space-y-8 animate-in fade-in duration-300">
+            {/* Filter Navigation Sub-Tabs */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {[
+                { label: 'All 9 Active Services', value: 'all', count: 9 },
+                { label: '</> Build Modules', value: 'build', count: 4 },
+                { label: '📈 Grow Modules', value: 'grow', count: 3 },
+                { label: '🛡️ Secure Modules', value: 'secure', count: 2 },
+              ].map((tab) => (
+                <button
+                  key={tab.value}
+                  onClick={() => setFilter(tab.value)}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+                    filter === tab.value
+                      ? 'bg-sky-600 text-white shadow-xs'
+                      : 'bg-white text-slate-600 border border-slate-200 hover:bg-sky-50 hover:text-sky-600'
+                  }`}
+                >
+                  <span>{tab.label}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
+                    filter === tab.value ? 'bg-sky-900 text-white' : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    {tab.count}
+                  </span>
+                </button>
+              ))}
+            </div>
 
-              <div>
-                {/* Header row in card */}
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <div className="p-3 rounded-2xl bg-sky-50/80 border border-sky-200/60 group-hover:scale-110 group-hover:bg-sky-100 transition-all duration-300">
-                    {service.icon}
+            {/* 3x3 Feature Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredServices.map((service) => (
+                <ThreeDTiltCard key={service.id} maxTilt={8}>
+                  <div
+                    onClick={() => onSelectService(service)}
+                    className="glass-card glass-card-hover rounded-3xl p-6 border border-sky-100 flex flex-col justify-between cursor-pointer group relative overflow-hidden h-full"
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-cyan-400 to-sky-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-4">
+                        <div className="p-3 rounded-2xl bg-sky-50/80 border border-sky-200/60 group-hover:scale-110 group-hover:bg-sky-100 transition-all duration-300">
+                          {service.icon}
+                        </div>
+
+                        <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200/80 flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                          {service.statusTag}
+                        </span>
+                      </div>
+
+                      <div className="text-[11px] font-bold text-sky-600 uppercase tracking-wider mb-1">
+                        {service.categoryBadge}
+                      </div>
+
+                      <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors mb-2">
+                        {service.title}
+                      </h3>
+
+                      <p className="text-slate-600 text-xs leading-relaxed mb-4 line-clamp-3 font-normal">
+                        {service.description}
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex flex-wrap gap-1.5 mb-5 pt-3 border-t border-sky-100/70">
+                        {service.techStack.slice(0, 3).map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium bg-sky-50/80 text-sky-800 border border-sky-150"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                        {service.techStack.length > 3 && (
+                          <span className="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-medium bg-slate-100 text-slate-500">
+                            +{service.techStack.length - 3}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-between text-xs font-bold text-sky-600 group-hover:text-sky-700">
+                        <span>View Specifications</span>
+                        <div className="w-7 h-7 rounded-full bg-sky-50 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-all">
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ThreeDTiltCard>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* UPCOMING SERVICES VIEW */}
+        {activeTabCategory === 'upcoming' && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in duration-300">
+            {upcomingServicesData.map((service) => (
+              <ThreeDTiltCard key={service.id} maxTilt={8}>
+                <div className="glass-card rounded-3xl p-6 border border-purple-200/80 bg-white/90 shadow-md flex flex-col justify-between h-full relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
+
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <div className="p-3 rounded-2xl bg-purple-50 border border-purple-200">
+                        {service.icon}
+                      </div>
+                      <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200 flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-purple-600" />
+                        {service.launchTag}
+                      </span>
+                    </div>
+
+                    <div className="text-[11px] font-bold text-purple-600 uppercase tracking-wider mb-1">
+                      {service.categoryBadge}
+                    </div>
+
+                    <h3 className="text-lg font-extrabold text-[#0F172A] mb-2">
+                      {service.title}
+                    </h3>
+
+                    <p className="text-slate-600 text-xs leading-relaxed mb-4 font-normal">
+                      {service.fullDescription}
+                    </p>
+
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {service.techStack.map((tech, idx) => (
+                        <span key={idx} className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium bg-purple-50 text-purple-900 border border-purple-200">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200/80 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    {service.statusTag}
-                  </span>
-                </div>
-
-                <div className="text-[11px] font-bold text-sky-600 uppercase tracking-wider mb-1">
-                  {service.categoryBadge}
-                </div>
-
-                <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors mb-2">
-                  {service.title}
-                </h3>
-
-                <p className="text-slate-600 text-xs leading-relaxed mb-4 line-clamp-3">
-                  {service.description}
-                </p>
-              </div>
-
-              <div>
-                {/* Tech Badges */}
-                <div className="flex flex-wrap gap-1.5 mb-5 pt-3 border-t border-sky-100/70">
-                  {service.techStack.slice(0, 3).map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium bg-sky-50/80 text-sky-800 border border-sky-150"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {service.techStack.length > 3 && (
-                    <span className="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-medium bg-slate-100 text-slate-500">
-                      +{service.techStack.length - 3}
-                    </span>
-                  )}
-                </div>
-
-                {/* Card Action Link */}
-                <div className="flex items-center justify-between text-xs font-bold text-sky-600 group-hover:text-sky-700">
-                  <span>View Specifications</span>
-                  <div className="w-7 h-7 rounded-full bg-sky-50 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-all">
+                  <div className="pt-3 border-t border-purple-100 flex items-center justify-between text-xs font-bold text-purple-700">
+                    <span>Pre-Order R&D Architecture</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </ThreeDTiltCard>
+            ))}
+          </div>
+        )}
 
         {/* Bottom Banner */}
         <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl border border-sky-400/20">
