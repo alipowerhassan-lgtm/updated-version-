@@ -3,6 +3,7 @@ import WipBadge from './WipBadge';
 import ThreeDTiltCard from './ThreeDTiltCard';
 import ThreeDBackgroundCanvas from './ThreeDBackgroundCanvas';
 import GlobalFootprintSection from './GlobalFootprintSection';
+import ServiceConsoleTerminal from './ServiceConsoleTerminal';
 import {
   Code,
   Smartphone,
@@ -234,8 +235,8 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
 
           {/* Main Headline */}
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-            Transforming Ideas Into <br className="hidden sm:inline" />
-            <span className="tech-gradient-text">Powerful Full-Stack Solutions</span>
+            Transforming (Ideas) Into <br className="hidden sm:inline" />
+            <span className="tech-gradient-text">Powerful (Full Stack) Solutions</span>
           </h1>
 
           {/* Slogan Badge Pill */}
@@ -255,7 +256,7 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
           </div>
 
           {/* CTA Action */}
-          <div className="flex justify-center pt-2">
+          <div className="flex justify-center pt-2 pb-4">
             <button
               onClick={onRequestProposal}
               className="px-8 py-4 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-sky-600 via-sky-500 to-cyan-500 hover:from-sky-500 hover:to-cyan-400 shadow-lg shadow-sky-600/25 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center gap-2 cursor-pointer"
@@ -263,6 +264,11 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
               <span>Request Technical Proposal</span>
               <ArrowRight className="w-4 h-4 text-white" />
             </button>
+          </div>
+
+          {/* Animated Service Console Terminal */}
+          <div className="pt-2">
+            <ServiceConsoleTerminal onSelectService={onSelectService} />
           </div>
         </div>
 
