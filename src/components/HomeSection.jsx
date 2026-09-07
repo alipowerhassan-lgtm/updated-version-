@@ -16,21 +16,12 @@ import {
   ArrowRight,
   CheckCircle2,
   Globe2,
-  Building2,
-  MapPin
+  GitBranch,
+  Terminal,
+  Cpu
 } from 'lucide-react';
 
 export default function HomeSection({ onSelectService, onRequestProposal }) {
-  const teamMembers = [
-    { name: 'Muhammad Mohsin Iqbal', title: 'Chief Executive Officer (CEO)', role: 'Leadership & Strategy', avatar: 'MI', bg: 'bg-slate-900' },
-    { name: 'Amber Shahzadi', title: 'Full-Stack Developer', role: 'Engineering', avatar: 'AS', bg: 'bg-sky-600' },
-    { name: 'Ali Hassan', title: 'Full-Stack & Systems Developer', role: 'Engineering & Systems', avatar: 'AH', bg: 'bg-cyan-600' },
-    { name: 'Zohaib Sajjid', title: 'Graphic & Visual Designer', role: 'Creative Studio', avatar: 'ZS', bg: 'bg-indigo-600' },
-    { name: 'Noor Fatima', title: 'UI/UX & Brand Designer', role: 'Product & Brand Design', avatar: 'NF', bg: 'bg-pink-600' },
-    { name: 'Shiza Chishty', title: 'Digital Growth & Social Media Strategist', role: 'Growth & Marketing', avatar: 'SC', bg: 'bg-emerald-600' },
-    { name: 'Muqdas Habib', title: 'Brand Expansion & Communications Specialist', role: 'Brand & Communications', avatar: 'MH', bg: 'bg-purple-600' },
-  ];
-
   const globalPresence = [
     {
       country: 'Pakistan',
@@ -304,7 +295,7 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
           </div>
         </div>
 
-        {/* --- SUB-BLOCK 1: WHO WE ARE & OUR TEAM --- */}
+        {/* --- SUB-BLOCK 1: WHO WE ARE & OUR TEAM TREE HIERARCHY --- */}
         <div className="glass-card rounded-3xl p-6 sm:p-10 border border-sky-150 shadow-md space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <span className="text-xs font-bold text-sky-600 uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
@@ -313,37 +304,179 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
               Pioneering Enterprise Software & Autonomous Systems
             </h2>
-            {/* Narrative */}
             <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-normal pt-1">
               Volen Solution is a technology firm headquartered in Pakistan, architecting resilient digital ecosystems for global enterprises. We unite full-stack software development, automated AI reasoning pipelines, and cybersecurity protocols under one roof.
             </p>
           </div>
 
-          {/* Leadership & Team Hierarchy (Frosted glass cards) */}
-          <div>
-            <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-4 text-center sm:text-left flex items-center justify-center sm:justify-start gap-2">
-              <Users className="w-4 h-4 text-sky-600" />
-              <span>Leadership & Core Team Hierarchy</span>
-            </h3>
+          {/* TREE-LIKE LEADERSHIP & CORE TEAM HIERARCHY SYSTEM */}
+          <div className="space-y-6 pt-4 border-t border-sky-100">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                <GitBranch className="w-4 h-4 text-sky-600" />
+                <span>Leadership & Organizational Hierarchy Tree</span>
+              </h3>
+              <span className="text-[11px] font-mono font-semibold text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-200">
+                Role-Based Tree Structure
+              </span>
+            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {teamMembers.map((member, idx) => (
-                <div
-                  key={idx}
-                  className={`p-4 rounded-2xl bg-white/80 border border-sky-150 shadow-xs hover:border-sky-300 transition-all flex items-center gap-3.5 ${
-                    idx === 0 ? 'sm:col-span-2 lg:col-span-3 bg-gradient-to-r from-sky-50/90 to-white border-sky-300' : ''
-                  }`}
-                >
-                  <div className={`w-11 h-11 rounded-2xl ${member.bg} text-white font-extrabold text-xs flex items-center justify-center shadow-sm shrink-0`}>
-                    {member.avatar}
+            {/* LEVEL 1: EXECUTIVE ROOT NODE (CEO) */}
+            <div className="flex flex-col items-center">
+              <div className="w-full max-w-2xl p-5 rounded-3xl bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white shadow-xl border border-sky-400/30 flex items-center justify-between gap-4 relative z-10 hover:scale-[1.01] transition-transform">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-sky-500/20 border border-sky-400/40 text-white font-extrabold text-base flex items-center justify-center shadow-inner shrink-0">
+                    MI
                   </div>
                   <div>
-                    <h4 className="text-sm font-extrabold text-slate-900 leading-tight">{member.name}</h4>
-                    <div className="text-xs font-bold text-sky-600 mt-0.5">{member.title}</div>
-                    <div className="text-[10px] text-slate-400 font-mono mt-0.5">{member.role}</div>
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-400/30 mb-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      Level 1 • Executive Leadership
+                    </div>
+                    <h4 className="text-lg font-extrabold text-white leading-tight">Muhammad Mohsin Iqbal</h4>
+                    <div className="text-xs font-extrabold text-sky-300 mt-0.5">Chief Executive Officer (CEO)</div>
+                    <div className="text-[11px] text-slate-400 font-mono mt-0.5">Leadership & Strategy</div>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Trunk Vertical Connection Line */}
+              <div className="w-0.5 h-8 bg-gradient-to-b from-sky-500 to-sky-300"></div>
+
+              {/* Horizontal Branching Bar */}
+              <div className="hidden lg:block w-[85%] h-0.5 bg-sky-300 relative">
+                <div className="absolute top-0 left-0 w-2 h-2 rounded-full bg-sky-500 -translate-x-1/2 -translate-y-1/2"></div>
+                <div className="absolute top-0 left-1/2 w-2 h-2 rounded-full bg-sky-500 -translate-x-1/2 -translate-y-1/2"></div>
+                <div className="absolute top-0 right-0 w-2 h-2 rounded-full bg-sky-500 translate-x-1/2 -translate-y-1/2"></div>
+              </div>
+            </div>
+
+            {/* LEVEL 2: FUNCTIONAL DEPARTMENT BRANCHES */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 relative">
+              
+              {/* BRANCH 1: ENGINEERING & SYSTEMS */}
+              <div className="glass-card rounded-3xl p-5 border border-sky-200/80 bg-white/90 shadow-sm space-y-4 relative">
+                <div className="flex items-center justify-between border-b border-sky-100 pb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="p-2 rounded-xl bg-sky-50 text-sky-600 border border-sky-200">
+                      <Terminal className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-mono text-sky-600 uppercase font-bold">Branch 01</div>
+                      <h5 className="text-xs font-extrabold text-slate-900">Engineering & Systems</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  {/* Member Card 1 */}
+                  <div className="p-3.5 rounded-2xl bg-sky-50/50 border border-sky-150 hover:bg-sky-50 hover:border-sky-300 transition-all flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-sky-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                      AS
+                    </div>
+                    <div>
+                      <h6 className="text-xs font-extrabold text-slate-900 leading-tight">Amber Shahzadi</h6>
+                      <div className="text-[11px] font-bold text-sky-600 mt-0.5">Full-Stack Developer</div>
+                      <div className="text-[10px] text-slate-500 font-mono mt-0.5">Engineering</div>
+                    </div>
+                  </div>
+
+                  {/* Member Card 2 */}
+                  <div className="p-3.5 rounded-2xl bg-sky-50/50 border border-sky-150 hover:bg-sky-50 hover:border-sky-300 transition-all flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-cyan-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                      AH
+                    </div>
+                    <div>
+                      <h6 className="text-xs font-extrabold text-slate-900 leading-tight">Ali Hassan</h6>
+                      <div className="text-[11px] font-bold text-cyan-600 mt-0.5">Full-Stack & Systems Developer</div>
+                      <div className="text-[10px] text-slate-500 font-mono mt-0.5">Engineering & Systems</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* BRANCH 2: UI/UX & CREATIVE STUDIO */}
+              <div className="glass-card rounded-3xl p-5 border border-purple-200/80 bg-white/90 shadow-sm space-y-4 relative">
+                <div className="flex items-center justify-between border-b border-purple-100 pb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="p-2 rounded-xl bg-purple-50 text-purple-600 border border-purple-200">
+                      <Palette className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-mono text-purple-600 uppercase font-bold">Branch 02</div>
+                      <h5 className="text-xs font-extrabold text-slate-900">Design & Creative Studio</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  {/* Member Card 1 */}
+                  <div className="p-3.5 rounded-2xl bg-pink-50/50 border border-pink-150 hover:bg-pink-50 hover:border-pink-300 transition-all flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-pink-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                      NF
+                    </div>
+                    <div>
+                      <h6 className="text-xs font-extrabold text-slate-900 leading-tight">Noor Fatima</h6>
+                      <div className="text-[11px] font-bold text-pink-600 mt-0.5">UI/UX & Brand Designer</div>
+                      <div className="text-[10px] text-slate-500 font-mono mt-0.5">Product & Brand Design</div>
+                    </div>
+                  </div>
+
+                  {/* Member Card 2 */}
+                  <div className="p-3.5 rounded-2xl bg-indigo-50/50 border border-indigo-150 hover:bg-indigo-50 hover:border-indigo-300 transition-all flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                      ZS
+                    </div>
+                    <div>
+                      <h6 className="text-xs font-extrabold text-slate-900 leading-tight">Zohaib Sajjid</h6>
+                      <div className="text-[11px] font-bold text-indigo-600 mt-0.5">Graphic & Visual Designer</div>
+                      <div className="text-[10px] text-slate-500 font-mono mt-0.5">Creative Studio</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* BRANCH 3: GROWTH & COMMUNICATIONS */}
+              <div className="glass-card rounded-3xl p-5 border border-emerald-200/80 bg-white/90 shadow-sm space-y-4 relative">
+                <div className="flex items-center justify-between border-b border-emerald-100 pb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="p-2 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200">
+                      <TrendingUp className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-mono text-emerald-600 uppercase font-bold">Branch 03</div>
+                      <h5 className="text-xs font-extrabold text-slate-900">Growth & Communications</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  {/* Member Card 1 */}
+                  <div className="p-3.5 rounded-2xl bg-emerald-50/50 border border-emerald-150 hover:bg-emerald-50 hover:border-emerald-300 transition-all flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                      SC
+                    </div>
+                    <div>
+                      <h6 className="text-xs font-extrabold text-slate-900 leading-tight">Shiza Chishty</h6>
+                      <div className="text-[11px] font-bold text-emerald-600 mt-0.5">Digital Growth & Social Media Strategist</div>
+                      <div className="text-[10px] text-slate-500 font-mono mt-0.5">Growth & Marketing</div>
+                    </div>
+                  </div>
+
+                  {/* Member Card 2 */}
+                  <div className="p-3.5 rounded-2xl bg-purple-50/50 border border-purple-150 hover:bg-purple-50 hover:border-purple-300 transition-all flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-purple-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                      MH
+                    </div>
+                    <div>
+                      <h6 className="text-xs font-extrabold text-slate-900 leading-tight">Muqdas Habib</h6>
+                      <div className="text-[11px] font-bold text-purple-600 mt-0.5">Brand Expansion & Communications Specialist</div>
+                      <div className="text-[10px] text-slate-500 font-mono mt-0.5">Brand & Communications</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
