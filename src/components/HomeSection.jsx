@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import WipBadge from './WipBadge';
 import ThreeDTiltCard from './ThreeDTiltCard';
 import ThreeDBackgroundCanvas from './ThreeDBackgroundCanvas';
+import GlobalFootprintSection from './GlobalFootprintSection';
 import {
   Code,
   Smartphone,
@@ -28,37 +29,6 @@ import {
 
 export default function HomeSection({ onSelectService, onRequestProposal }) {
   const [activeServicesCategory, setActiveServicesCategory] = useState('current');
-
-  const globalPresence = [
-    {
-      country: 'Pakistan',
-      flag: '🇵🇰',
-      role: 'Global Headquarters & Primary Engineering Hub',
-      desc: 'Central architecture studio, R&D labs, and zero-trust engineering operations.',
-      badge: 'Global HQ'
-    },
-    {
-      country: 'USA (United States)',
-      flag: '🇺🇸',
-      role: 'Enterprise North America Client Operations',
-      desc: 'Serving enterprise SaaS, AI reasoning systems, and Cloud clients across North America.',
-      badge: 'Enterprise Hub'
-    },
-    {
-      country: 'UK (United Kingdom)',
-      flag: '🇬🇧',
-      role: 'European Financial & Logistics Network',
-      desc: 'Architecting high-speed edge gateways, fintech platforms, and logistics dashboards.',
-      badge: 'Financial Hub'
-    },
-    {
-      country: 'Saudi Arabia (KSA)',
-      flag: '🇸🇦',
-      role: 'MENA Digital Transformation & Vision 2030',
-      desc: 'Delivering production-grade software architectures for Middle East enterprises.',
-      badge: 'MENA Region'
-    }
-  ];
 
   const currentServicesData = [
     {
@@ -297,48 +267,7 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
         </div>
 
         {/* --- GLOBAL PRESENCE & OPERATIONAL FOOTPRINT SUB-BLOCK --- */}
-        <div className="glass-card rounded-3xl p-6 sm:p-10 border border-sky-150 shadow-md space-y-6">
-          <div className="text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200 inline-flex items-center gap-1.5">
-              <Globe2 className="w-3.5 h-3.5 text-indigo-600" />
-              <span>Global Operational Footprint</span>
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-              Serving Enterprise Clients Across Key International Hubs
-            </h2>
-            <p className="text-slate-600 text-sm font-normal">
-              Volen Solution delivers resilient software architectures, automated AI pipelines, and zero-trust security across 4 core worldwide operational territories.
-            </p>
-          </div>
-
-          {/* 4 Countries Grid with 3D Tilt */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {globalPresence.map((loc, idx) => (
-              <ThreeDTiltCard key={idx} maxTilt={8}>
-                <div className="p-5 rounded-2xl bg-white/90 border border-sky-150 shadow-xs hover:border-sky-300 transition-all space-y-3 flex flex-col justify-between h-full">
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="text-2xl">{loc.flag}</span>
-                      <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
-                        {loc.badge}
-                      </span>
-                    </div>
-                    <h3 className="text-base font-extrabold text-slate-900">{loc.country}</h3>
-                    <div className="text-xs font-bold text-sky-600 mt-0.5">{loc.role}</div>
-                    <p className="text-slate-600 text-xs mt-2 leading-relaxed font-normal">
-                      {loc.desc}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-sky-100 flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>Active Deployment Region</span>
-                  </div>
-                </div>
-              </ThreeDTiltCard>
-            ))}
-          </div>
-        </div>
+        <GlobalFootprintSection onRequestProposal={onRequestProposal} />
 
         {/* --- SUB-BLOCK 1: WHO WE ARE & OUR TEAM TREE HIERARCHY --- */}
         <div className="glass-card rounded-3xl p-6 sm:p-10 border border-sky-150 shadow-md space-y-8">
