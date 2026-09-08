@@ -18,7 +18,8 @@ import {
   Layers,
   Rocket,
   Clock,
-  Cpu
+  Cpu,
+  CheckCircle2
 } from 'lucide-react';
 
 export default function ServicesSection({ onSelectService, onBookConsultation }) {
@@ -31,7 +32,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       title: 'Web Development',
       sloganCategory: 'Build',
       categoryBadge: 'Full-Stack Web',
-      techStack: ['React', 'Next.js', 'Node.js', 'Express', 'Tailwind CSS'],
+      techStack: ['React 19', 'Next.js 15', 'Node.js', 'Express', 'Tailwind CSS'],
       description: 'Modern, high-performance web applications built to enterprise standards with server-side rendering, SEO excellence, and microsecond responsiveness.',
       fullDescription: 'Custom enterprise web applications engineered with Next.js, React, and robust Node.js backend microservices. Features zero-lag client interactions, dynamic caching layers, and responsive UI across all screen viewports.',
       deliverables: [
@@ -41,7 +42,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
         'Dockerized Container Deployment'
       ],
       icon: <Code className="w-6 h-6 text-sky-600" />,
-      statusTag: 'Production Ready',
+      statusTag: 'Active Service',
       statusColor: 'emerald'
     },
     {
@@ -59,48 +60,12 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
         'Offline Data Persistence'
       ],
       icon: <Smartphone className="w-6 h-6 text-sky-600" />,
-      statusTag: 'Active Pipeline',
+      statusTag: 'Active Service',
       statusColor: 'emerald'
     },
     {
       id: 3,
-      title: 'AI Solutions',
-      sloganCategory: 'Build',
-      categoryBadge: 'AI & Automation',
-      techStack: ['OpenAI API', 'Autonomous Agents', 'LangChain', 'Python', 'Vector DBs'],
-      description: 'Custom AI integration, LLM autonomous agent workflows, smart search vector databases, and automated business processing pipelines.',
-      fullDescription: 'Infuse your business workflows with autonomous AI agents, fine-tuned OpenAI API models, RAG vector embeddings, and intelligent natural language query interfaces.',
-      deliverables: [
-        'Custom RAG Vector Search Systems',
-        'Automated Multi-Step AI Agents',
-        'LLM Fine-Tuning & Prompt Engineering',
-        'Enterprise AI Governance Guardrails'
-      ],
-      icon: <Bot className="w-6 h-6 text-purple-600" />,
-      statusTag: 'High Demand',
-      statusColor: 'purple'
-    },
-    {
-      id: 4,
-      title: 'Dashboard Systems',
-      sloganCategory: 'Grow',
-      categoryBadge: 'Real-Time Analytics',
-      techStack: ['PostgreSQL', 'WebSockets', 'Chart.js', 'Redis', 'Tailwind'],
-      description: 'Real-time telemetry dashboards, executive metrics monitoring, PostgreSQL analytical views, and instant WebSocket event streaming.',
-      fullDescription: 'Tailor-made real-time analytics platforms designed for executives and operations. Features live WebSocket feeds, complex SQL data queries, role-based metric cards, and downloadable PDF/CSV reports.',
-      deliverables: [
-        'Live Sub-Second WebSocket Streaming',
-        'PostgreSQL Materialized View Tuning',
-        'Custom Charting & Metrics Components',
-        'Exportable Executive PDF Reports'
-      ],
-      icon: <LayoutDashboard className="w-6 h-6 text-cyan-600" />,
-      statusTag: 'Live Telemetry',
-      statusColor: 'sky'
-    },
-    {
-      id: 5,
-      title: 'UI/UX Design',
+      title: 'UI/UX & Product Design',
       sloganCategory: 'Build',
       categoryBadge: 'Product Design',
       techStack: ['Figma', 'Interactive Prototypes', 'Wireframes', 'Design Systems'],
@@ -117,8 +82,44 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       statusColor: 'pink'
     },
     {
+      id: 4,
+      title: 'E-Commerce & Custom Web Apps',
+      sloganCategory: 'Build',
+      categoryBadge: 'E-Commerce & SaaS',
+      techStack: ['Stripe', 'PayFast', 'PostgreSQL', 'Tailwind', 'Next.js'],
+      description: 'High-conversion online storefronts, payment gateway integrations, subscription billing systems, and custom SaaS web platforms.',
+      fullDescription: 'End-to-end e-commerce development featuring inventory management, secure checkout gateways, order telemetry, and scalable serverless architecture.',
+      deliverables: [
+        'Stripe & Regional Payment Gateway Sync',
+        'High-Converting Product Checkout Flow',
+        'Admin Dashboard & Inventory Telemetry',
+        'Sub-Second Page Load Optimization'
+      ],
+      icon: <Zap className="w-6 h-6 text-sky-600" />,
+      statusTag: 'Active Service',
+      statusColor: 'emerald'
+    },
+    {
+      id: 5,
+      title: 'Marketing Strategies & Digital Growth',
+      sloganCategory: 'Grow',
+      categoryBadge: 'Growth Engineering',
+      techStack: ['Digital Growth', 'SEO Strategy', 'Social Media Ads', 'Funnel Optimization'],
+      description: 'Data-driven digital marketing funnels, technical SEO architecture, social media marketing, conversion rate optimization (CRO), and targeted acquisition campaigns.',
+      fullDescription: 'Engineered growth strategies designed to acquire and retain high-value enterprise clients. We optimize user acquisition funnels, run A/B conversion tests, and maximize ROI across digital channels.',
+      deliverables: [
+        'High-Converting Landing Page Funnels',
+        'Technical SEO Audit & Search Ranking',
+        'Multi-Channel Social Media Campaigns',
+        'Conversion Rate Optimization (CRO)'
+      ],
+      icon: <TrendingUp className="w-6 h-6 text-emerald-600" />,
+      statusTag: 'Growth Engine',
+      statusColor: 'emerald'
+    },
+    {
       id: 6,
-      title: 'Graphic Designing',
+      title: 'Graphic Designing & Brand Identity',
       sloganCategory: 'Grow',
       categoryBadge: 'Brand Identity',
       techStack: ['Vector Identity', 'Brand Kits', 'Adobe Illustrator', 'SVG Assets'],
@@ -136,25 +137,25 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
     },
     {
       id: 7,
-      title: 'Marketing Strategies',
+      title: 'Real-Time Analytics & Dashboard Systems',
       sloganCategory: 'Grow',
-      categoryBadge: 'Growth Engineering',
-      techStack: ['Digital Growth', 'Funnel Engineering', 'SEO', 'Analytics', 'Conversion'],
-      description: 'Data-driven digital marketing funnels, technical SEO architecture, conversion rate optimization (CRO), and targeted growth campaigns.',
-      fullDescription: 'Engineered growth strategies designed to acquire and retain high-value enterprise users. We optimize user acquisition funnels, run A/B conversion tests, and maximize ROI across digital channels.',
+      categoryBadge: 'Real-Time Analytics',
+      techStack: ['PostgreSQL', 'WebSockets', 'Chart.js', 'Redis', 'Tailwind'],
+      description: 'Real-time telemetry dashboards, executive metrics monitoring, PostgreSQL analytical views, and instant WebSocket event streaming.',
+      fullDescription: 'Tailor-made real-time analytics platforms designed for executives and operations. Features live WebSocket feeds, complex SQL data queries, role-based metric cards, and downloadable PDF/CSV reports.',
       deliverables: [
-        'High-Converting Landing Page Funnels',
-        'Technical Technical SEO Audit & Ranking',
-        'Multi-Touch Attribution Tracking',
-        'Conversion Rate Optimization (CRO)'
+        'Live Sub-Second WebSocket Streaming',
+        'PostgreSQL Materialized View Tuning',
+        'Custom Charting & Metrics Components',
+        'Exportable Executive PDF Reports'
       ],
-      icon: <TrendingUp className="w-6 h-6 text-emerald-600" />,
-      statusTag: 'Growth Engine',
-      statusColor: 'emerald'
+      icon: <LayoutDashboard className="w-6 h-6 text-cyan-600" />,
+      statusTag: 'Live Telemetry',
+      statusColor: 'sky'
     },
     {
       id: 8,
-      title: 'Web Security',
+      title: 'Web Security & Zero-Trust Hardening',
       sloganCategory: 'Secure',
       categoryBadge: 'Zero-Trust Security',
       techStack: ['Zero-Trust Hardening', 'API Shielding', 'OWASP Top 10', 'AES-256', 'WAF'],
@@ -172,7 +173,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
     },
     {
       id: 9,
-      title: 'Maintenance & Support',
+      title: 'Maintenance & 24/7 SLA Support',
       sloganCategory: 'Secure',
       categoryBadge: 'DevOps & Reliability',
       techStack: ['24/7 Monitoring', 'Database Tuning', 'Automated Backups', 'SLA Support'],
@@ -192,14 +193,26 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
 
   const upcomingServicesData = [
     {
+      id: 100,
+      title: 'AI Autonomous Reasoning & Agent Ecosystem',
+      categoryBadge: 'AI & Machine Learning R&D',
+      techStack: ['OpenAI / Claude API', 'Autonomous Agents', 'LangChain', 'Vector DBs', 'PyTorch'],
+      description: 'Next-generation autonomous AI reasoning agents, custom RAG vector knowledge bases, and multi-step automated enterprise workflows.',
+      fullDescription: 'Architecting fine-tuned AI reasoning agents capable of autonomous decision loops, multi-tool execution, document knowledge retrieval, and intelligent workflow automation.',
+      launchTag: 'Upcoming AI Pipeline • Launch Q2 2027',
+      isAiTag: true,
+      icon: <Bot className="w-6 h-6 text-purple-400" />
+    },
+    {
       id: 101,
       title: 'Quantum Cloud Shielding',
       categoryBadge: 'Next-Gen R&D',
       techStack: ['Post-Quantum Crypto', 'Lattice Encryption', 'Key Vaults', 'HSM Integration'],
       description: 'Next-generation post-quantum cryptography, lattice-based API encryption, and hardware-isolated key vaults.',
       fullDescription: 'Engineering quantum-resilient cryptographic primitives and lattice-based key exchange protocols to safeguard enterprise APIs against future quantum computing decryption vectors.',
-      launchTag: 'Launch Q1 2027',
-      icon: <ShieldCheck className="w-6 h-6 text-cyan-500" />
+      launchTag: 'In R&D • Launch Q1 2027',
+      isAiTag: false,
+      icon: <ShieldCheck className="w-6 h-6 text-cyan-400" />
     },
     {
       id: 102,
@@ -208,8 +221,9 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       techStack: ['ROS2 Framework', 'Swarm AI', 'Spatial Telemetry', 'C++', 'Python'],
       description: 'Multi-agent swarm intelligence, ROS2 framework orchestration, and real-time spatial robotics telemetry.',
       fullDescription: 'Autonomous robotics orchestration engine uniting ROS2 middleware with multi-agent swarm intelligence for industrial automation and autonomous warehouse telemetry.',
-      launchTag: 'Launch Q2 2027',
-      icon: <Cpu className="w-6 h-6 text-indigo-500" />
+      launchTag: 'In R&D • Launch Q2 2027',
+      isAiTag: false,
+      icon: <Cpu className="w-6 h-6 text-indigo-400" />
     },
     {
       id: 103,
@@ -218,8 +232,9 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       techStack: ['WebXR API', 'Three.js 3D', 'Apple Vision Pro', 'CAD Digital Twins'],
       description: 'Immersive 3D web spatial interfaces, Apple Vision Pro WebXR frameworks, and interactive CAD digital twins.',
       fullDescription: 'Designing WebXR 3D spatial computing environments for enterprise engineering. Features interactive real-time digital twin visualization and Vision Pro AR workspace synchronization.',
-      launchTag: 'Launch Q3 2027',
-      icon: <Layers className="w-6 h-6 text-purple-500" />
+      launchTag: 'In R&D • Launch Q3 2027',
+      isAiTag: false,
+      icon: <Layers className="w-6 h-6 text-pink-400" />
     }
   ];
 
@@ -237,17 +252,16 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
             <span>&lt;/&gt; Build</span> • <span>📈 Grow</span> • <span>🛡️ Secure</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Our <span className="tech-gradient-text">Core Services</span>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+            Our <span className="tech-gradient-text">Services</span>
           </h2>
 
-          {/* Work in Progress Pill right below header */}
           <div className="flex justify-center pt-1">
             <WipBadge text="Services Module Under Development — Live Preview" />
           </div>
 
           <p className="text-slate-600 text-base leading-relaxed pt-2">
-            Explore our specialized engineering capabilities divided into Current Active Services and Next-Gen R&D Upcoming Capabilities.
+            Explore our software engineering, digital marketing, and cybersecurity services divided into Current Active Services and Upcoming AI & R&D Pipelines.
           </p>
         </div>
 
@@ -259,10 +273,10 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
               Interactive Estimator Tool
             </span>
             <h3 className="text-xl sm:text-2xl font-extrabold text-white">
-              Project Cost & Architecture Estimator Calculator
+              Project Cost & Regional Rate Calculator
             </h3>
-            <p className="text-xs sm:text-sm text-sky-200/80 max-w-xl">
-              Calculate instant budget estimates, timeline durations, and security SLA configurations tailored to your organization. Opens in a standalone tool view.
+            <p className="text-slate-300 text-xs sm:text-sm max-w-xl">
+              Calculate project costs based on your market region (Pakistan, UAE, USA, Saudi Arabia, Fiverr, Upwork, LinkedIn) and custom website requirements.
             </p>
           </div>
 
@@ -282,26 +296,26 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
         <div className="flex flex-wrap justify-center gap-3">
           <button
             onClick={() => setActiveTabCategory('current')}
-            className={`px-6 py-3 rounded-2xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
+            className={`px-6 py-3.5 rounded-2xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
               activeTabCategory === 'current'
                 ? 'bg-slate-900 text-white shadow-md'
                 : 'bg-white text-slate-600 border border-slate-200 hover:bg-sky-50'
             }`}
           >
             <Layers className="w-4 h-4 text-sky-400" />
-            <span>Current Services (9 Core Active Modules)</span>
+            <span>Current Services</span>
           </button>
 
           <button
             onClick={() => setActiveTabCategory('upcoming')}
-            className={`px-6 py-3 rounded-2xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
+            className={`px-6 py-3.5 rounded-2xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
               activeTabCategory === 'upcoming'
-                ? 'bg-gradient-to-r from-purple-900 to-indigo-900 text-white shadow-md'
+                ? 'bg-gradient-to-r from-purple-900 via-indigo-900 to-slate-900 text-white shadow-md border border-purple-500/40'
                 : 'bg-white text-slate-600 border border-slate-200 hover:bg-purple-50'
             }`}
           >
-            <Rocket className="w-4 h-4 text-purple-400" />
-            <span>Upcoming Services (3 R&D Future Pipelines)</span>
+            <Rocket className="w-4 h-4 text-purple-400 animate-pulse" />
+            <span>Upcoming Services (AI & R&D)</span>
           </button>
         </div>
 
@@ -311,22 +325,22 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
             {/* Filter Navigation Sub-Tabs */}
             <div className="flex flex-wrap justify-center gap-2">
               {[
-                { label: 'All 9 Active Services', value: 'all', count: 9 },
-                { label: '</> Build Modules', value: 'build', count: 4 },
-                { label: '📈 Grow Modules', value: 'grow', count: 3 },
-                { label: '🛡️ Secure Modules', value: 'secure', count: 2 },
+                { label: 'All Services', value: 'all', count: 9 },
+                { label: '</> Web & Software Services', value: 'build', count: 4 },
+                { label: '📈 Digital Marketing & Growth', value: 'grow', count: 3 },
+                { label: '🛡️ Security & Reliability', value: 'secure', count: 2 },
               ].map((tab) => (
                 <button
                   key={tab.value}
                   onClick={() => setFilter(tab.value)}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+                  className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                     filter === tab.value
                       ? 'bg-sky-600 text-white shadow-xs'
                       : 'bg-white text-slate-600 border border-slate-200 hover:bg-sky-50 hover:text-sky-600'
                   }`}
                 >
                   <span>{tab.label}</span>
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
                     filter === tab.value ? 'bg-sky-900 text-white' : 'bg-slate-100 text-slate-600'
                   }`}>
                     {tab.count}
@@ -350,49 +364,45 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                         <div className="p-3 rounded-2xl bg-sky-50/80 border border-sky-200/60 group-hover:scale-110 group-hover:bg-sky-100 transition-all duration-300">
                           {service.icon}
                         </div>
-
-                        <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200/80 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                          {service.statusTag}
+                        <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+                          {service.categoryBadge}
                         </span>
                       </div>
 
-                      <div className="text-[11px] font-bold text-sky-600 uppercase tracking-wider mb-1">
-                        {service.categoryBadge}
-                      </div>
-
-                      <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors mb-2">
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors mb-2">
                         {service.title}
                       </h3>
 
-                      <p className="text-slate-600 text-xs leading-relaxed mb-4 line-clamp-3 font-normal">
+                      <p className="text-slate-600 text-xs leading-relaxed font-normal mb-4">
                         {service.description}
                       </p>
+
+                      {/* Deliverables List */}
+                      <div className="space-y-1.5 mb-4">
+                        {service.deliverables.map((item, idx) => (
+                          <div key={idx} className="flex items-center gap-1.5 text-[11px] text-slate-700 font-medium">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
-                    <div>
-                      <div className="flex flex-wrap gap-1.5 mb-5 pt-3 border-t border-sky-100/70">
-                        {service.techStack.slice(0, 3).map((tech, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium bg-sky-50/80 text-sky-800 border border-sky-150"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                        {service.techStack.length > 3 && (
-                          <span className="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-medium bg-slate-100 text-slate-500">
-                            +{service.techStack.length - 3}
-                          </span>
-                        )}
-                      </div>
+                    <div className="pt-4 border-t border-sky-100 flex items-center justify-between">
+                      <span className="text-xs font-bold text-sky-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                        <span>Explore Details</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </span>
 
-                      <div className="flex items-center justify-between text-xs font-bold text-sky-600 group-hover:text-sky-700">
-                        <span>View Specifications</span>
-                        <div className="w-7 h-7 rounded-full bg-sky-50 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-all">
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </div>
-                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onBookConsultation(service.title);
+                        }}
+                        className="px-3 py-1.5 rounded-xl text-[11px] font-bold text-white bg-slate-900 hover:bg-sky-600 transition-colors shadow-xs"
+                      >
+                        Request Proposal
+                      </button>
                     </div>
                   </div>
                 </ThreeDTiltCard>
@@ -401,75 +411,91 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
           </div>
         )}
 
-        {/* UPCOMING SERVICES VIEW */}
+        {/* UPCOMING SERVICES VIEW (WITH AI FEATURE TAG BUTTON) */}
         {activeTabCategory === 'upcoming' && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in duration-300">
-            {upcomingServicesData.map((service) => (
-              <ThreeDTiltCard key={service.id} maxTilt={8}>
-                <div className="glass-card rounded-3xl p-6 border border-purple-200/80 bg-white/90 shadow-md flex flex-col justify-between h-full relative overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
+          <div className="space-y-8 animate-in fade-in duration-300">
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <span className="text-xs font-bold text-purple-600 uppercase tracking-widest bg-purple-50 px-3 py-1 rounded-full border border-purple-200">
+                Future R&D Capabilities
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                Upcoming AI & Next-Gen Engineering
+              </h3>
+              <p className="text-slate-600 text-xs leading-relaxed">
+                Future technology pipelines currently under development in our R&D labs.
+              </p>
+            </div>
 
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <div className="p-3 rounded-2xl bg-purple-50 border border-purple-200">
-                        {service.icon}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {upcomingServicesData.map((service) => (
+                <ThreeDTiltCard key={service.id} maxTilt={6}>
+                  <div className={`rounded-3xl p-6 border text-white shadow-xl space-y-4 flex flex-col justify-between h-full relative overflow-hidden ${
+                    service.isAiTag
+                      ? 'bg-gradient-to-br from-purple-950 via-slate-900 to-indigo-950 border-purple-500/40 ring-1 ring-purple-400/30'
+                      : 'bg-gradient-to-br from-slate-900 via-sky-950 to-slate-950 border-sky-500/30'
+                  }`}>
+                    {/* Background Glow */}
+                    <div className="absolute top-0 right-0 w-48 h-48 bg-purple-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <div className="p-3 rounded-2xl bg-white/10 border border-white/10">
+                          {service.icon}
+                        </div>
+
+                        {/* Special AI Tag Button */}
+                        {service.isAiTag ? (
+                          <span className="px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md flex items-center gap-1 border border-purple-300/40 animate-pulse">
+                            <Sparkles className="w-3.5 h-3.5 text-white" />
+                            <span>AI Powered R&D</span>
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-slate-800 text-sky-300 border border-slate-700">
+                            {service.categoryBadge}
+                          </span>
+                        )}
                       </div>
-                      <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200 flex items-center gap-1">
-                        <Clock className="w-3 h-3 text-purple-600" />
-                        {service.launchTag}
-                      </span>
+
+                      <h4 className="text-lg font-extrabold text-white mb-2">
+                        {service.title}
+                      </h4>
+
+                      <p className="text-slate-300 text-xs leading-relaxed font-normal mb-4">
+                        {service.fullDescription}
+                      </p>
+
+                      {/* Tech Stack Pills */}
+                      <div className="flex flex-wrap gap-1.5">
+                        {service.techStack.map((tech, tIdx) => (
+                          <span
+                            key={tIdx}
+                            className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-md bg-white/10 text-slate-200 border border-white/10"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
-                    <div className="text-[11px] font-bold text-purple-600 uppercase tracking-wider mb-1">
-                      {service.categoryBadge}
-                    </div>
+                    <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                      <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-amber-400">
+                        <Clock className="w-3.5 h-3.5 text-amber-400" />
+                        <span>{service.launchTag}</span>
+                      </div>
 
-                    <h3 className="text-lg font-extrabold text-[#0F172A] mb-2">
-                      {service.title}
-                    </h3>
-
-                    <p className="text-slate-600 text-xs leading-relaxed mb-4 font-normal">
-                      {service.fullDescription}
-                    </p>
-
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {service.techStack.map((tech, idx) => (
-                        <span key={idx} className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium bg-purple-50 text-purple-900 border border-purple-200">
-                          {tech}
-                        </span>
-                      ))}
+                      <button
+                        onClick={() => onBookConsultation(service.title)}
+                        className="px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 transition-colors shadow-sm cursor-pointer"
+                      >
+                        Join Beta Access
+                      </button>
                     </div>
                   </div>
-
-                  <div className="pt-3 border-t border-purple-100 flex items-center justify-between text-xs font-bold text-purple-700">
-                    <span>Pre-Order R&D Architecture</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </div>
-                </div>
-              </ThreeDTiltCard>
-            ))}
+                </ThreeDTiltCard>
+              ))}
+            </div>
           </div>
         )}
-
-        {/* Bottom Banner */}
-        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl border border-sky-400/20">
-          <div className="space-y-1 text-center sm:text-left">
-            <h4 className="text-lg font-bold text-white flex items-center justify-center sm:justify-start gap-2">
-              <Zap className="w-5 h-5 text-amber-400 fill-current" />
-              Need a Custom Enterprise Solution?
-            </h4>
-            <p className="text-xs text-sky-200/80">
-              Combine Web, Mobile, AI, and Hardened Security modules tailored precisely for your organization.
-            </p>
-          </div>
-
-          <button
-            onClick={() => onBookConsultation('Custom Enterprise Suite')}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-400 hover:to-cyan-400 text-white font-bold text-xs shadow-md cursor-pointer shrink-0 transition-all hover:scale-105"
-          >
-            Request Custom Architecture →
-          </button>
-        </div>
       </div>
     </section>
   );
