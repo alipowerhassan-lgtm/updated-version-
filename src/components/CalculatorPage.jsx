@@ -15,7 +15,14 @@ import {
   FileText,
   Building2,
   Cpu,
-  BadgeDollarSign
+  BadgeDollarSign,
+  Briefcase,
+  TrendingUp,
+  Megaphone,
+  Search,
+  Share2,
+  Target,
+  PenTool
 } from 'lucide-react';
 
 export default function CalculatorPage({ onRequestProposal }) {
@@ -142,17 +149,39 @@ export default function CalculatorPage({ onRequestProposal }) {
     }
   ];
 
+  // Specific Website Types List
+  const websiteTypes = [
+    { id: 'portfolio', name: 'Portfolio & Personal Branding', desc: 'Case studies, interactive gallery, resume & client booking', priceFactor: 0.9 },
+    { id: 'corporate', name: 'Corporate & Business Enterprise', desc: 'Multi-page corporate presence, service catalog & team hierarchy', priceFactor: 1.0 },
+    { id: 'ecommerce', name: 'E-Commerce & Storefront', desc: 'Product catalog, shopping cart, Stripe/PayFast & inventory', priceFactor: 1.35 },
+    { id: 'saas', name: 'SaaS & Web App Platform', desc: 'User auth, admin dashboard, recurring subscriptions & API backend', priceFactor: 1.6 },
+    { id: 'lms', name: 'Educational & LMS Portal', desc: 'Student enrollment, video lectures, quizzes & certification engine', priceFactor: 1.4 },
+    { id: 'landing-page', name: 'Sales Funnel / Landing Page', desc: 'High-converting lead capture, A/B testing & CTA integration', priceFactor: 0.8 }
+  ];
+
+  // Marketing & Growth Services List
+  const marketingServices = [
+    { id: 'seo', name: 'SEO Optimization & Keyword Strategy', desc: 'Technical SEO audit, on-page keywords & Google indexing', rateFactor: 0.2 },
+    { id: 'smm', name: 'Social Media Marketing (SMM)', desc: 'Content creation, graphic posts & management (Meta/LinkedIn/TikTok)', rateFactor: 0.25 },
+    { id: 'ppc', name: 'PPC Ad Campaigns & Lead Gen', desc: 'Google Ads & Meta Ads setup, conversion tracking & landing page sync', rateFactor: 0.3 },
+    { id: 'copywriting', name: 'Brand Copywriting & Content', desc: 'High-converting sales copy, article writing & brand voice guide', rateFactor: 0.15 },
+    { id: 'cro', name: 'Analytics & Funnel CRO Audit', desc: 'Google Analytics 4, heatmaps, user session recording & UX tuning', rateFactor: 0.18 }
+  ];
+
   const [selectedRegionId, setSelectedRegionId] = useState('usa');
+  const [selectedWebsiteTypeId, setSelectedWebsiteTypeId] = useState('corporate');
   const [selectedTierKey, setSelectedTierKey] = useState('standard');
   const [extraPagesCount, setExtraPagesCount] = useState(2);
   const [selectedAddons, setSelectedAddons] = useState(['Arabic/English Bilingual Localization']);
+  const [selectedMarketing, setSelectedMarketing] = useState(['SEO Optimization & Keyword Strategy']);
 
   const activeRegion = marketRegions.find((r) => r.id === selectedRegionId) || marketRegions[2];
+  const activeWebsiteType = websiteTypes.find((w) => w.id === selectedWebsiteTypeId) || websiteTypes[1];
   const activeTier = activeRegion.tiers[selectedTierKey];
 
   const optionalAddons = [
     { id: 'bilingual', name: 'Arabic/English Bilingual Localization', rateFactor: 0.25 },
-    { id: 'ecommerce', name: 'E-Commerce / Stripe Payment Gateway', rateFactor: 0.35 },
+    { id: 'ecommerce-payment', name: 'Stripe & Regional Payment Gateway Sync', rateFactor: 0.2 },
     { id: 'ai-chatbot', name: 'AI Reasoning Chatbot Agent', rateFactor: 0.30 },
     { id: 'security', name: 'Zero-Trust WAF & Pen Testing Audit', rateFactor: 0.20 }
   ];
@@ -165,7 +194,15 @@ export default function CalculatorPage({ onRequestProposal }) {
     }
   };
 
-  // Base tier range
+  const toggleMarketing = (name) => {
+    if (selectedMarketing.includes(name)) {
+      setSelectedMarketing(selectedMarketing.filter((m) => m !== name));
+    } else {
+      setSelectedMarketing([...selectedMarketing, name]);
+    }
+  };
+
+  // Base tier calculation
   const tierLow = activeTier.low;
   const tierHigh = activeTier.high;
 
@@ -173,14 +210,23 @@ export default function CalculatorPage({ onRequestProposal }) {
   const addOnPagesCostLow = extraPagesCount * activeRegion.perPageLow;
   const addOnPagesCostHigh = extraPagesCount * activeRegion.perPageHigh;
 
-  // Additional feature multipliers
-  const totalAddonMultiplier = selectedAddons.reduce((sum, aName) => {
+  // Feature Addon Multiplier
+  const featureAddonMultiplier = selectedAddons.reduce((sum, aName) => {
     const found = optionalAddons.find((item) => item.name === aName);
     return sum + (found ? found.rateFactor : 0);
   }, 0);
 
-  const subtotalLow = (tierLow + addOnPagesCostLow) * (1 + totalAddonMultiplier);
-  const subtotalHigh = (tierHigh + addOnPagesCostHigh) * (1 + totalAddonMultiplier);
+  // Marketing Addon Multiplier
+  const marketingAddonMultiplier = selectedMarketing.reduce((sum, mName) => {
+    const found = marketingServices.find((item) => item.name === mName);
+    return sum + (found ? found.rateFactor : 0);
+  }, 0);
+
+  // Total Multiplier
+  const totalMultiplier = (activeWebsiteType.priceFactor) + featureAddonMultiplier + marketingAddonMultiplier;
+
+  const subtotalLow = (tierLow + addOnPagesCostLow) * totalMultiplier;
+  const subtotalHigh = (tierHigh + addOnPagesCostHigh) * totalMultiplier;
 
   const finalLow = Math.round(subtotalLow);
   const finalHigh = Math.round(subtotalHigh);
@@ -196,11 +242,11 @@ export default function CalculatorPage({ onRequestProposal }) {
         <div className="text-center space-y-3 max-w-3xl mx-auto mb-12">
           <span className="text-xs font-bold text-sky-600 uppercase tracking-widest bg-sky-100/80 px-3.5 py-1 rounded-full border border-sky-200 inline-flex items-center gap-1.5 shadow-xs">
             <Calculator className="w-3.5 h-3.5 text-sky-600" />
-            <span>Google Sheet Rate Matrix • Real-Time Estimator</span>
+            <span>Google Sheet Rate Matrix • Web & Marketing Estimator</span>
           </span>
 
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Website Cost & Regional Rate Estimator
+            Website Cost & Digital Marketing Estimator
           </h2>
 
           <div className="flex justify-center pt-1">
@@ -208,7 +254,7 @@ export default function CalculatorPage({ onRequestProposal }) {
           </div>
 
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed pt-2 font-normal">
-            Customized using official market rate benchmarks (Pakistan, UAE, USA, Saudi Arabia, Fiverr, Upwork, LinkedIn B2B).
+            Configure your exact website type (Portfolio, Business, E-Commerce, SaaS), market region rates, and integrated digital marketing growth campaigns.
           </p>
         </div>
 
@@ -263,11 +309,51 @@ export default function CalculatorPage({ onRequestProposal }) {
               </div>
             </div>
 
-            {/* STEP 2: SELECT WEBSITE TIER (Starter, Standard, Custom) */}
+            {/* STEP 2: SELECT SPECIFIC WEBSITE TYPE (Portfolio, Corporate, E-Commerce, SaaS, LMS) */}
+            <div className="glass-card rounded-3xl p-6 sm:p-7 border border-sky-150 shadow-md space-y-4">
+              <h3 className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                <Briefcase className="w-4 h-4 text-purple-600" />
+                <span>2. Select Specific Website Type</span>
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {websiteTypes.map((type) => {
+                  const isSelected = selectedWebsiteTypeId === type.id;
+                  return (
+                    <button
+                      key={type.id}
+                      type="button"
+                      onClick={() => setSelectedWebsiteTypeId(type.id)}
+                      className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
+                        isSelected
+                          ? 'bg-purple-900 text-white border-purple-500 shadow-md shadow-purple-900/20 font-bold'
+                          : 'bg-white text-slate-800 border-slate-200 hover:border-purple-300 hover:bg-purple-50/30'
+                      }`}
+                    >
+                      <div>
+                        <div className="text-xs font-black flex items-center justify-between">
+                          <span>{type.name}</span>
+                          {isSelected && (
+                            <div className="w-4 h-4 rounded-full bg-purple-400 text-purple-950 flex items-center justify-center shrink-0">
+                              <Check className="w-3 h-3 stroke-[3]" />
+                            </div>
+                          )}
+                        </div>
+                        <div className={`text-[11px] mt-1 font-normal leading-snug ${isSelected ? 'text-purple-200' : 'text-slate-500'}`}>
+                          {type.desc}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* STEP 3: SELECT PACKAGE TIER & EXTRA PAGES */}
             <div className="glass-card rounded-3xl p-6 sm:p-7 border border-sky-150 shadow-md space-y-4">
               <h3 className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
                 <Layers className="w-4 h-4 text-emerald-600" />
-                <span>2. Select Website Package Tier</span>
+                <span>3. Package Scope & Additional Pages</span>
               </h3>
 
               <div className="grid grid-cols-1 gap-2.5">
@@ -278,49 +364,35 @@ export default function CalculatorPage({ onRequestProposal }) {
                       key={tierKey}
                       type="button"
                       onClick={() => setSelectedTierKey(tierKey)}
-                      className={`p-4 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer ${
+                      className={`p-3.5 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? 'bg-gradient-to-r from-slate-900 to-sky-950 text-white border-sky-400/50 shadow-lg'
+                          ? 'bg-gradient-to-r from-slate-900 to-sky-950 text-white border-sky-400/50 shadow-md'
                           : 'bg-white text-slate-800 border-slate-200 hover:border-sky-300 hover:bg-slate-50'
                       }`}
                     >
                       <div>
-                        <div className="text-xs sm:text-sm font-black flex items-center gap-2">
-                          <span>{tierObj.name}</span>
-                        </div>
-                        <div className={`text-xs font-mono font-bold mt-1 ${isSelected ? 'text-sky-300' : 'text-sky-600'}`}>
+                        <div className="text-xs sm:text-sm font-black">{tierObj.name}</div>
+                        <div className={`text-xs font-mono font-bold mt-0.5 ${isSelected ? 'text-sky-300' : 'text-sky-600'}`}>
                           {activeRegion.symbol}{tierObj.low.toLocaleString()} – {tierObj.high.toLocaleString()}{' '}
                           <span className="text-[11px] opacity-80">({tierObj.usdText})</span>
                         </div>
                       </div>
 
                       {isSelected && (
-                        <div className="w-6 h-6 rounded-full bg-sky-500 text-white flex items-center justify-center shrink-0">
-                          <Check className="w-4 h-4 stroke-[3]" />
+                        <div className="w-5 h-5 rounded-full bg-sky-500 text-white flex items-center justify-center shrink-0">
+                          <Check className="w-3.5 h-3.5 stroke-[3]" />
                         </div>
                       )}
                     </button>
                   );
                 })}
               </div>
-            </div>
 
-            {/* STEP 3: ADDITIONAL PAGES ADD-ON SLIDER */}
-            <div className="glass-card rounded-3xl p-6 sm:p-7 border border-sky-150 shadow-md space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-indigo-600" />
-                  <span>3. Add-on Extra Pages</span>
-                </h3>
-                <span className="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
-                  Rate: {activeRegion.symbol}{activeRegion.perPageLow.toLocaleString()} – {activeRegion.perPageHigh.toLocaleString()}/page ({activeRegion.perPageUsdText})
-                </span>
-              </div>
-
-              <div className="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+              {/* Extra Pages Slider */}
+              <div className="space-y-2.5 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-800">
-                  <span>Additional Pages Count:</span>
-                  <span className="text-sky-600 font-mono text-sm font-extrabold">{extraPagesCount} Pages</span>
+                  <span>Add-on Extra Pages:</span>
+                  <span className="text-sky-600 font-mono text-sm font-extrabold">+{extraPagesCount} Pages</span>
                 </div>
                 <input
                   type="range"
@@ -331,19 +403,61 @@ export default function CalculatorPage({ onRequestProposal }) {
                   onChange={(e) => setExtraPagesCount(parseInt(e.target.value))}
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600"
                 />
-                <div className="flex items-center justify-between text-[11px] font-mono text-slate-500">
-                  <span>0 Pages</span>
-                  <span>10 Pages</span>
-                  <span>20+ Pages</span>
-                </div>
               </div>
             </div>
 
-            {/* STEP 4: FEATURE & INTEGRATION ADD-ONS */}
+            {/* STEP 4: DIGITAL MARKETING & GROWTH SERVICES (SEO, SMM, PPC, COPYWRITING) */}
+            <div className="glass-card rounded-3xl p-6 sm:p-7 border border-sky-150 shadow-md space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-emerald-600" />
+                  <span>4. Digital Marketing & Growth Campaigns</span>
+                </h3>
+                <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  {selectedMarketing.length} Active Services
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {marketingServices.map((marketing) => {
+                  const isSelected = selectedMarketing.includes(marketing.name);
+                  return (
+                    <button
+                      key={marketing.id}
+                      type="button"
+                      onClick={() => toggleMarketing(marketing.name)}
+                      className={`p-3 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
+                        isSelected
+                          ? 'bg-emerald-950 text-emerald-100 border-emerald-500/60 shadow-xs font-bold'
+                          : 'bg-white text-slate-800 border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/20'
+                      }`}
+                    >
+                      <div>
+                        <div className="text-xs font-black flex items-center justify-between">
+                          <span>{marketing.name}</span>
+                          {isSelected ? (
+                            <div className="w-4 h-4 rounded-full bg-emerald-400 text-emerald-950 flex items-center justify-center shrink-0">
+                              <Check className="w-3 h-3 stroke-[3]" />
+                            </div>
+                          ) : (
+                            <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0"></div>
+                          )}
+                        </div>
+                        <div className={`text-[10px] mt-1 leading-relaxed ${isSelected ? 'text-emerald-200' : 'text-slate-500'}`}>
+                          {marketing.desc}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* STEP 5: TECHNICAL & SECURITY ADD-ONS */}
             <div className="glass-card rounded-3xl p-6 sm:p-7 border border-sky-150 shadow-md space-y-4">
               <h3 className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-amber-600" />
-                <span>4. Advanced Capabilities & Integrations</span>
+                <ShieldCheck className="w-4 h-4 text-indigo-600" />
+                <span>5. Security & Technical Integrations</span>
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -356,13 +470,13 @@ export default function CalculatorPage({ onRequestProposal }) {
                       onClick={() => toggleAddon(addon.name)}
                       className={`p-3 rounded-2xl border text-xs font-bold text-left transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? 'bg-amber-500/10 border-amber-400 text-amber-950 shadow-xs'
+                          ? 'bg-indigo-50/90 border-indigo-400 text-indigo-950 shadow-xs'
                           : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
                       }`}
                     >
                       <span className="truncate pr-2">{addon.name}</span>
                       {isSelected ? (
-                        <div className="w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0">
+                        <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0">
                           <Check className="w-3.5 h-3.5 stroke-[3]" />
                         </div>
                       ) : (
@@ -380,7 +494,7 @@ export default function CalculatorPage({ onRequestProposal }) {
             <div className="glass-card rounded-3xl p-6 sm:p-8 border border-sky-200 shadow-xl space-y-6 bg-gradient-to-b from-white via-sky-50/40 to-white">
               <div className="border-b border-sky-100 pb-4">
                 <span className="text-[11px] font-mono font-bold text-sky-600 uppercase tracking-widest bg-sky-100 px-2.5 py-0.5 rounded-full">
-                  Google Sheet Rate Output
+                  Live Calculator Breakdown
                 </span>
                 <h3 className="text-xl font-black text-slate-900 mt-2 flex items-center gap-2">
                   <span>{activeRegion.flag}</span>
@@ -391,8 +505,8 @@ export default function CalculatorPage({ onRequestProposal }) {
               {/* Price Display Box */}
               <div className="p-6 rounded-3xl bg-gradient-to-r from-slate-950 via-sky-950 to-slate-950 text-white shadow-xl space-y-3 relative overflow-hidden border border-sky-500/30">
                 <div className="text-[11px] text-sky-300 uppercase tracking-wider font-mono font-bold flex items-center justify-between">
-                  <span>Calculated Rate Range</span>
-                  <span className="text-emerald-400 font-mono">● Active Matrix</span>
+                  <span>Estimated Total Investment</span>
+                  <span className="text-emerald-400 font-mono">● Google Sheet Verified</span>
                 </div>
 
                 {/* Primary Local Currency Price */}
@@ -411,14 +525,14 @@ export default function CalculatorPage({ onRequestProposal }) {
                 )}
 
                 <div className="text-[11px] text-slate-400 font-mono">
-                  Region: {activeRegion.name} ({activeRegion.currency})
+                  Type: {activeWebsiteType.name}
                 </div>
               </div>
 
               {/* Google Sheet Pricing Model & Key Notes */}
               <div className="bg-slate-900 text-slate-200 p-4 rounded-2xl border border-slate-800 text-xs space-y-1.5 font-mono">
                 <div className="text-[10px] text-sky-400 uppercase font-bold tracking-wider">
-                  Pricing Model & Key Notes (Google Sheet):
+                  Regional Rate Model Notes:
                 </div>
                 <p className="text-slate-300 text-[11px] leading-relaxed">
                   "{activeRegion.notes}"
@@ -428,11 +542,15 @@ export default function CalculatorPage({ onRequestProposal }) {
               {/* Selected Specifications Breakdown */}
               <div className="space-y-2 text-xs text-slate-700 pt-2 border-t border-sky-100">
                 <div className="font-extrabold text-slate-900 uppercase tracking-wider text-[11px]">
-                  Selected Configuration Summary:
+                  Configured Scope Summary:
                 </div>
-                <div className="space-y-1.5 text-[11px]">
+                <div className="space-y-1.5 text-[11px] max-h-48 overflow-y-auto pr-1">
                   <div className="flex items-center justify-between p-2 rounded-lg bg-sky-50">
-                    <span className="font-semibold text-slate-800">• Region / Platform:</span>
+                    <span className="font-semibold text-slate-800">• Website Category:</span>
+                    <span className="text-sky-700 font-mono font-bold">{activeWebsiteType.name}</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 rounded-lg bg-sky-50">
+                    <span className="font-semibold text-slate-800">• Market Region:</span>
                     <span className="text-sky-700 font-mono font-bold">{activeRegion.name}</span>
                   </div>
                   <div className="flex items-center justify-between p-2 rounded-lg bg-sky-50">
@@ -440,13 +558,19 @@ export default function CalculatorPage({ onRequestProposal }) {
                     <span className="text-sky-700 font-mono font-bold">{activeTier.name}</span>
                   </div>
                   <div className="flex items-center justify-between p-2 rounded-lg bg-sky-50">
-                    <span className="font-semibold text-slate-800">• Additional Pages:</span>
+                    <span className="font-semibold text-slate-800">• Extra Pages:</span>
                     <span className="text-sky-700 font-mono font-bold">+{extraPagesCount} Pages</span>
                   </div>
+                  {selectedMarketing.map((mItem, mIdx) => (
+                    <div key={mIdx} className="flex items-center justify-between p-2 rounded-lg bg-emerald-50">
+                      <span className="font-semibold text-emerald-900">• Marketing Service:</span>
+                      <span className="text-emerald-700 font-mono font-bold">Active</span>
+                    </div>
+                  ))}
                   {selectedAddons.map((addon, aIdx) => (
-                    <div key={aIdx} className="flex items-center justify-between p-2 rounded-lg bg-sky-50">
-                      <span className="font-semibold text-slate-800">• Feature Add-on:</span>
-                      <span className="text-emerald-700 font-mono font-bold">{addon}</span>
+                    <div key={aIdx} className="flex items-center justify-between p-2 rounded-lg bg-indigo-50">
+                      <span className="font-semibold text-indigo-900">• Tech Integration:</span>
+                      <span className="text-indigo-700 font-mono font-bold">Included</span>
                     </div>
                   ))}
                 </div>
@@ -456,7 +580,7 @@ export default function CalculatorPage({ onRequestProposal }) {
               <div className="pt-2">
                 <button
                   type="button"
-                  onClick={() => onRequestProposal && onRequestProposal(`Website Rate Estimate [${activeRegion.name}] - ${activeTier.name} (+${extraPagesCount} pages)`)}
+                  onClick={() => onRequestProposal && onRequestProposal(`${activeWebsiteType.name} [${activeRegion.name}] - ${selectedMarketing.join(', ')}`)}
                   className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-sky-600 via-sky-500 to-cyan-500 hover:from-sky-500 hover:to-cyan-400 text-white font-bold text-xs shadow-lg shadow-sky-600/25 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Transfer Estimate to Proposal Request</span>
