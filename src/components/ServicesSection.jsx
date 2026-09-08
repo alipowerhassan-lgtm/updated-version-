@@ -248,35 +248,40 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
         {/* Header Section */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           {/* Slogan Reference pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-sky-100/80 text-sky-900 border border-sky-200">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-sky-100/80 text-sky-900 border border-sky-200 shadow-xs">
             <span>&lt;/&gt; Build</span> • <span>📈 Grow</span> • <span>🛡️ Secure</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            Our <span className="tech-gradient-text">Services</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+            Enterprise Software & <span className="tech-gradient-text">Growth Solutions</span>
           </h2>
 
           <div className="flex justify-center pt-1">
             <WipBadge text="Services Module Under Development — Live Preview" />
           </div>
 
-          <p className="text-slate-600 text-base leading-relaxed pt-2">
-            Explore our software engineering, digital marketing, and cybersecurity services divided into Current Active Services and Upcoming AI & R&D Pipelines.
+          <p className="text-slate-700 text-sm sm:text-base font-semibold leading-relaxed max-w-2xl mx-auto pt-2">
+            Volen Solution delivers resilient full-stack web applications, cross-platform mobile engineering, data-driven digital marketing, and zero-trust cybersecurity architectures built for global enterprise scale.
           </p>
         </div>
 
-        {/* STANDALONE CALCULATOR BANNER */}
-        <div className="glass-card rounded-3xl p-6 sm:p-8 border border-sky-200 shadow-lg bg-gradient-to-r from-sky-900 via-slate-900 to-sky-950 text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-          <div className="space-y-2 text-center md:text-left relative z-10">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-400/30">
-              <Calculator className="w-3.5 h-3.5 text-sky-400" />
-              Interactive Estimator Tool
-            </span>
-            <h3 className="text-xl sm:text-2xl font-extrabold text-white">
-              Project Cost & Regional Rate Calculator
+        {/* HIGH-CONTRAST STANDALONE CALCULATOR BANNER */}
+        <div className="rounded-3xl p-6 sm:p-8 bg-slate-950 border-2 border-sky-400/40 shadow-2xl text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+          {/* Subtle Background Glow */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="space-y-3 text-center md:text-left relative z-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-extrabold bg-sky-500/20 text-sky-300 border border-sky-400/40 shadow-sm">
+              <Calculator className="w-4 h-4 text-sky-400" />
+              <span>Interactive Estimator Tool</span>
+            </div>
+
+            <h3 className="text-xl sm:text-2xl font-black text-white font-mono tracking-tight flex items-center justify-center md:justify-start gap-2">
+              <span>Project Cost & Regional Rate Calculator</span>
             </h3>
-            <p className="text-slate-300 text-xs sm:text-sm max-w-xl">
-              Calculate project costs based on your market region (Pakistan, UAE, USA, Saudi Arabia, Fiverr, Upwork, LinkedIn) and custom website requirements.
+
+            <p className="text-slate-200 text-xs sm:text-sm font-medium leading-relaxed max-w-xl">
+              Calculate exact project costs based on your market region (Pakistan, UAE, USA, Saudi Arabia, Fiverr, Upwork, LinkedIn), website type, and digital marketing requirements.
             </p>
           </div>
 
@@ -284,11 +289,11 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
             href="#calculator"
             target="_blank"
             rel="noopener noreferrer"
-            className="relative z-10 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-400 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 text-white font-bold text-xs shadow-lg shadow-sky-500/30 hover:-translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer shrink-0"
+            className="relative z-10 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-600 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-extrabold text-xs sm:text-sm shadow-xl shadow-sky-400/25 hover:scale-105 transition-all flex items-center gap-2.5 cursor-pointer shrink-0 border border-sky-300"
           >
-            <Calculator className="w-4 h-4 text-white" />
+            <Calculator className="w-4.5 h-4.5 text-slate-950 stroke-[2.5]" />
             <span>Open Calculator in New Tab</span>
-            <ExternalLink className="w-4 h-4 text-white" />
+            <ExternalLink className="w-4 h-4 text-slate-950 stroke-[2.5]" />
           </a>
         </div>
 
@@ -399,7 +404,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                           e.stopPropagation();
                           onBookConsultation(service.title);
                         }}
-                        className="px-3 py-1.5 rounded-xl text-[11px] font-bold text-white bg-slate-900 hover:bg-sky-600 transition-colors shadow-xs"
+                        className="px-3 py-1.5 rounded-xl text-[11px] font-bold text-white bg-slate-900 hover:bg-sky-600 transition-colors shadow-xs cursor-pointer"
                       >
                         Request Proposal
                       </button>
@@ -411,7 +416,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
           </div>
         )}
 
-        {/* UPCOMING SERVICES VIEW (WITH AI FEATURE TAG BUTTON) */}
+        {/* UPCOMING SERVICES VIEW */}
         {activeTabCategory === 'upcoming' && (
           <div className="space-y-8 animate-in fade-in duration-300">
             <div className="text-center max-w-xl mx-auto space-y-2">
@@ -434,7 +439,6 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                       ? 'bg-gradient-to-br from-purple-950 via-slate-900 to-indigo-950 border-purple-500/40 ring-1 ring-purple-400/30'
                       : 'bg-gradient-to-br from-slate-900 via-sky-950 to-slate-950 border-sky-500/30'
                   }`}>
-                    {/* Background Glow */}
                     <div className="absolute top-0 right-0 w-48 h-48 bg-purple-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
                     <div>
@@ -443,7 +447,6 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                           {service.icon}
                         </div>
 
-                        {/* Special AI Tag Button */}
                         {service.isAiTag ? (
                           <span className="px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md flex items-center gap-1 border border-purple-300/40 animate-pulse">
                             <Sparkles className="w-3.5 h-3.5 text-white" />
@@ -464,7 +467,6 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                         {service.fullDescription}
                       </p>
 
-                      {/* Tech Stack Pills */}
                       <div className="flex flex-wrap gap-1.5">
                         {service.techStack.map((tech, tIdx) => (
                           <span
