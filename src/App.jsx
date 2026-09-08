@@ -13,6 +13,7 @@ import ServiceDetailModal from './components/ServiceDetailModal';
 import ProjectDetailModal from './components/ProjectDetailModal';
 import ProposalModal from './components/ProposalModal';
 import BrandSplashScreen from './components/BrandSplashScreen';
+import Footer from './components/Footer';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -126,6 +127,12 @@ export default function App() {
           <ContactSection />
         )}
       </main>
+
+      {/* 3. Persistent Global Footer */}
+      <Footer
+        onNavigate={handleNavigate}
+        onRequestProposal={() => handleOpenProposal()}
+      />
 
       {/* Service Detail Modal */}
       <ServiceDetailModal
