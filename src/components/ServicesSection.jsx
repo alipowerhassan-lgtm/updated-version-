@@ -45,6 +45,7 @@ import {
   FileDown
 } from 'lucide-react';
 import { generatePdfQuote } from '../utils/pdfQuoteGenerator';
+import CustomerPolicyModal from './CustomerPolicyModal';
 
 export default function ServicesSection({ onSelectService, onBookConsultation, onViewCaseStudy }) {
   const [activeTabCategory, setActiveTabCategory] = useState('current');
@@ -60,6 +61,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
   const [selectedMaintenancePackage, setSelectedMaintenancePackage] = useState(null);
   const [currencyMode, setCurrencyMode] = useState('PKR'); // 'PKR' or 'USD'
   const [notificationToast, setNotificationToast] = useState(null); // JS Pop-up Notification
+  const [showCustomerPolicyModal, setShowCustomerPolicyModal] = useState(false);
 
   // 9 Website Types provided by the user
   const websiteTypesCatalog = [
@@ -957,6 +959,17 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
               </div>
             </div>
           </div>
+
+          {/* Customer Policy Interactive Button */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <button
+              onClick={() => setShowCustomerPolicyModal(true)}
+              className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-sky-600 via-blue-600 to-sky-700 hover:from-sky-500 hover:to-blue-500 text-white text-xs font-black shadow-lg shadow-sky-600/25 hover:-translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <ShieldCheck className="w-4 h-4 text-sky-200" />
+              <span>🛡️ View Official Customer Policy & Payment Milestones (50% / 30% / 20%) →</span>
+            </button>
+          </div>
         </div>
 
         {/* Team Achievements Grid (4 Achievements) */}
@@ -1843,6 +1856,15 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
                               >
                                 <span>Request Formal Proposal →</span>
                               </button>
+
+                              <button
+                                type="button"
+                                onClick={() => setShowCustomerPolicyModal(true)}
+                                className="w-full py-2 px-3 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-sky-300 hover:text-white font-bold text-xs border border-slate-700 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                              >
+                                <ShieldCheck className="w-3.5 h-3.5 text-sky-400" />
+                                <span>Customer Policy & Terms (50/30/20)</span>
+                              </button>
                             </div>
                           </div>
                         ) : (
@@ -2138,6 +2160,15 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
                               >
                                 <span>Request Proposal for this Package →</span>
                               </button>
+
+                              <button
+                                type="button"
+                                onClick={() => setShowCustomerPolicyModal(true)}
+                                className="w-full py-2 px-3 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-emerald-300 hover:text-white font-bold text-xs border border-slate-700 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                              >
+                                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                                <span>Customer Policy & Terms (50/30/20)</span>
+                              </button>
                             </div>
                           </div>
                         ) : (
@@ -2398,6 +2429,15 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
                                 className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-400 to-pink-600 hover:from-pink-400 hover:to-rose-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                               >
                                 <span>Request Proposal for this Package →</span>
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => setShowCustomerPolicyModal(true)}
+                                className="w-full py-2 px-3 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-pink-300 hover:text-white font-bold text-xs border border-slate-700 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                              >
+                                <ShieldCheck className="w-3.5 h-3.5 text-pink-400" />
+                                <span>Customer Policy & Terms (50/30/20)</span>
                               </button>
                             </div>
                           </div>
@@ -2660,6 +2700,15 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
                               >
                                 <span>Request Proposal for this SLA Tier →</span>
                               </button>
+
+                              <button
+                                type="button"
+                                onClick={() => setShowCustomerPolicyModal(true)}
+                                className="w-full py-2 px-3 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-purple-300 hover:text-white font-bold text-xs border border-slate-700 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                              >
+                                <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
+                                <span>Customer Policy & Terms (50/30/20)</span>
+                              </button>
                             </div>
                           </div>
                         ) : (
@@ -2702,6 +2751,12 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
             </div>
           </div>
         )}
+
+        {/* Customer Policy & Milestone Terms Modal */}
+        <CustomerPolicyModal
+          isOpen={showCustomerPolicyModal}
+          onClose={() => setShowCustomerPolicyModal(false)}
+        />
       </div>
     </section>
   );
