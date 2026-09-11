@@ -19,12 +19,214 @@ import {
   Rocket,
   Clock,
   Cpu,
-  CheckCircle2
+  CheckCircle2,
+  X,
+  Plus,
+  Sliders,
+  Check,
+  Globe2,
+  ShoppingBag,
+  Briefcase,
+  FileText,
+  Users,
+  GraduationCap,
+  MessageSquare,
+  DollarSign,
+  ChevronRight,
+  FolderOpen
 } from 'lucide-react';
 
 export default function ServicesSection({ onSelectService, onBookConsultation }) {
   const [activeTabCategory, setActiveTabCategory] = useState('current');
   const [filter, setFilter] = useState('all');
+
+  // Website Types Modal & Customizer State
+  const [showWebsiteTypesModal, setShowWebsiteTypesModal] = useState(false);
+  const [selectedWebType, setSelectedWebType] = useState(null);
+  const [selectedCustomOptions, setSelectedCustomOptions] = useState([]);
+  const [currencyMode, setCurrencyMode] = useState('PKR'); // 'PKR' or 'USD'
+  const [notificationToast, setNotificationToast] = useState(null); // JS Pop-up Notification
+
+  // 9 Website Types provided by the user
+  const websiteTypesCatalog = [
+    {
+      id: 'landing-page',
+      title: 'Landing Page / Sales Funnel',
+      purpose: 'Single high-conversion action (lead capture, event signup, product launch); minimal navigation, strong CTAs, forms.',
+      pkrRange: '15,000 – 40,000 PKR',
+      usdRange: '$200 – $600',
+      pkrMin: 15000,
+      pkrMax: 40000,
+      usdMin: 200,
+      usdMax: 600,
+      icon: <Zap className="w-5 h-5 text-amber-500" />,
+      features: ['High-Conversion Lead Capture', 'A/B Testing Integration', 'Instant WhatsApp/Email Form Sync', 'Micro-Fast 1-Page Layout'],
+      badge: 'High Conversion'
+    },
+    {
+      id: 'portfolio',
+      title: 'Portfolio',
+      purpose: 'Showcasing personal work, creative projects, and case studies; interactive galleries, downloadable CV, contact form.',
+      pkrRange: '20,000 – 55,000 PKR',
+      usdRange: '$250 – $700',
+      pkrMin: 20000,
+      pkrMax: 55000,
+      usdMin: 250,
+      usdMax: 700,
+      icon: <Briefcase className="w-5 h-5 text-sky-500" />,
+      features: ['Interactive 3D Project Showcase', 'PDF CV Instant Download', 'Custom Case Study Pages', 'Client Inquiry Form'],
+      badge: 'Personal Brand'
+    },
+    {
+      id: 'corporate',
+      title: 'Corporate / Business',
+      purpose: 'Brand credibility and B2B/B2C service discovery; 5–10 pages, CMS setup, service pages, team, client reviews, lead forms.',
+      pkrRange: '50,000 – 140,000 PKR',
+      usdRange: '$700 – $2,200',
+      pkrMin: 50000,
+      pkrMax: 140000,
+      usdMin: 700,
+      usdMax: 2200,
+      icon: <Building2 className="w-5 h-5 text-blue-600" />,
+      features: ['5–10 Custom Designed Pages', 'Headless CMS Integration', 'Corporate Team & Credibility Hub', 'Lead Qualification Workflows'],
+      badge: 'Enterprise B2B'
+    },
+    {
+      id: 'blog',
+      title: 'Blog / Content Hub',
+      purpose: 'Organic search growth and publishing; category archives, article search, comment systems, markdown/CMS, newsletter feeds.',
+      pkrRange: '35,000 – 90,000 PKR',
+      usdRange: '$500 – $1,500',
+      pkrMin: 35000,
+      pkrMax: 90000,
+      usdMin: 500,
+      usdMax: 1500,
+      icon: <FileText className="w-5 h-5 text-emerald-500" />,
+      features: ['Google SEO & Core Web Vitals Tuned', 'Markdown / Rich Article Editor', 'Newsletter Lead Magnet Integration', 'Category Tags & Live Search'],
+      badge: 'SEO Growth'
+    },
+    {
+      id: 'ecommerce',
+      title: 'E-Commerce Store',
+      purpose: 'Selling physical or digital products; product catalog, cart/checkout, payment gateways (Stripe/Paymob), inventory and order tracking.',
+      pkrRange: '120,000 – 350,000 PKR',
+      usdRange: '$1,500 – $4,500',
+      pkrMin: 120000,
+      pkrMax: 350000,
+      usdMin: 1500,
+      usdMax: 4500,
+      icon: <ShoppingBag className="w-5 h-5 text-rose-500" />,
+      features: ['Full Catalog, Cart & Checkout Flow', 'Stripe, Paymob, COD & Bank Wire Gateways', 'Live Inventory & Order Dispatch', 'Customer Account Dashboards'],
+      badge: 'Full Store'
+    },
+    {
+      id: 'directory',
+      title: 'Listing / Directory',
+      purpose: 'Aggregating properties, jobs, or businesses; multi-parameter filters, map views, user submissions, structured database querying.',
+      pkrRange: '150,000 – 450,000 PKR',
+      usdRange: '$1,800 – $5,000',
+      pkrMin: 150000,
+      pkrMax: 450000,
+      usdMin: 1800,
+      usdMax: 5000,
+      icon: <Globe2 className="w-5 h-5 text-indigo-500" />,
+      features: ['Multi-Parameter Database Filtering', 'Interactive Map Geolocation Pins', 'Vendor / User Listing Submissions', 'Claim & Verify Business Workflows'],
+      badge: 'Directory Portal'
+    },
+    {
+      id: 'lms',
+      title: 'Educational / LMS',
+      purpose: 'Online courses and progress tracking; video streaming integrations, user dashboards, quiz engines, automated certificates.',
+      pkrRange: '200,000 – 600,000 PKR',
+      usdRange: '$2,500 – $7,000',
+      pkrMin: 20000,
+      pkrMax: 600000,
+      usdMin: 2500,
+      usdMax: 7000,
+      icon: <GraduationCap className="w-5 h-5 text-purple-500" />,
+      features: ['Secure Cloud Video Streaming', 'Student Course Progress Tracking', 'Interactive Quiz & Grade Engine', 'Auto-Generated PDF Certificates'],
+      badge: 'LMS Platform'
+    },
+    {
+      id: 'community',
+      title: 'Community / Forum',
+      purpose: 'Peer networking and discussions; threaded replies, upvoting/reputation, WebSockets, moderation queues, activity notifications.',
+      pkrRange: '180,000 – 500,000 PKR',
+      usdRange: '$2,200 – $6,500',
+      pkrMin: 180000,
+      pkrMax: 500000,
+      usdMin: 2200,
+      usdMax: 6500,
+      icon: <MessageSquare className="w-5 h-5 text-teal-500" />,
+      features: ['Real-Time WebSocket Discussions', 'Threaded Replies & Upvote Karma', 'Moderator Dashboard & Filters', 'Real-time Push & Sound Alerts'],
+      badge: 'Community Portal'
+    },
+    {
+      id: 'custom-saas',
+      title: 'Custom Web App (SaaS / MVP)',
+      purpose: 'Interactive software delivered via the browser; user auth/RBAC, persistent database logic, external APIs, recurring subscriptions.',
+      pkrRange: '400,000 – 1,200,000+ PKR',
+      usdRange: '$3,500 – $12,000+',
+      pkrMin: 400000,
+      pkrMax: 1200000,
+      usdMin: 3500,
+      usdMax: 12000,
+      icon: <Cpu className="w-5 h-5 text-cyan-500" />,
+      features: ['Enterprise RBAC & SSO Multi-Auth', 'Stripe Recurring SaaS Subscriptions', 'Scalable PostgreSQL / Redis Architecture', 'Custom External API Integrations'],
+      badge: 'Enterprise SaaS'
+    }
+  ];
+
+  // Customization add-on options available for any selected website
+  const customizationAddons = [
+    { id: 'ai-assistant', name: 'Integrated AI Copilot / Chat Agent', pkr: 35000, usd: 250, desc: 'Trained on your business docs & automated client queries' },
+    { id: 'bilingual-rtl', name: 'Bilingual & Arabic RTL Support', pkr: 25000, usd: 180, desc: 'Full Arabic/Urdu & English switchable layouts' },
+    { id: 'seo-booster', name: 'Advanced Technical SEO & Schema', pkr: 20000, usd: 150, desc: 'Structured schema, sitemap and instant indexing' },
+    { id: 'speed-boost', name: 'Sub-Second CDN & Image Optimizer', pkr: 15000, usd: 100, desc: 'Cloudflare Enterprise edge caching & WebP compression' },
+    { id: 'payment-gateway', name: 'Multi-Currency Payment Gateway', pkr: 30000, usd: 220, desc: 'Stripe, Paymob, JazzCash & EasyPaisa sync' },
+    { id: 'security-waf', name: 'Zero-Trust WAF & DDoS Shielding', pkr: 28000, usd: 200, desc: 'OWASP mitigation, SSL hardening & bot protection' }
+  ];
+
+  // Helper function to trigger interactive JS popup notification
+  const triggerToast = (msg) => {
+    setNotificationToast(msg);
+    setTimeout(() => {
+      setNotificationToast(null);
+    }, 3200);
+  };
+
+  const handleSelectWebType = (type) => {
+    setSelectedWebType(type);
+    triggerToast(`Selected: "${type.title}" (${currencyMode === 'PKR' ? type.pkrRange : type.usdRange})`);
+  };
+
+  const handleToggleAddon = (addon) => {
+    const exists = selectedCustomOptions.some(a => a.id === addon.id);
+    if (exists) {
+      setSelectedCustomOptions(selectedCustomOptions.filter(a => a.id !== addon.id));
+      triggerToast(`Removed: "${addon.name}"`);
+    } else {
+      setSelectedCustomOptions([...selectedCustomOptions, addon]);
+      triggerToast(`Added: "${addon.name}" (+${currencyMode === 'PKR' ? addon.pkr.toLocaleString() + ' PKR' : '$' + addon.usd})`);
+    }
+  };
+
+  // Calculate live dynamic customized price
+  const calculateTotal = () => {
+    if (!selectedWebType) return null;
+    const addonPkr = selectedCustomOptions.reduce((acc, curr) => acc + curr.pkr, 0);
+    const addonUsd = selectedCustomOptions.reduce((acc, curr) => acc + curr.usd, 0);
+
+    return {
+      pkrMin: selectedWebType.pkrMin + addonPkr,
+      pkrMax: selectedWebType.pkrMax + addonPkr,
+      usdMin: selectedWebType.usdMin + addonUsd,
+      usdMax: selectedWebType.usdMax + addonUsd,
+      addonCount: selectedCustomOptions.length
+    };
+  };
+
+  const totals = calculateTotal();
 
   const currentServicesData = [
     {
@@ -43,7 +245,8 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       ],
       icon: <Code className="w-6 h-6 text-sky-600" />,
       statusTag: 'Active Service',
-      statusColor: 'emerald'
+      statusColor: 'emerald',
+      hasWebsiteTypes: true // Trigger to show Website Types modal / catalog!
     },
     {
       id: 2,
@@ -244,6 +447,20 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
 
   return (
     <section id="services" className="py-16 md:py-24 relative">
+      {/* Interactive JS Pop-up Notification Toast */}
+      {notificationToast && (
+        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-sky-400/50 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-4 duration-200">
+          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></div>
+          <span className="text-xs sm:text-sm font-semibold">{notificationToast}</span>
+          <button
+            onClick={() => setNotificationToast(null)}
+            className="text-slate-400 hover:text-white ml-2 cursor-pointer"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
         {/* Header Section */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
@@ -267,7 +484,6 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
 
         {/* HIGH-CONTRAST STANDALONE CALCULATOR BANNER */}
         <div className="rounded-3xl p-6 sm:p-8 bg-slate-950 border-2 border-sky-400/40 shadow-2xl text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-          {/* Subtle Background Glow */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
           <div className="space-y-3 text-center md:text-left relative z-10">
@@ -285,16 +501,29 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
             </p>
           </div>
 
-          <a
-            href="#calculator"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative z-10 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-600 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-extrabold text-xs sm:text-sm shadow-xl shadow-sky-400/25 hover:scale-105 transition-all flex items-center gap-2.5 cursor-pointer shrink-0 border border-sky-300"
-          >
-            <Calculator className="w-4.5 h-4.5 text-slate-950 stroke-[2.5]" />
-            <span>Open Calculator in New Tab</span>
-            <ExternalLink className="w-4 h-4 text-slate-950 stroke-[2.5]" />
-          </a>
+          <div className="flex flex-wrap items-center gap-3 relative z-10">
+            <button
+              onClick={() => {
+                setShowWebsiteTypesModal(true);
+                triggerToast('Opened Website Types & Interactive Pricing Explorer');
+              }}
+              className="px-5 py-3.5 rounded-2xl bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-400/40 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <Layers className="w-4 h-4 text-sky-400" />
+              <span>Explore 9 Website Types & Rates</span>
+            </button>
+
+            <a
+              href="#calculator"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-600 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-extrabold text-xs sm:text-sm shadow-xl shadow-sky-400/25 hover:scale-105 transition-all flex items-center gap-2.5 cursor-pointer shrink-0 border border-sky-300"
+            >
+              <Calculator className="w-4.5 h-4.5 text-slate-950 stroke-[2.5]" />
+              <span>Open Full Calculator</span>
+              <ExternalLink className="w-4 h-4 text-slate-950 stroke-[2.5]" />
+            </a>
+          </div>
         </div>
 
         {/* TWO MAIN CATEGORY TABS: CURRENT SERVICES vs UPCOMING SERVICES */}
@@ -359,7 +588,14 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
               {filteredServices.map((service) => (
                 <ThreeDTiltCard key={service.id} maxTilt={8}>
                   <div
-                    onClick={() => onSelectService(service)}
+                    onClick={() => {
+                      if (service.hasWebsiteTypes) {
+                        setShowWebsiteTypesModal(true);
+                        triggerToast('Viewing Website Types catalog with live pricing and customization options!');
+                      } else {
+                        onSelectService(service);
+                      }
+                    }}
                     className="glass-card glass-card-hover rounded-3xl p-6 border border-sky-100 flex flex-col justify-between cursor-pointer group relative overflow-hidden h-full"
                   >
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-cyan-400 to-sky-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -382,6 +618,34 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                         {service.description}
                       </p>
 
+                      {/* Special Banner for Web Development: 9 Website Types with Prices */}
+                      {service.hasWebsiteTypes && (
+                        <div className="mb-4 p-3 rounded-2xl bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-200 text-left space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-extrabold text-sky-900 flex items-center gap-1.5">
+                              <FolderOpen className="w-3.5 h-3.5 text-sky-600" />
+                              <span>9 Website Types Catalog</span>
+                            </span>
+                            <span className="text-[10px] font-mono font-bold bg-sky-600 text-white px-2 py-0.5 rounded-full">
+                              PKR & USD Rates
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-slate-600 font-normal">
+                            Landing pages, Portfolios, E-Commerce, LMS, SaaS & Directories with side pricing and live customization calculator.
+                          </p>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setShowWebsiteTypesModal(true);
+                              triggerToast('Launched Website Types Catalog with Live Side Taskbar!');
+                            }}
+                            className="w-full py-2 px-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-[11px] font-bold flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                          >
+                            <span>Browse Website Types & Rates →</span>
+                          </button>
+                        </div>
+                      )}
+
                       {/* Deliverables List */}
                       <div className="space-y-1.5 mb-4">
                         {service.deliverables.map((item, idx) => (
@@ -395,7 +659,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
 
                     <div className="pt-4 border-t border-sky-100 flex items-center justify-between">
                       <span className="text-xs font-bold text-sky-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                        <span>Explore Details</span>
+                        <span>{service.hasWebsiteTypes ? 'View Website Types' : 'Explore Details'}</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </span>
 
@@ -495,6 +759,310 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                   </div>
                 </ThreeDTiltCard>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* MODAL: WEBSITE TYPES WITH SIDEBAR PRICING, CUSTOMIZER & SELECTION TASKBAR */}
+        {showWebsiteTypesModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+            <div className="w-full max-w-6xl max-h-[92vh] bg-white rounded-3xl shadow-2xl border border-sky-200 flex flex-col overflow-hidden relative">
+              {/* Modal Header */}
+              <div className="p-5 sm:p-6 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-4 border-b border-slate-800">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-400/40">
+                      Catalog & Interactive Estimator
+                    </span>
+                    <span className="text-xs text-slate-400 hidden sm:inline">
+                      9 Verified Website Categories & Pricing
+                    </span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-black text-white mt-1">
+                    Website Types, Features & Live Pricing
+                  </h3>
+                </div>
+
+                {/* Currency Switcher & Close */}
+                <div className="flex items-center gap-3">
+                  <div className="bg-slate-800 p-1 rounded-xl flex items-center border border-slate-700">
+                    <button
+                      onClick={() => {
+                        setCurrencyMode('PKR');
+                        triggerToast('Switched to Local Market Rates (PKR)');
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
+                        currencyMode === 'PKR' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      🇵🇰 PKR Rates
+                    </button>
+                    <button
+                      onClick={() => {
+                        setCurrencyMode('USD');
+                        triggerToast('Switched to International Rates (USD)');
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
+                        currencyMode === 'USD' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      🌎 USD Rates
+                    </button>
+                  </div>
+
+                  <button
+                    onClick={() => setShowWebsiteTypesModal(false)}
+                    className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Main Content Area: 2 Columns (Left: 9 Website Types Grid, Right: Side Taskbar & Live Customizer) */}
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                {/* LEFT: 9 Website Types Cards (8 cols) */}
+                <div className="lg:col-span-8 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
+                      Select A Website Category ({websiteTypesCatalog.length} Types Available)
+                    </span>
+                    <span className="text-[11px] text-sky-600 font-bold">
+                      Click any card to select & customize
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {websiteTypesCatalog.map((type) => {
+                      const isSelected = selectedWebType?.id === type.id;
+                      return (
+                        <div
+                          key={type.id}
+                          onClick={() => handleSelectWebType(type)}
+                          className={`p-4 sm:p-5 rounded-2xl border text-left transition-all cursor-pointer relative flex flex-col justify-between group ${
+                            isSelected
+                              ? 'bg-sky-50/90 border-sky-500 shadow-md ring-2 ring-sky-400/30'
+                              : 'bg-white border-slate-200 hover:border-sky-300 hover:shadow-sm'
+                          }`}
+                        >
+                          <div>
+                            <div className="flex items-center justify-between gap-2 mb-2">
+                              <div className="p-2 rounded-xl bg-sky-100/70 text-sky-700">
+                                {type.icon}
+                              </div>
+                              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
+                                {type.badge}
+                              </span>
+                            </div>
+
+                            <h4 className="text-base font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors">
+                              {type.title}
+                            </h4>
+
+                            <p className="text-slate-600 text-xs mt-1.5 leading-relaxed font-normal line-clamp-3">
+                              {type.purpose}
+                            </p>
+
+                            {/* Features list */}
+                            <div className="mt-3 pt-2 border-t border-slate-100 space-y-1">
+                              {type.features.slice(0, 3).map((feat, fIdx) => (
+                                <div key={fIdx} className="text-[11px] text-slate-700 flex items-center gap-1.5">
+                                  <Check className="w-3 h-3 text-emerald-500 shrink-0" />
+                                  <span className="truncate">{feat}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Price Tag Footer */}
+                          <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between">
+                            <div>
+                              <div className="text-[10px] font-mono uppercase text-slate-400">
+                                {currencyMode === 'PKR' ? 'Local Market (PKR)' : 'International (USD)'}
+                              </div>
+                              <div className="text-xs sm:text-sm font-black font-mono text-sky-700">
+                                {currencyMode === 'PKR' ? type.pkrRange : type.usdRange}
+                              </div>
+                            </div>
+
+                            <button
+                              type="button"
+                              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                                isSelected
+                                  ? 'bg-sky-600 text-white'
+                                  : 'bg-slate-100 text-slate-700 group-hover:bg-sky-600 group-hover:text-white'
+                              }`}
+                            >
+                              {isSelected ? '✓ Selected' : 'Select'}
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* RIGHT: SIDE TASKBAR & LIVE CUSTOMIZER (4 cols) */}
+                <div className="lg:col-span-4 space-y-5">
+                  {/* Selected Item Summary Taskbar */}
+                  <div className="p-5 rounded-3xl bg-slate-900 text-white shadow-xl border border-slate-800 space-y-4">
+                    <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                      <span className="text-xs font-mono font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Layers className="w-4 h-4 text-sky-400" />
+                        <span>Selection Side Taskbar</span>
+                      </span>
+                      {selectedWebType && (
+                        <button
+                          onClick={() => {
+                            setSelectedWebType(null);
+                            setSelectedCustomOptions([]);
+                            triggerToast('Selection cleared');
+                          }}
+                          className="text-[10px] text-slate-400 hover:text-white underline cursor-pointer"
+                        >
+                          Clear
+                        </button>
+                      )}
+                    </div>
+
+                    {selectedWebType ? (
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-400/30">
+                            {selectedWebType.icon}
+                          </div>
+                          <div>
+                            <div className="text-sm font-extrabold text-white">
+                              {selectedWebType.title}
+                            </div>
+                            <div className="text-[11px] text-slate-400 line-clamp-2">
+                              {selectedWebType.purpose}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Base Price */}
+                        <div className="p-3 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-1">
+                          <div className="text-[10px] font-mono text-slate-400 uppercase">
+                            Base Category Cost ({currencyMode})
+                          </div>
+                          <div className="text-base font-black font-mono text-sky-300">
+                            {currencyMode === 'PKR' ? selectedWebType.pkrRange : selectedWebType.usdRange}
+                          </div>
+                        </div>
+
+                        {/* Selected Addons in Taskbar */}
+                        {selectedCustomOptions.length > 0 && (
+                          <div className="space-y-1.5 pt-1">
+                            <div className="text-[10px] font-mono text-slate-400 uppercase">
+                              Active Add-on Customizations ({selectedCustomOptions.length}):
+                            </div>
+                            <div className="space-y-1">
+                              {selectedCustomOptions.map(addon => (
+                                <div key={addon.id} className="p-2 rounded-xl bg-slate-800/60 text-[11px] flex items-center justify-between">
+                                  <span className="truncate pr-2">• {addon.name}</span>
+                                  <span className="text-emerald-400 font-mono font-bold shrink-0">
+                                    +{currencyMode === 'PKR' ? addon.pkr.toLocaleString() + ' PKR' : '$' + addon.usd}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Live Total Calculation */}
+                        {totals && (
+                          <div className="pt-3 border-t border-slate-800 space-y-1">
+                            <div className="text-[11px] font-mono text-emerald-400 font-bold uppercase flex items-center justify-between">
+                              <span>Estimated Investment:</span>
+                              <span className="text-[10px] font-mono text-slate-400">All Included</span>
+                            </div>
+                            <div className="text-xl font-black font-mono text-white">
+                              {currencyMode === 'PKR' ? (
+                                <>PKR {totals.pkrMin.toLocaleString()} – {totals.pkrMax.toLocaleString()}</>
+                              ) : (
+                                <>${totals.usdMin.toLocaleString()} – ${totals.usdMax.toLocaleString()}</>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        <button
+                          onClick={() => {
+                            setShowWebsiteTypesModal(false);
+                            onBookConsultation(`${selectedWebType.title} (${currencyMode} Scope) with ${selectedCustomOptions.length} Customizations`);
+                            triggerToast(`Proceeding with ${selectedWebType.title} proposal request!`);
+                          }}
+                          className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-600 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+                        >
+                          <span>Request Proposal for this Selection →</span>
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="text-center py-6 space-y-2 text-slate-400 text-xs">
+                        <FolderOpen className="w-8 h-8 text-slate-600 mx-auto" />
+                        <p>No website type selected yet.</p>
+                        <p className="text-[11px] text-slate-500">
+                          Click on any website category on the left to see instant pricing and live customization controls.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Add-on Customizer Panel */}
+                  <div className="p-5 rounded-3xl bg-slate-50 border border-slate-200 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                        <Sliders className="w-4 h-4 text-sky-600" />
+                        <span>Add-on Customizer Options</span>
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-500 font-bold">
+                        Optional
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-600 leading-snug">
+                      Toggle optional capabilities to dynamically calculate the project cost in the side taskbar.
+                    </p>
+
+                    <div className="space-y-2 pt-1">
+                      {customizationAddons.map((addon) => {
+                        const isAdded = selectedCustomOptions.some(a => a.id === addon.id);
+                        return (
+                          <div
+                            key={addon.id}
+                            onClick={() => handleToggleAddon(addon)}
+                            className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-2 ${
+                              isAdded
+                                ? 'bg-sky-50 border-sky-500 shadow-xs'
+                                : 'bg-white border-slate-200 hover:border-slate-300'
+                            }`}
+                          >
+                            <div>
+                              <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                                <span>{addon.name}</span>
+                              </div>
+                              <div className="text-[10px] text-slate-500 mt-0.5">
+                                {addon.desc}
+                              </div>
+                              <div className="text-[11px] font-mono font-bold text-sky-700 mt-1">
+                                +{currencyMode === 'PKR' ? addon.pkr.toLocaleString() + ' PKR' : '$' + addon.usd}
+                              </div>
+                            </div>
+
+                            <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-1 ${
+                              isAdded ? 'bg-sky-600 text-white' : 'border border-slate-300'
+                            }`}>
+                              {isAdded ? <Check className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5 text-slate-400" />}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
         )}
