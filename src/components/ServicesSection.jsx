@@ -919,24 +919,127 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
       )}
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
-        {/* Header Section */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
+        {/* Agency Hero & Purpose */}
+        <div className="text-center space-y-4 max-w-4xl mx-auto">
           {/* Slogan Reference pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-sky-100/80 text-sky-900 border border-sky-200 shadow-xs">
             <span>&lt;/&gt; Build</span> • <span>📈 Grow</span> • <span>🛡️ Secure</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Enterprise Software & <span className="tech-gradient-text">Growth Solutions</span>
-          </h2>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+            Engineering High-Performance Digital Solutions That <span className="tech-gradient-text">Scale Your Business.</span>
+          </h1>
 
-          <div className="flex justify-center pt-1">
+          <div className="flex justify-center pt-0.5">
             <WipBadge text="Services Module Under Development — Live Preview" />
           </div>
 
-          <p className="text-slate-700 text-sm sm:text-base font-semibold leading-relaxed max-w-2xl mx-auto pt-2">
-            Volen Solution delivers resilient full-stack web applications, cross-platform mobile engineering, data-driven digital marketing, and zero-trust cybersecurity architectures built for global enterprise scale.
+          <p className="text-slate-700 text-base sm:text-lg font-semibold leading-relaxed max-w-3xl mx-auto">
+            We are a dedicated team of full-stack engineers and designers building secure, high-conversion websites and custom web applications.
           </p>
+
+          {/* Core Purpose Callout Box */}
+          <div className="mt-4 p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-slate-950 via-slate-900 to-sky-950 text-white border border-sky-400/30 shadow-2xl text-left relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-sky-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 relative z-10">
+              <div className="p-3 rounded-2xl bg-sky-500/20 text-sky-400 border border-sky-400/30 shrink-0">
+                <Sparkles className="w-6 h-6 text-sky-400" />
+              </div>
+              <div className="space-y-1">
+                <div className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-sky-400 flex items-center gap-1.5">
+                  <span>Our Core Purpose</span>
+                  <span className="text-slate-500">•</span>
+                  <span className="text-slate-400">Revenue Drivers</span>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
+                  We don't just build websites; we engineer digital revenue drivers. Our mission is to combine intuitive modern UI with airtight backend architecture and cyber-grade security, delivering web platforms that outpace competitors and convert traffic into clients.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Team Achievements Grid (4 Achievements) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-5 rounded-3xl bg-white border border-sky-150 shadow-sm hover:shadow-md hover:border-sky-300 transition-all flex flex-col justify-between group">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="p-2.5 rounded-2xl bg-sky-50 text-sky-600 border border-sky-200 group-hover:scale-105 transition-transform">
+                  <Rocket className="w-5 h-5 text-sky-600" />
+                </div>
+                <span className="text-2xl font-black font-mono text-sky-600">25+</span>
+              </div>
+              <div>
+                <h4 className="text-sm font-black text-slate-900">25+ Successful Deployments</h4>
+                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed font-normal">
+                  High-converting landing pages, enterprise business sites, and custom full-stack web applications delivered across multiple industries.
+                </p>
+              </div>
+            </div>
+            <div className="mt-3 pt-2.5 border-t border-slate-100 text-[10px] font-mono font-bold text-sky-600">
+              Verified Production Track Record
+            </div>
+          </div>
+
+          <div className="p-5 rounded-3xl bg-white border border-emerald-150 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between group">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="p-2.5 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 group-hover:scale-105 transition-transform">
+                  <Clock className="w-5 h-5 text-emerald-600" />
+                </div>
+                <span className="text-2xl font-black font-mono text-emerald-600">100%</span>
+              </div>
+              <div>
+                <h4 className="text-sm font-black text-slate-900">100% On-Time Delivery Rate</h4>
+                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed font-normal">
+                  Agile sprint management, transparent milestone reviews, and zero unexpected timeline slippage.
+                </p>
+              </div>
+            </div>
+            <div className="mt-3 pt-2.5 border-t border-slate-100 text-[10px] font-mono font-bold text-emerald-600">
+              Agile Milestone Commitment
+            </div>
+          </div>
+
+          <div className="p-5 rounded-3xl bg-white border border-amber-150 shadow-sm hover:shadow-md hover:border-amber-300 transition-all flex flex-col justify-between group">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="p-2.5 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 group-hover:scale-105 transition-transform">
+                  <Zap className="w-5 h-5 text-amber-600" />
+                </div>
+                <span className="text-2xl font-black font-mono text-amber-600">90+</span>
+              </div>
+              <div>
+                <h4 className="text-sm font-black text-slate-900">90+ Lighthouse Speed Score</h4>
+                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed font-normal">
+                  Every production build is engineered for sub-second load times, Core Web Vitals compliance, and responsive perfection.
+                </p>
+              </div>
+            </div>
+            <div className="mt-3 pt-2.5 border-t border-slate-100 text-[10px] font-mono font-bold text-amber-600">
+              Sub-Second Load Latency
+            </div>
+          </div>
+
+          <div className="p-5 rounded-3xl bg-white border border-purple-150 shadow-sm hover:shadow-md hover:border-purple-300 transition-all flex flex-col justify-between group">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="p-2.5 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 group-hover:scale-105 transition-transform">
+                  <ShieldCheck className="w-5 h-5 text-purple-600" />
+                </div>
+                <span className="text-2xl font-black font-mono text-purple-600">Sec+</span>
+              </div>
+              <div>
+                <h4 className="text-sm font-black text-slate-900">Security-First Engineering</h4>
+                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed font-normal">
+                  Zero-compromise data integrity, hardened APIs, input sanitization, and robust authentication built in from day one.
+                </p>
+              </div>
+            </div>
+            <div className="mt-3 pt-2.5 border-t border-slate-100 text-[10px] font-mono font-bold text-purple-600">
+              OWASP Zero-Trust Standards
+            </div>
+          </div>
         </div>
 
         {/* HIGH-CONTRAST STANDALONE CALCULATOR BANNER */}
@@ -1169,6 +1272,87 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
                   </div>
                 </ThreeDTiltCard>
               ))}
+            </div>
+
+            {/* How We Deliver the Best in Our Services */}
+            <div className="mt-12 rounded-3xl p-8 sm:p-10 bg-slate-900 text-white border border-slate-800 shadow-2xl relative overflow-hidden space-y-8">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-6 relative z-10">
+                <div className="space-y-2">
+                  <span className="text-xs font-mono font-bold text-sky-400 uppercase tracking-widest bg-sky-500/10 px-3 py-1 rounded-full border border-sky-400/20">
+                    Quality & Execution Architecture
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                    How We Deliver the Best in Our Services
+                  </h3>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-400 max-w-md font-normal">
+                  Built on specialized engineering squads, cutting-edge software stacks, and institutional accountability.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                <div className="p-6 rounded-2xl bg-slate-800/70 border border-slate-700/80 space-y-3 hover:border-sky-400/50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-400/30">
+                      <Users className="w-5 h-5" />
+                    </div>
+                    <h4 className="text-base font-extrabold text-white">Multidisciplinary Team Execution</h4>
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                    Every client project is handled by specialized roles—UI/UX design, frontend engineering, backend architecture, and QA/security audits—instead of a single generalist trying to do it all.
+                  </p>
+                  <div className="pt-1 flex items-center gap-2 text-[11px] font-mono text-sky-400">
+                    <span>UI/UX Design</span> • <span>Frontend</span> • <span>Backend</span> • <span>QA & SecOps</span>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-slate-800/70 border border-slate-700/80 space-y-3 hover:border-sky-400/50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-400/30">
+                      <Cpu className="w-5 h-5" />
+                    </div>
+                    <h4 className="text-base font-extrabold text-white">Modern Production Tech</h4>
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                    We bypass fragile, bloated site templates to build on battle-tested technologies (Next.js, React, Node.js, Express, MongoDB, and Tailwind CSS), ensuring zero tech debt and effortless scalability.
+                  </p>
+                  <div className="pt-1 flex items-center gap-2 text-[11px] font-mono text-cyan-400">
+                    <span>Next.js</span> • <span>React 19</span> • <span>Node.js</span> • <span>MongoDB</span>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-slate-800/70 border border-slate-700/80 space-y-3 hover:border-sky-400/50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-400/30">
+                      <Layers className="w-5 h-5" />
+                    </div>
+                    <h4 className="text-base font-extrabold text-white">Collaborative & Transparent Workflow</h4>
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                    You receive live staging preview links at each project milestone, accompanied by clear documentation and video walkthroughs before final sign-off.
+                  </p>
+                  <div className="pt-1 flex items-center gap-2 text-[11px] font-mono text-emerald-400">
+                    <span>Live Staging</span> • <span>Sprint Milestones</span> • <span>Video Demos</span>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-slate-800/70 border border-slate-700/80 space-y-3 hover:border-sky-400/50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-purple-500/20 text-purple-400 border border-purple-400/30">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <h4 className="text-base font-extrabold text-white">End-to-End Reliability</h4>
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                    From discovery and database schema design to post-launch maintenance, SSL deployment, and performance monitoring, we stand behind our code long after launch day.
+                  </p>
+                  <div className="pt-1 flex items-center gap-2 text-[11px] font-mono text-purple-400">
+                    <span>Schema Architecture</span> • <span>SSL & Telemetry</span> • <span>Continuous SLA</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
