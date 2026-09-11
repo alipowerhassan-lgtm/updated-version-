@@ -53,6 +53,12 @@ export default function App() {
     setServiceDetailOpen(true);
   };
 
+  const handleServiceClickFromHome = () => {
+    setActivePage('services');
+    window.history.pushState(null, '', '#services');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleSelectProject = (project) => {
     setSelectedProject(project);
     setProjectDetailOpen(true);
@@ -87,7 +93,8 @@ export default function App() {
       <main className="flex-1 w-full">
         {activePage === 'home' && (
           <HomeSection
-            onSelectService={handleSelectService}
+            onNavigate={handleNavigate}
+            onSelectService={handleServiceClickFromHome}
             onRequestProposal={() => handleOpenProposal()}
           />
         )}

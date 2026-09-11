@@ -28,7 +28,7 @@ import {
   Clock
 } from 'lucide-react';
 
-export default function HomeSection({ onSelectService, onRequestProposal }) {
+export default function HomeSection({ onSelectService, onRequestProposal, onNavigate }) {
   const [activeServicesCategory, setActiveServicesCategory] = useState('current');
 
   const currentServicesData = [
@@ -528,8 +528,8 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
               WE DELIVER AN END-TO-END SUITE OF NINE SPECIALIZED DIGITAL CAPABILITIES ENGINEERED TO ACCELERATE YOUR GROWTH AND SECURE YOUR ASSETS. FROM BUILDING HIGH-PERFORMANCE WEB AND MOBILE APPLICATIONS TO AUTOMATING WORKFLOWS WITH INTELLIGENT AI AGENTS AND HARDENING DATA WITH ENTERPRISE-GRADE WEB SECURITY, WE PROVIDE THE EXACT TECHNICAL FOUNDATION YOUR BUSINESS NEEDS TO SCALE WITHOUT COMPROMISE.
             </p>
 
-            {/* TWO CATEGORY TOGGLE: CURRENT SERVICES VS UPCOMING SERVICES */}
-            <div className="flex flex-wrap justify-center gap-3 pt-2">
+            {/* CATEGORY TOGGLE & DIRECT LINK TO SERVICES PAGE */}
+            <div className="flex flex-wrap justify-center items-center gap-3 pt-2">
               <button
                 onClick={() => setActiveServicesCategory('current')}
                 className={`px-5 py-2.5 rounded-2xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
@@ -553,6 +553,22 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
                 <Rocket className="w-4 h-4 text-purple-400" />
                 <span>Upcoming Services (3 R&D Pipelines)</span>
               </button>
+
+              <button
+                onClick={() => {
+                  if (onNavigate) {
+                    onNavigate('services');
+                    window.history.pushState(null, '', '#services');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  } else if (onSelectService) {
+                    onSelectService();
+                  }
+                }}
+                className="px-5 py-2.5 rounded-2xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-600 hover:from-sky-400 hover:to-cyan-300 text-slate-950 shadow-md hover:scale-105"
+              >
+                <span>Go to Full Services Page</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
 
@@ -562,7 +578,15 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
               {currentServicesData.map((service) => (
                 <ThreeDTiltCard key={service.id} maxTilt={8}>
                   <div
-                    onClick={() => onSelectService(service)}
+                    onClick={() => {
+                      if (onNavigate) {
+                        onNavigate('services');
+                        window.history.pushState(null, '', '#services');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      } else if (onSelectService) {
+                        onSelectService(service);
+                      }
+                    }}
                     className="glass-card glass-card-hover rounded-3xl p-6 border border-sky-150 flex flex-col justify-between cursor-pointer group relative overflow-hidden h-full"
                   >
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -587,7 +611,7 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
                     </div>
 
                     <div className="pt-3 border-t border-sky-100 flex items-center justify-between text-xs font-bold text-sky-600 group-hover:text-sky-700">
-                      <span>Click for Full Technical Specs</span>
+                      <span>View on Services Page</span>
                       <div className="w-7 h-7 rounded-full bg-sky-50 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-all">
                         <ArrowRight className="w-3.5 h-3.5" />
                       </div>
@@ -603,7 +627,18 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in duration-300">
               {upcomingServicesData.map((service) => (
                 <ThreeDTiltCard key={service.id} maxTilt={8}>
-                  <div className="glass-card rounded-3xl p-6 border border-purple-200/80 bg-white/90 shadow-md flex flex-col justify-between h-full relative overflow-hidden">
+                  <div 
+                    onClick={() => {
+                      if (onNavigate) {
+                        onNavigate('services');
+                        window.history.pushState(null, '', '#services');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      } else if (onSelectService) {
+                        onSelectService(service);
+                      }
+                    }}
+                    className="glass-card rounded-3xl p-6 border border-purple-200/80 bg-white/90 shadow-md flex flex-col justify-between h-full relative overflow-hidden cursor-pointer group"
+                  >
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
 
                     <div>
@@ -631,7 +666,7 @@ export default function HomeSection({ onSelectService, onRequestProposal }) {
                     </div>
 
                     <div className="pt-3 border-t border-purple-100 flex items-center justify-between text-xs font-bold text-purple-700">
-                      <span>Pre-Order R&D Architecture</span>
+                      <span>View on Services Page</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </div>
                   </div>
