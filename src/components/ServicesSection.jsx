@@ -33,7 +33,8 @@ import {
   MessageSquare,
   DollarSign,
   ChevronRight,
-  FolderOpen
+  FolderOpen,
+  Building2
 } from 'lucide-react';
 
 export default function ServicesSection({ onSelectService, onBookConsultation }) {
