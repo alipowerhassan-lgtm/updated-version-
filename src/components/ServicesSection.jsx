@@ -177,14 +177,128 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
     }
   ];
 
-  // Customization add-on options available for any selected website
+  // Exact Customization Add-ons from User Specification
   const customizationAddons = [
-    { id: 'ai-assistant', name: 'Integrated AI Copilot / Chat Agent', pkr: 35000, usd: 250, desc: 'Trained on your business docs & automated client queries' },
-    { id: 'bilingual-rtl', name: 'Bilingual & Arabic RTL Support', pkr: 25000, usd: 180, desc: 'Full Arabic/Urdu & English switchable layouts' },
-    { id: 'seo-booster', name: 'Advanced Technical SEO & Schema', pkr: 20000, usd: 150, desc: 'Structured schema, sitemap and instant indexing' },
-    { id: 'speed-boost', name: 'Sub-Second CDN & Image Optimizer', pkr: 15000, usd: 100, desc: 'Cloudflare Enterprise edge caching & WebP compression' },
-    { id: 'payment-gateway', name: 'Multi-Currency Payment Gateway', pkr: 30000, usd: 220, desc: 'Stripe, Paymob, JazzCash & EasyPaisa sync' },
-    { id: 'security-waf', name: 'Zero-Trust WAF & DDoS Shielding', pkr: 28000, usd: 200, desc: 'OWASP mitigation, SSL hardening & bot protection' }
+    {
+      id: 'additional-page',
+      name: 'Additional Custom Page',
+      scope: 'Designing and coding 1 extra responsive page beyond the base package (e.g., Careers, Case Studies).',
+      pkrRange: '5,000 – 12,000 PKR',
+      usdRange: '$50 – $150',
+      pkrMin: 5000,
+      pkrMax: 12000,
+      usdMin: 50,
+      usdMax: 150,
+      isRecurring: false
+    },
+    {
+      id: 'payment-gateway',
+      name: 'Payment Gateway Setup',
+      scope: 'Integrating 1 extra gateway (Stripe, PayPal, Paymob, JazzCash/EasyPaisa) + sandbox testing.',
+      pkrRange: '15,000 – 35,000 PKR',
+      usdRange: '$150 – $400',
+      pkrMin: 15000,
+      pkrMax: 35000,
+      usdMin: 150,
+      usdMax: 400,
+      isRecurring: false
+    },
+    {
+      id: 'user-auth',
+      name: 'User Authentication & Roles',
+      scope: 'JWT/OAuth setup, protected routes, sign-up/login, password reset, and role-based permissions (RBAC).',
+      pkrRange: '35,000 – 80,000 PKR',
+      usdRange: '$300 – $800',
+      pkrMin: 35000,
+      pkrMax: 80000,
+      usdMin: 300,
+      usdMax: 800,
+      isRecurring: false
+    },
+    {
+      id: 'crm-marketing',
+      name: 'CRM / Marketing Integration',
+      scope: 'Syncing contact/lead forms directly with HubSpot, Mailchimp, ActiveCampaign, or Google Sheets.',
+      pkrRange: '10,000 – 25,000 PKR',
+      usdRange: '$100 – $300',
+      pkrMin: 10000,
+      pkrMax: 25000,
+      usdMin: 100,
+      usdMax: 300,
+      isRecurring: false
+    },
+    {
+      id: 'admin-dashboard',
+      name: 'Custom Admin Dashboard',
+      scope: 'Lightweight backend panel for non-tech clients to view submissions, manage users, or edit records.',
+      pkrRange: '40,000 – 90,000 PKR',
+      usdRange: '$400 – $1,000',
+      pkrMin: 40000,
+      pkrMax: 90000,
+      usdMin: 400,
+      usdMax: 1000,
+      isRecurring: false
+    },
+    {
+      id: 'search-filter',
+      name: 'Advanced Search & Filtering',
+      scope: 'Multi-attribute dynamic filtering (category, price range, tags, live search) with debouncing and indexing.',
+      pkrRange: '20,000 – 45,000 PKR',
+      usdRange: '$200 – $500',
+      pkrMin: 20000,
+      pkrMax: 45000,
+      usdMin: 200,
+      usdMax: 500,
+      isRecurring: false
+    },
+    {
+      id: 'multilingual-i18n',
+      name: 'Multi-Language (i18n)',
+      scope: 'Internationalization setup (English/Urdu/Arabic), RTL layout mirroring, and translation dictionary files.',
+      pkrRange: '25,000 – 50,000 PKR',
+      usdRange: '$250 – $600',
+      pkrMin: 25000,
+      pkrMax: 50000,
+      usdMin: 250,
+      usdMax: 600,
+      isRecurring: false
+    },
+    {
+      id: 'core-web-vitals',
+      name: 'Speed & Core Web Vitals',
+      scope: 'Asset minification, Next.js image optimization, caching rules, CDN setup to achieve 90+ Lighthouse score.',
+      pkrRange: '15,000 – 30,000 PKR',
+      usdRange: '$150 – $350',
+      pkrMin: 15000,
+      pkrMax: 30000,
+      usdMin: 150,
+      usdMax: 350,
+      isRecurring: false
+    },
+    {
+      id: 'technical-seo',
+      name: 'Technical SEO & Schema',
+      scope: 'OpenGraph tags, JSON-LD structured data (Product, LocalBusiness, FAQ), dynamic sitemap, robots.txt.',
+      pkrRange: '15,000 – 30,000 PKR',
+      usdRange: '$150 – $350',
+      pkrMin: 15000,
+      pkrMax: 30000,
+      usdMin: 150,
+      usdMax: 350,
+      isRecurring: false
+    },
+    {
+      id: 'maintenance-retainer',
+      name: 'Monthly Maintenance Retainer',
+      scope: 'Regular package updates, cloud backups, uptime monitoring, bug fixes, and minor copy edits (up to 5 hrs/mo).',
+      pkrRange: '15,000 – 40,000 PKR/mo',
+      usdRange: '$150 – $400/mo',
+      pkrMin: 15000,
+      pkrMax: 40000,
+      usdMin: 150,
+      usdMax: 400,
+      isRecurring: true
+    }
   ];
 
   // Helper function to trigger interactive JS popup notification
@@ -207,21 +321,38 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       triggerToast(`Removed: "${addon.name}"`);
     } else {
       setSelectedCustomOptions([...selectedCustomOptions, addon]);
-      triggerToast(`Added: "${addon.name}" (+${currencyMode === 'PKR' ? addon.pkr.toLocaleString() + ' PKR' : '$' + addon.usd})`);
+      triggerToast(`Added: "${addon.name}" (+${currencyMode === 'PKR' ? addon.pkrRange : addon.usdRange})`);
     }
   };
 
-  // Calculate live dynamic customized price
+  // Calculate live dynamic customized price & itemized bill
   const calculateTotal = () => {
     if (!selectedWebType) return null;
-    const addonPkr = selectedCustomOptions.reduce((acc, curr) => acc + curr.pkr, 0);
-    const addonUsd = selectedCustomOptions.reduce((acc, curr) => acc + curr.usd, 0);
+    
+    // Non-recurring project add-ons
+    const projectAddons = selectedCustomOptions.filter(a => !a.isRecurring);
+    const recurringAddons = selectedCustomOptions.filter(a => a.isRecurring);
+
+    const projectAddonPkrMin = projectAddons.reduce((acc, curr) => acc + curr.pkrMin, 0);
+    const projectAddonPkrMax = projectAddons.reduce((acc, curr) => acc + curr.pkrMax, 0);
+    const projectAddonUsdMin = projectAddons.reduce((acc, curr) => acc + curr.usdMin, 0);
+    const projectAddonUsdMax = projectAddons.reduce((acc, curr) => acc + curr.usdMax, 0);
+
+    const monthlyPkrMin = recurringAddons.reduce((acc, curr) => acc + curr.pkrMin, 0);
+    const monthlyPkrMax = recurringAddons.reduce((acc, curr) => acc + curr.pkrMax, 0);
+    const monthlyUsdMin = recurringAddons.reduce((acc, curr) => acc + curr.usdMin, 0);
+    const monthlyUsdMax = recurringAddons.reduce((acc, curr) => acc + curr.usdMax, 0);
 
     return {
-      pkrMin: selectedWebType.pkrMin + addonPkr,
-      pkrMax: selectedWebType.pkrMax + addonPkr,
-      usdMin: selectedWebType.usdMin + addonUsd,
-      usdMax: selectedWebType.usdMax + addonUsd,
+      pkrMin: selectedWebType.pkrMin + projectAddonPkrMin,
+      pkrMax: selectedWebType.pkrMax + projectAddonPkrMax,
+      usdMin: selectedWebType.usdMin + projectAddonUsdMin,
+      usdMax: selectedWebType.usdMax + projectAddonUsdMax,
+      monthlyPkrMin,
+      monthlyPkrMax,
+      monthlyUsdMin,
+      monthlyUsdMax,
+      hasMonthly: recurringAddons.length > 0,
       addonCount: selectedCustomOptions.length
     };
   };
@@ -955,15 +1086,23 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                         {/* Selected Addons in Taskbar */}
                         {selectedCustomOptions.length > 0 && (
                           <div className="space-y-1.5 pt-1">
-                            <div className="text-[10px] font-mono text-slate-400 uppercase">
-                              Active Add-on Customizations ({selectedCustomOptions.length}):
+                            <div className="text-[10px] font-mono text-slate-400 uppercase flex items-center justify-between">
+                              <span>Selected Add-ons ({selectedCustomOptions.length}):</span>
+                              <span className="text-sky-400">Live Itemized Bill</span>
                             </div>
-                            <div className="space-y-1">
+                            <div className="space-y-1 max-h-44 overflow-y-auto pr-1">
                               {selectedCustomOptions.map(addon => (
-                                <div key={addon.id} className="p-2 rounded-xl bg-slate-800/60 text-[11px] flex items-center justify-between">
-                                  <span className="truncate pr-2">• {addon.name}</span>
+                                <div key={addon.id} className="p-2 rounded-xl bg-slate-800/80 text-[11px] flex items-center justify-between border border-slate-700/60">
+                                  <div className="truncate pr-2">
+                                    <span className="text-white font-medium">• {addon.name}</span>
+                                    {addon.isRecurring && (
+                                      <span className="ml-1 text-[9px] bg-purple-950 text-purple-300 px-1.5 py-0.5 rounded border border-purple-800">
+                                        Monthly
+                                      </span>
+                                    )}
+                                  </div>
                                   <span className="text-emerald-400 font-mono font-bold shrink-0">
-                                    +{currencyMode === 'PKR' ? addon.pkr.toLocaleString() + ' PKR' : '$' + addon.usd}
+                                    +{currencyMode === 'PKR' ? addon.pkrRange : addon.usdRange}
                                   </span>
                                 </div>
                               ))}
@@ -971,27 +1110,46 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                           </div>
                         )}
 
-                        {/* Live Total Calculation */}
+                        {/* Live Total Bill Calculation */}
                         {totals && (
-                          <div className="pt-3 border-t border-slate-800 space-y-1">
-                            <div className="text-[11px] font-mono text-emerald-400 font-bold uppercase flex items-center justify-between">
-                              <span>Estimated Investment:</span>
-                              <span className="text-[10px] font-mono text-slate-400">All Included</span>
+                          <div className="pt-3 border-t border-slate-800 space-y-2">
+                            <div>
+                              <div className="text-[10px] font-mono text-emerald-400 font-bold uppercase flex items-center justify-between">
+                                <span>One-Time Project Bill:</span>
+                                <span className="text-[10px] font-mono text-slate-400">All Add-ons Included</span>
+                              </div>
+                              <div className="text-xl font-black font-mono text-white">
+                                {currencyMode === 'PKR' ? (
+                                  <>PKR {totals.pkrMin.toLocaleString()} – {totals.pkrMax.toLocaleString()}</>
+                                ) : (
+                                  <>${totals.usdMin.toLocaleString()} – ${totals.usdMax.toLocaleString()}</>
+                                )}
+                              </div>
                             </div>
-                            <div className="text-xl font-black font-mono text-white">
-                              {currencyMode === 'PKR' ? (
-                                <>PKR {totals.pkrMin.toLocaleString()} – {totals.pkrMax.toLocaleString()}</>
-                              ) : (
-                                <>${totals.usdMin.toLocaleString()} – ${totals.usdMax.toLocaleString()}</>
-                              )}
-                            </div>
+
+                            {/* Recurring Monthly Retainer Bill if selected */}
+                            {totals.hasMonthly && (
+                              <div className="p-2.5 rounded-xl bg-purple-950/60 border border-purple-700/60">
+                                <div className="text-[10px] font-mono text-purple-300 font-bold uppercase flex items-center justify-between">
+                                  <span>Monthly Retainer:</span>
+                                  <span className="text-[10px] text-purple-200">5 hrs/mo support</span>
+                                </div>
+                                <div className="text-base font-black font-mono text-purple-200">
+                                  {currencyMode === 'PKR' ? (
+                                    <>PKR {totals.monthlyPkrMin.toLocaleString()} – {totals.monthlyPkrMax.toLocaleString()}/mo</>
+                                  ) : (
+                                    <>${totals.monthlyUsdMin.toLocaleString()} – ${totals.monthlyUsdMax.toLocaleString()}/mo</>
+                                  )}
+                                </div>
+                              </div>
+                            )}
                           </div>
                         )}
 
                         <button
                           onClick={() => {
                             setShowWebsiteTypesModal(false);
-                            onBookConsultation(`${selectedWebType.title} (${currencyMode} Scope) with ${selectedCustomOptions.length} Customizations`);
+                            onBookConsultation(`${selectedWebType.title} (${currencyMode} Scope) with ${selectedCustomOptions.length} Customizations: ${selectedCustomOptions.map(a => a.name).join(', ')}`);
                             triggerToast(`Proceeding with ${selectedWebType.title} proposal request!`);
                           }}
                           className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-600 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
@@ -1017,40 +1175,45 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                         <Sliders className="w-4 h-4 text-sky-600" />
                         <span>Add-on Customizer Options</span>
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500 font-bold">
-                        Optional
+                      <span className="text-[10px] font-mono text-sky-700 bg-sky-100 px-2 py-0.5 rounded-full font-bold">
+                        10 Options Available
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-600 leading-snug">
-                      Toggle optional capabilities to dynamically calculate the project cost in the side taskbar.
+                      Toggle optional capabilities to dynamically calculate the live project bill in the side taskbar.
                     </p>
 
-                    <div className="space-y-2 pt-1">
+                    <div className="space-y-2.5 pt-1 max-h-[460px] overflow-y-auto pr-1">
                       {customizationAddons.map((addon) => {
                         const isAdded = selectedCustomOptions.some(a => a.id === addon.id);
                         return (
                           <div
                             key={addon.id}
                             onClick={() => handleToggleAddon(addon)}
-                            className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-2 ${
+                            className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-2.5 ${
                               isAdded
-                                ? 'bg-sky-50 border-sky-500 shadow-xs'
+                                ? 'bg-sky-50/90 border-sky-500 shadow-xs ring-1 ring-sky-400/30'
                                 : 'bg-white border-slate-200 hover:border-slate-300'
                             }`}
                           >
-                            <div>
-                              <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                            <div className="space-y-0.5 flex-1">
+                              <div className="text-xs font-black text-slate-900 flex items-center justify-between gap-1">
                                 <span>{addon.name}</span>
+                                {addon.isRecurring && (
+                                  <span className="text-[9px] font-mono font-bold bg-purple-100 text-purple-800 px-1.5 py-0.2 rounded">
+                                    Recurring
+                                  </span>
+                                )}
                               </div>
-                              <div className="text-[10px] text-slate-500 mt-0.5">
-                                {addon.desc}
+                              <div className="text-[11px] text-slate-500 leading-tight">
+                                {addon.scope}
                               </div>
-                              <div className="text-[11px] font-mono font-bold text-sky-700 mt-1">
-                                +{currencyMode === 'PKR' ? addon.pkr.toLocaleString() + ' PKR' : '$' + addon.usd}
+                              <div className="text-[11px] font-mono font-extrabold text-sky-700 pt-1">
+                                +{currencyMode === 'PKR' ? addon.pkrRange : addon.usdRange}
                               </div>
                             </div>
 
-                            <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-1 ${
+                            <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-all ${
                               isAdded ? 'bg-sky-600 text-white' : 'border border-slate-300'
                             }`}>
                               {isAdded ? <Check className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5 text-slate-400" />}
