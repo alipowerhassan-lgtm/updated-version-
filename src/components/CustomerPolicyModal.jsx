@@ -26,7 +26,7 @@ export default function CustomerPolicyModal({ isOpen, onClose }) {
   const steps = [
     {
       step: '01',
-      title: 'CONTACT US',
+      title: 'Contact Us',
       desc: 'The customer contacts us to place an order or share their requirements.',
       icon: <PhoneCall className="w-6 h-6 text-sky-600" />,
       badge: 'Step 1 • Initial Inquiry',
@@ -34,7 +34,7 @@ export default function CustomerPolicyModal({ isOpen, onClose }) {
     },
     {
       step: '02',
-      title: 'DISCUSS PROJECT',
+      title: 'Discuss Project',
       desc: 'We discuss the details about the project the customer wants.',
       icon: <MessageSquare className="w-6 h-6 text-indigo-600" />,
       badge: 'Step 2 • Scope Discovery',
@@ -42,7 +42,7 @@ export default function CustomerPolicyModal({ isOpen, onClose }) {
     },
     {
       step: '03',
-      title: 'PAY 50% ADVANCE',
+      title: 'Pay 50% Advance',
       desc: 'The customer pays 50% advance before we show the project.',
       icon: <CreditCard className="w-6 h-6 text-blue-600" />,
       badge: '50% Milestone • Project Kickoff',
@@ -51,7 +51,7 @@ export default function CustomerPolicyModal({ isOpen, onClose }) {
     },
     {
       step: '04',
-      title: 'SIGN AGREEMENT',
+      title: 'Sign Agreement',
       desc: 'The agreement is signed by both parties.',
       icon: <PenTool className="w-6 h-6 text-teal-600" />,
       badge: 'Step 4 • Contract Sign-Off',
@@ -59,7 +59,7 @@ export default function CustomerPolicyModal({ isOpen, onClose }) {
     },
     {
       step: '05',
-      title: 'PAY 30% FOR REVIEW',
+      title: 'Pay 30% for Review',
       desc: 'For the review process, the client pays 30% of the payment.',
       icon: <FileText className="w-6 h-6 text-amber-600" />,
       badge: '30% Milestone • Staging Review',
@@ -68,7 +68,7 @@ export default function CustomerPolicyModal({ isOpen, onClose }) {
     },
     {
       step: '06',
-      title: 'PAY 20% FOR DEPLOYMENT',
+      title: 'Pay 20% for Deployment',
       desc: 'For the final deployment, the client pays the last 20% of the payment.',
       icon: <Rocket className="w-6 h-6 text-emerald-600" />,
       badge: '20% Milestone • Live Deployment',
@@ -115,7 +115,7 @@ export default function CustomerPolicyModal({ isOpen, onClose }) {
               </span>
             </div>
             <h3 className="text-xl sm:text-2xl font-black text-sky-300 tracking-tight">
-              CUSTOMER POLICY
+              Customer Policy
             </h3>
             <p className="text-xs text-slate-300 font-medium">
               Your Satisfaction is Our Priority • Transparent 6-Step Milestone Framework

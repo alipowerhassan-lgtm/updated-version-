@@ -46,7 +46,7 @@ export default function FeedbackSection() {
     },
     {
       id: 2,
-      quote: "The autonomous AI reasoning agents built by Volen automated 42% of our tier-1 financial support tickets within 3 weeks of deployment. The RG vector search precision is virtually flawless.",
+      quote: "The autonomous AI reasoning agents built by Volen automated 42% of our tier-1 financial support tickets within 3 weeks of deployment. The RAG vector search precision is virtually flawless.",
       author: "Head of Operations, FinTech Services",
       company: "Lombard Financial UK",
       flag: '🇬🇧',
@@ -82,7 +82,7 @@ export default function FeedbackSection() {
     },
     {
       id: 5,
-      quote: "Their digital marketing funnels and technical SEO strategy increased our organic lead conversion rate by 180% in UAE. They truly embody their philosophy: Together we Build, Grow & Secure.",
+      quote: "Their digital marketing funnels and technical SEO strategy increased our organic lead conversion rate by 180% in UAE. They truly embody their philosophy: Together We Build, Grow & Secure.",
       author: "VP of Growth & E-Commerce",
       company: "Gulf Retail Holdings",
       flag: '🇦🇪',

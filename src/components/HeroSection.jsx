@@ -43,7 +43,7 @@ export default function HeroSection({ onBookConsultation }) {
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-              We build modern Web, Mobile, Cloud, and AI systems tailored to enterprise standards. Engineered to build, grow, and secure.
+              We build modern Web, Mobile, Cloud, and AI systems tailored to enterprise standards. Engineered to Build, Grow, and Secure.
             </p>
 
             {/* Brand Philosophy Chips */}

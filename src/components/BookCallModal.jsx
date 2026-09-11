@@ -47,7 +47,7 @@ export default function BookCallModal({ isOpen, onClose }) {
               Free 30-Min Strategy Call
             </span>
           </div>
-          <h3 className="text-xl font-bold tracking-tight text-white">Book A Call With Volen Solution</h3>
+          <h3 className="text-xl font-bold tracking-tight text-white">Book a Call with Volen Solution</h3>
           <p className="text-xs text-sky-200/80 mt-1">
             Discuss your enterprise architecture, timeline, and security requirements with our lead engineers.
           </p>

@@ -161,7 +161,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
       purpose: 'Online courses and progress tracking; video streaming integrations, user dashboards, quiz engines, automated certificates.',
       pkrRange: '200,000 – 600,000 PKR',
       usdRange: '$2,500 – $7,000',
-      pkrMin: 20000,
+      pkrMin: 200000,
       pkrMax: 600000,
       usdMin: 2500,
       usdMax: 7000,

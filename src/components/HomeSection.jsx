@@ -34,10 +34,10 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
   const currentServicesData = [
     {
       id: 1,
-      title: 'WEB DEVELOPMENT',
+      title: 'Web Development',
       shortTitle: 'Web Development',
-      description: 'We build fast, responsive and secure websites tailored to your business needs.',
-      fullDescription: 'We build fast, responsive and secure websites tailored to your business needs using modern full-stack architectures (React, Next.js, Node.js). High-speed performance, SEO excellence, and rock-solid scalability guaranteed.',
+      description: 'We build fast, responsive, and secure websites tailored to your business needs.',
+      fullDescription: 'We build fast, responsive, and secure websites tailored to your business needs using modern full-stack architectures (React, Next.js, Node.js). High-speed performance, SEO excellence, and rock-solid scalability guaranteed.',
       categoryBadge: 'Full-Stack Web',
       techStack: ['React', 'Next.js', 'Node.js', 'Express', 'Tailwind CSS'],
       deliverables: [
@@ -50,7 +50,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
     },
     {
       id: 2,
-      title: 'MOBILE APP DEVELOPMENT',
+      title: 'Mobile App Development',
       shortTitle: 'Mobile App Development',
       description: 'We create user-friendly, high-performance mobile apps for Android and iOS.',
       fullDescription: 'We create user-friendly, high-performance mobile apps for Android and iOS using cross-platform React Native frameworks. Delivers smooth 60FPS UI, push notifications, and offline data sync.',
@@ -66,7 +66,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
     },
     {
       id: 3,
-      title: 'AI SOLUTIONS',
+      title: 'AI Solutions',
       shortTitle: 'AI Solutions',
       description: 'We deliver smart AI solutions to automate processes and drive business growth.',
       fullDescription: 'We deliver smart AI solutions to automate processes and drive business growth. Featuring LLM integrations, autonomous agent pipelines, vector databases, and custom reasoning engines.',
@@ -82,7 +82,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
     },
     {
       id: 4,
-      title: 'DASHBOARD SYSTEMS',
+      title: 'Dashboard Systems',
       shortTitle: 'Dashboard Systems',
       description: 'We develop powerful dashboards that turn data into insights for better decisions.',
       fullDescription: 'We develop powerful dashboards that turn data into insights for better decisions. Real-time PostgreSQL telemetry, WebSocket feeds, and executive metric panels.',
@@ -98,7 +98,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
     },
     {
       id: 5,
-      title: 'UI/UX DESIGN',
+      title: 'UI/UX Design',
       shortTitle: 'UI/UX Design',
       description: 'We design intuitive and engaging interfaces that deliver great user experiences.',
       fullDescription: 'We design intuitive and engaging interfaces that deliver great user experiences. User-centered wireframing, high-fidelity Figma prototypes, and complete component design systems.',
@@ -114,7 +114,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
     },
     {
       id: 6,
-      title: 'GRAPHIC DESIGNING',
+      title: 'Graphic Designing',
       shortTitle: 'Graphic Designing',
       description: 'We create stunning visuals that represent your brand and leave a lasting impact.',
       fullDescription: 'We create stunning visuals that represent your brand and leave a lasting impact. Scalable vector logo marks, corporate visual guidelines, and digital brand kits.',
@@ -130,7 +130,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
     },
     {
       id: 7,
-      title: 'MARKETING',
+      title: 'Marketing',
       shortTitle: 'Marketing',
       description: 'We help your brand grow with result-driven digital marketing strategies across platforms.',
       fullDescription: 'We help your brand grow with result-driven digital marketing strategies across platforms. Technical SEO audits, high-converting growth funnels, and targeted digital acquisition.',
@@ -146,7 +146,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
     },
     {
       id: 8,
-      title: 'WEB SECURITY',
+      title: 'Web Security',
       shortTitle: 'Web Security',
       description: 'We protect your website and data with advanced security solutions and best practices.',
       fullDescription: 'We protect your website and data with advanced security solutions and best practices. Hardened zero-trust security, WAF shielding, OWASP compliance, and SSL/TLS endpoint encryption.',
@@ -162,10 +162,10 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
     },
     {
       id: 9,
-      title: 'MAINTENANCE',
+      title: 'Maintenance',
       shortTitle: 'Maintenance',
-      description: 'We provide ongoing maintenance and support to keep your systems updated, secure and running smoothly.',
-      fullDescription: 'We provide ongoing maintenance and support to keep your systems updated, secure and running smoothly. 24/7 post-deployment monitoring, database indexing, and 99.99% system availability targets.',
+      description: 'We provide ongoing maintenance and support to keep your systems updated, secure, and running smoothly.',
+      fullDescription: 'We provide ongoing maintenance and support to keep your systems updated, secure, and running smoothly. 24/7 post-deployment monitoring, database indexing, and 99.99% system availability targets.',
       categoryBadge: 'Reliability & SLAs',
       techStack: ['24/7 Monitoring', 'PostgreSQL Tuning', 'Automated Backups', 'SLA Support'],
       deliverables: [
@@ -181,7 +181,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
   const upcomingServicesData = [
     {
       id: 101,
-      title: 'QUANTUM CLOUD SHIELDING',
+      title: 'Quantum Cloud Shielding',
       shortTitle: 'Quantum Security',
       description: 'Next-generation post-quantum cryptography, lattice-based API encryption, and hardware-isolated key vaults.',
       fullDescription: 'Engineering quantum-resilient cryptographic primitives and lattice-based key exchange protocols to safeguard enterprise APIs against future quantum computing decryption vectors.',
@@ -192,7 +192,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
     },
     {
       id: 102,
-      title: 'AUTONOMOUS ROBOTICS WORKFLOWS',
+      title: 'Autonomous Robotics Workflows',
       shortTitle: 'Robotics Swarm',
       description: 'Multi-agent swarm intelligence, ROS2 framework orchestration, and real-time spatial robotics telemetry.',
       fullDescription: 'Autonomous robotics orchestration engine uniting ROS2 middleware with multi-agent swarm intelligence for industrial automation and autonomous warehouse telemetry.',
@@ -203,7 +203,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
     },
     {
       id: 103,
-      title: 'SPATIAL COMPUTING & AR WORKSPACES',
+      title: 'Spatial Computing & AR Workspaces',
       shortTitle: 'Spatial AR/VR',
       description: 'Immersive 3D web spatial interfaces, Apple Vision Pro WebXR frameworks, and interactive CAD digital twins.',
       fullDescription: 'Designing WebXR 3D spatial computing environments for enterprise engineering. Features interactive real-time digital twin visualization and Vision Pro AR workspace synchronization.',
@@ -235,8 +235,8 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
 
           {/* Main Headline */}
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-            Transforming (Ideas) Into <br className="hidden sm:inline" />
-            <span className="tech-gradient-text">Powerful (Full Stack) Solutions</span>
+            Transforming Ideas Into <br className="hidden sm:inline" />
+            <span className="tech-gradient-text">Powerful Full-Stack Solutions</span>
           </h1>
 
           {/* Slogan Badge Pill */}
@@ -474,7 +474,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
                 </div>
                 <div>
                   <span className="text-xs font-bold text-sky-600 uppercase tracking-widest">Global Outlook</span>
-                  <h3 className="text-xl font-extrabold text-slate-900">OUR VISION</h3>
+                  <h3 className="text-xl font-extrabold text-slate-900">Our Vision</h3>
                 </div>
               </div>
 
@@ -497,7 +497,7 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
                 </div>
                 <div>
                   <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest">Execution Standard</span>
-                  <h3 className="text-xl font-extrabold text-slate-900">OUR GOAL</h3>
+                  <h3 className="text-xl font-extrabold text-slate-900">Our Goal</h3>
                 </div>
               </div>
 
@@ -521,11 +521,11 @@ export default function HomeSection({ onSelectService, onRequestProposal, onNavi
             </span>
 
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              OUR SERVICES
+              Our Services
             </h2>
 
-            <p className="text-xs sm:text-sm font-black text-slate-800 leading-relaxed uppercase tracking-wide bg-sky-50/80 p-6 rounded-3xl border border-sky-200/80 shadow-xs">
-              WE DELIVER AN END-TO-END SUITE OF NINE SPECIALIZED DIGITAL CAPABILITIES ENGINEERED TO ACCELERATE YOUR GROWTH AND SECURE YOUR ASSETS. FROM BUILDING HIGH-PERFORMANCE WEB AND MOBILE APPLICATIONS TO AUTOMATING WORKFLOWS WITH INTELLIGENT AI AGENTS AND HARDENING DATA WITH ENTERPRISE-GRADE WEB SECURITY, WE PROVIDE THE EXACT TECHNICAL FOUNDATION YOUR BUSINESS NEEDS TO SCALE WITHOUT COMPROMISE.
+            <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed bg-sky-50/80 p-6 rounded-3xl border border-sky-200/80 shadow-xs">
+              We deliver an end-to-end suite of nine specialized digital capabilities engineered to accelerate your growth and secure your assets. From building high-performance web and mobile applications to automating workflows with intelligent AI agents and hardening data with enterprise-grade web security, we provide the exact technical foundation your business needs to scale without compromise.
             </p>
 
             {/* CATEGORY TOGGLE & DIRECT LINK TO SERVICES PAGE */}

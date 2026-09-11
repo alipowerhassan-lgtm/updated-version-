@@ -22,7 +22,7 @@ export default function AboutSection() {
       title: 'Quality Engineering & CI/CD Standards',
       desc: 'Our code passes rigorous automated linting, unit testing (>90% coverage target), and static analysis prior to production staging, eliminating tech debt from day one.',
       icon: <Award className="w-5 h-5 text-emerald-600" />,
-      highlights: ['Strict Automated Test Suites', 'Modular Clean Architecture', 'Zero technical debt policy']
+      highlights: ['Strict Automated Test Suites', 'Modular Clean Architecture', 'Zero Technical Debt Policy']
     }
   };
 
@@ -103,7 +103,7 @@ export default function AboutSection() {
             </p>
 
             <p className="text-slate-600 text-sm leading-relaxed mb-6">
-              We empower organizations to move fast without breaking systems—building software that stands resilient against high traffic spikes and cyber security threats.
+              We empower organizations to move fast without breaking systems—building software that stands resilient against high traffic spikes and cybersecurity threats.
             </p>
 
             <div className="grid grid-cols-2 gap-3 text-xs font-semibold text-slate-700 pt-4 border-t border-sky-100">

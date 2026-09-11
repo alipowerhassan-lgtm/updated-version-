@@ -62,7 +62,7 @@ export default function Footer({ onNavigate, onRequestProposal }) {
 
             <div className="text-xs font-semibold text-sky-400 pt-1 flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-sky-400" />
-              <span>Core Philosophy: "Together we Build, Grow & Secure"</span>
+              <span>Core Philosophy: "Together We Build, Grow & Secure"</span>
             </div>
           </div>
 
@@ -125,14 +125,14 @@ export default function Footer({ onNavigate, onRequestProposal }) {
         {/* Bottom Copyright & Back To Top */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 pt-2">
           <div>
-            © 2026 <span className="text-slate-200 font-bold">VOLEN SOLUTION</span>. All rights reserved. <span className="text-sky-400 font-medium">Together we Build, Grow & Secure.</span>
+            © 2026 <span className="text-slate-200 font-bold">VOLEN SOLUTION</span>. All rights reserved. <span className="text-sky-400 font-medium">Together We Build, Grow & Secure.</span>
           </div>
 
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-bold border border-slate-800 transition-colors cursor-pointer shadow-sm hover:border-sky-500/40"
           >
-            <span>Back To Top</span>
+            <span>Back to Top</span>
             <ArrowUp className="w-3.5 h-3.5 text-sky-400" />
           </button>
         </div>

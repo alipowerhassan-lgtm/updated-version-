@@ -43,7 +43,7 @@ export default function CalculatorPage({ onRequestProposal }) {
       perPageLow: 3000,
       perPageHigh: 10000,
       perPageUsdText: '$10 – $35',
-      notes: 'Project-based flat fee; content/copywriting PKR 4,000 - 6,000/page.'
+      notes: 'Project-based flat fee; content/copywriting PKR 4,000 – 6,000/page.'
     },
     {
       id: 'uae',
@@ -77,7 +77,7 @@ export default function CalculatorPage({ onRequestProposal }) {
       perPageLow: 50,
       perPageHigh: 300,
       perPageUsdText: '$50 – $300',
-      notes: 'Value/hourly/project based; hourly developer rates $50 – $150+/hr.'
+      notes: 'Value/hourly/project-based; hourly developer rates $50 – $150+/hr.'
     },
     {
       id: 'ksa',
@@ -128,7 +128,7 @@ export default function CalculatorPage({ onRequestProposal }) {
       perPageLow: 30,
       perPageHigh: 120,
       perPageUsdText: '$30 – $120',
-      notes: 'Hourly ($15 – $50/hr general; $50 – $100+/hr senior) or Milestone-based fixed price.'
+      notes: 'Hourly ($15 – $50/hr general; $50 – $100+/hr senior) or milestone-based fixed price.'
     },
     {
       id: 'linkedin',

@@ -22,7 +22,7 @@ export const projectsData = [
       'Sub-15ms database query response time',
       'Real-time WebSocket dispatch monitoring',
       'Zero-downtime microservice deployment',
-      'Role-Based access control for global dispatchers'
+      'Role-based access control for global dispatchers'
     ],
     icon: <LayoutDashboard className="w-6 h-6 text-sky-600" />,
     matchKeys: ['web', 'web development', 'corporate', 'directory', 'listing', 'logistics', 'fleet']
@@ -94,7 +94,7 @@ export const projectsData = [
       'Automated DDoS & botnet traffic filtering',
       'Zero-trust API key authentication',
       'Real-time intrusion detection logging',
-      'SOC2 & GDPR compliance ready'
+      'SOC-2 & GDPR Compliance Ready'
     ],
     icon: <ShieldCheck className="w-6 h-6 text-indigo-600" />,
     matchKeys: ['cloud', 'devops', 'api', 'maintenance', 'sla', 'security', 'maint']
@@ -105,7 +105,7 @@ export const projectsData = [
     client: 'E-Commerce Growth Enterprise',
     categoryBadge: 'Growth & Funnel Engineering',
     description: 'High-converting multi-touch acquisition funnel and technical SEO infrastructure boosting conversion by 3.2x.',
-    fullDescription: 'Engineered high-performance web landing funnels with Next.js SSR, core web vitals optimization (100 Lighthouse score), and multi-touch attribution analytics.',
+    fullDescription: 'Engineered high-performance web landing funnels with Next.js SSR, Core Web Vitals optimization (100 Lighthouse score), and multi-touch attribution analytics.',
     metrics: '📈 3.2x Conversion Boost • +85% Retention',
     techStack: ['Next.js 15', 'Technical SEO', 'Analytics Engine', 'Tailwind CSS'],
     highlights: [
