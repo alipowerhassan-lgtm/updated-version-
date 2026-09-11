@@ -40,7 +40,8 @@ import {
   Target,
   PenTool,
   Server,
-  LifeBuoy
+  LifeBuoy,
+  MessageCircle
 } from 'lucide-react';
 
 export default function ServicesSection({ onSelectService, onBookConsultation }) {
@@ -70,6 +71,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       pkrMax: 40000,
       usdMin: 200,
       usdMax: 600,
+      baseDays: 5,
       icon: <Zap className="w-5 h-5 text-amber-500" />,
       features: ['High-Conversion Lead Capture', 'A/B Testing Integration', 'Instant WhatsApp/Email Form Sync', 'Micro-Fast 1-Page Layout'],
       badge: 'High Conversion'
@@ -84,6 +86,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       pkrMax: 55000,
       usdMin: 250,
       usdMax: 700,
+      baseDays: 7,
       icon: <Briefcase className="w-5 h-5 text-sky-500" />,
       features: ['Interactive 3D Project Showcase', 'PDF CV Instant Download', 'Custom Case Study Pages', 'Client Inquiry Form'],
       badge: 'Personal Brand'
@@ -98,6 +101,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       pkrMax: 140000,
       usdMin: 700,
       usdMax: 2200,
+      baseDays: 14,
       icon: <Building2 className="w-5 h-5 text-blue-600" />,
       features: ['5–10 Custom Designed Pages', 'Headless CMS Integration', 'Corporate Team & Credibility Hub', 'Lead Qualification Workflows'],
       badge: 'Enterprise B2B'
@@ -112,6 +116,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       pkrMax: 90000,
       usdMin: 500,
       usdMax: 1500,
+      baseDays: 10,
       icon: <FileText className="w-5 h-5 text-emerald-500" />,
       features: ['Google SEO & Core Web Vitals Tuned', 'Markdown / Rich Article Editor', 'Newsletter Lead Magnet Integration', 'Category Tags & Live Search'],
       badge: 'SEO Growth'
@@ -126,6 +131,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       pkrMax: 350000,
       usdMin: 1500,
       usdMax: 4500,
+      baseDays: 24,
       icon: <ShoppingBag className="w-5 h-5 text-rose-500" />,
       features: ['Full Catalog, Cart & Checkout Flow', 'Stripe, Paymob, COD & Bank Wire Gateways', 'Live Inventory & Order Dispatch', 'Customer Account Dashboards'],
       badge: 'Full Store'
@@ -140,6 +146,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       pkrMax: 450000,
       usdMin: 1800,
       usdMax: 5000,
+      baseDays: 30,
       icon: <Globe2 className="w-5 h-5 text-indigo-500" />,
       features: ['Multi-Parameter Database Filtering', 'Interactive Map Geolocation Pins', 'Vendor / User Listing Submissions', 'Claim & Verify Business Workflows'],
       badge: 'Directory Portal'
@@ -154,6 +161,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       pkrMax: 600000,
       usdMin: 2500,
       usdMax: 7000,
+      baseDays: 35,
       icon: <GraduationCap className="w-5 h-5 text-purple-500" />,
       features: ['Secure Cloud Video Streaming', 'Student Course Progress Tracking', 'Interactive Quiz & Grade Engine', 'Auto-Generated PDF Certificates'],
       badge: 'LMS Platform'
@@ -168,6 +176,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       pkrMax: 500000,
       usdMin: 2200,
       usdMax: 6500,
+      baseDays: 28,
       icon: <MessageSquare className="w-5 h-5 text-teal-500" />,
       features: ['Real-Time WebSocket Discussions', 'Threaded Replies & Upvote Karma', 'Moderator Dashboard & Filters', 'Real-time Push & Sound Alerts'],
       badge: 'Community Portal'
@@ -182,6 +191,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       pkrMax: 1200000,
       usdMin: 3500,
       usdMax: 12000,
+      baseDays: 45,
       icon: <Cpu className="w-5 h-5 text-cyan-500" />,
       features: ['Enterprise RBAC & SSO Multi-Auth', 'Stripe Recurring SaaS Subscriptions', 'Scalable PostgreSQL / Redis Architecture', 'Custom External API Integrations'],
       badge: 'Enterprise SaaS'
@@ -633,6 +643,20 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
     const monthlyUsdMin = recurringAddons.reduce((acc, curr) => acc + curr.usdMin, 0);
     const monthlyUsdMax = recurringAddons.reduce((acc, curr) => acc + curr.usdMax, 0);
 
+    const baseDays = selectedWebType.baseDays || 7;
+    const extraDays = projectAddons.length * 2;
+    const totalDays = baseDays + extraDays;
+    let timelineText = '';
+    if (totalDays <= 7) {
+      timelineText = `${totalDays} – ${totalDays + 2} Business Days`;
+    } else if (totalDays <= 21) {
+      const weeks = Math.round(totalDays / 7);
+      timelineText = `${weeks} – ${weeks + 1} Weeks`;
+    } else {
+      const weeks = Math.round(totalDays / 7);
+      timelineText = `${weeks} – ${weeks + 2} Weeks`;
+    }
+
     return {
       pkrMin: selectedWebType.pkrMin + projectAddonPkrMin,
       pkrMax: selectedWebType.pkrMax + projectAddonPkrMax,
@@ -643,7 +667,8 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
       monthlyUsdMin,
       monthlyUsdMax,
       hasMonthly: recurringAddons.length > 0,
-      addonCount: selectedCustomOptions.length
+      addonCount: selectedCustomOptions.length,
+      timelineText
     };
   };
 
@@ -1537,16 +1562,47 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                               </div>
                             )}
 
-                            <button
-                              onClick={() => {
-                                setShowWebsiteTypesModal(false);
-                                onBookConsultation(`${selectedWebType.title} (${currencyMode} Scope) with ${selectedCustomOptions.length} Customizations: ${selectedCustomOptions.map(a => a.name).join(', ')}`);
-                                triggerToast(`Proceeding with ${selectedWebType.title} proposal request!`);
-                              }}
-                              className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-600 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
-                            >
-                              <span>Request Proposal for this Selection →</span>
-                            </button>
+                            {/* Estimated Turnaround Timeline */}
+                            {totals?.timelineText && (
+                              <div className="p-3 rounded-2xl bg-sky-950/50 border border-sky-800/60 flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <Clock className="w-4 h-4 text-sky-400 shrink-0" />
+                                  <div>
+                                    <div className="text-[10px] font-mono uppercase text-slate-400">Estimated Turnaround:</div>
+                                    <div className="text-xs font-black font-mono text-sky-300">{totals.timelineText}</div>
+                                  </div>
+                                </div>
+                                <span className="text-[9px] font-mono bg-sky-900/80 text-sky-200 px-2 py-0.5 rounded border border-sky-700/60">
+                                  Agile Sprints
+                                </span>
+                              </div>
+                            )}
+
+                            {/* WhatsApp Quick-Connect & Proposal Actions */}
+                            <div className="space-y-2 mt-2">
+                              <a
+                                href={`https://wa.me/?text=${encodeURIComponent(
+                                  `Hello Volen Solution! I configured a project on your website:\n• Project: ${selectedWebType.title}\n• One-Time Budget: ${currencyMode === 'PKR' ? `PKR ${totals?.pkrMin.toLocaleString()} – ${totals?.pkrMax.toLocaleString()}` : `$${totals?.usdMin.toLocaleString()} – ${totals?.usdMax.toLocaleString()}`}${totals?.hasMonthly ? `\n• Monthly Retainer: ${currencyMode === 'PKR' ? `PKR ${totals?.monthlyPkrMin.toLocaleString()} – ${totals?.monthlyPkrMax.toLocaleString()}/mo` : `$${totals?.monthlyUsdMin.toLocaleString()} – ${totals?.monthlyUsdMax.toLocaleString()}/mo`}` : ''}\n• Est. Timeline: ${totals?.timelineText || 'Standard Sprint'}${selectedCustomOptions.length > 0 ? `\n• Add-ons (${selectedCustomOptions.length}): ${selectedCustomOptions.map(a => a.name).join(', ')}` : ''}\n\nI would like to discuss this technical scope and kick off development.`
+                                )}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full py-2.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <MessageCircle className="w-4 h-4" />
+                                <span>Discuss Scope on WhatsApp →</span>
+                              </a>
+
+                              <button
+                                onClick={() => {
+                                  setShowWebsiteTypesModal(false);
+                                  onBookConsultation(`${selectedWebType.title} (${currencyMode} Scope) with ${selectedCustomOptions.length} Customizations: ${selectedCustomOptions.map(a => a.name).join(', ')}`);
+                                  triggerToast(`Proceeding with ${selectedWebType.title} proposal request!`);
+                                }}
+                                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-600 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <span>Request Formal Proposal →</span>
+                              </button>
+                            </div>
                           </div>
                         ) : (
                           <div className="text-center py-6 space-y-2 text-slate-400 text-xs">
@@ -1765,16 +1821,45 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                               </div>
                             </div>
 
-                            <button
-                              onClick={() => {
-                                setShowWebsiteTypesModal(false);
-                                onBookConsultation(`${selectedMarketingPackage.title} [Marketing Retainer - ${currencyMode} Scope]: ${currencyMode === 'PKR' ? selectedMarketingPackage.pkrRange : selectedMarketingPackage.usdRange}`);
-                                triggerToast(`Proceeding with ${selectedMarketingPackage.title} proposal request!`);
-                              }}
-                              className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
-                            >
-                              <span>Request Proposal for this Package →</span>
-                            </button>
+                            {/* Marketing Campaign Timeline Badge */}
+                            <div className="p-3 rounded-2xl bg-emerald-950/50 border border-emerald-800/60 flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <Clock className="w-4 h-4 text-emerald-400 shrink-0" />
+                                <div>
+                                  <div className="text-[10px] font-mono uppercase text-slate-400">Campaign Timeline:</div>
+                                  <div className="text-xs font-black font-mono text-emerald-300">1st Campaign Live in 3–5 Days</div>
+                                </div>
+                              </div>
+                              <span className="text-[9px] font-mono bg-emerald-900/80 text-emerald-200 px-2 py-0.5 rounded border border-emerald-700/60">
+                                Monthly Sprints
+                              </span>
+                            </div>
+
+                            {/* WhatsApp Quick-Connect & Proposal Actions */}
+                            <div className="space-y-2 mt-2">
+                              <a
+                                href={`https://wa.me/?text=${encodeURIComponent(
+                                  `Hello Volen Solution! I am interested in your Marketing Retainer:\n• Package: ${selectedMarketingPackage.title} (${selectedMarketingPackage.badge})\n• Monthly Growth Retainer: ${currencyMode === 'PKR' ? selectedMarketingPackage.pkrRange : selectedMarketingPackage.usdRange}\n• Launch Speed: 1st Campaign Live in 3–5 Days\n\nI would like to discuss our growth strategy on WhatsApp.`
+                                )}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full py-2.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <MessageCircle className="w-4 h-4" />
+                                <span>Discuss Scope on WhatsApp →</span>
+                              </a>
+
+                              <button
+                                onClick={() => {
+                                  setShowWebsiteTypesModal(false);
+                                  onBookConsultation(`${selectedMarketingPackage.title} [Marketing Retainer - ${currencyMode} Scope]: ${currencyMode === 'PKR' ? selectedMarketingPackage.pkrRange : selectedMarketingPackage.usdRange}`);
+                                  triggerToast(`Proceeding with ${selectedMarketingPackage.title} proposal request!`);
+                                }}
+                                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <span>Request Proposal for this Package →</span>
+                              </button>
+                            </div>
                           </div>
                         ) : (
                           <div className="text-center py-8 space-y-2 text-slate-400 text-xs">
@@ -1959,16 +2044,45 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                               </div>
                             </div>
 
-                            <button
-                              onClick={() => {
-                                setShowWebsiteTypesModal(false);
-                                onBookConsultation(`${selectedDesignPackage.title} [Graphic Design - ${currencyMode} Scope]: ${currencyMode === 'PKR' ? selectedDesignPackage.pkrRange : selectedDesignPackage.usdRange}`);
-                                triggerToast(`Proceeding with ${selectedDesignPackage.title} proposal request!`);
-                              }}
-                              className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-400 to-pink-600 hover:from-pink-400 hover:to-rose-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
-                            >
-                              <span>Request Proposal for this Package →</span>
-                            </button>
+                            {/* Design Turnaround Timeline Badge */}
+                            <div className="p-3 rounded-2xl bg-pink-950/50 border border-pink-800/60 flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <Clock className="w-4 h-4 text-pink-400 shrink-0" />
+                                <div>
+                                  <div className="text-[10px] font-mono uppercase text-slate-400">Delivery Turnaround:</div>
+                                  <div className="text-xs font-black font-mono text-pink-300">Concepts in 3–5 Days • Final 7–10 Days</div>
+                                </div>
+                              </div>
+                              <span className="text-[9px] font-mono bg-pink-900/80 text-pink-200 px-2 py-0.5 rounded border border-pink-700/60">
+                                Vector Assets
+                              </span>
+                            </div>
+
+                            {/* WhatsApp Quick-Connect & Proposal Actions */}
+                            <div className="space-y-2 mt-2">
+                              <a
+                                href={`https://wa.me/?text=${encodeURIComponent(
+                                  `Hello Volen Solution! I am interested in your Graphic Designing Package:\n• Package: ${selectedDesignPackage.title} (${selectedDesignPackage.badge})\n• Fixed Budget: ${currencyMode === 'PKR' ? selectedDesignPackage.pkrRange : selectedDesignPackage.usdRange}\n• Turnaround: Initial Concepts in 3–5 Days (Final in 7–10 Days)\n\nI would like to discuss creative direction and brand assets on WhatsApp.`
+                                )}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full py-2.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <MessageCircle className="w-4 h-4" />
+                                <span>Discuss Scope on WhatsApp →</span>
+                              </a>
+
+                              <button
+                                onClick={() => {
+                                  setShowWebsiteTypesModal(false);
+                                  onBookConsultation(`${selectedDesignPackage.title} [Graphic Design - ${currencyMode} Scope]: ${currencyMode === 'PKR' ? selectedDesignPackage.pkrRange : selectedDesignPackage.usdRange}`);
+                                  triggerToast(`Proceeding with ${selectedDesignPackage.title} proposal request!`);
+                                }}
+                                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-400 to-pink-600 hover:from-pink-400 hover:to-rose-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <span>Request Proposal for this Package →</span>
+                              </button>
+                            </div>
                           </div>
                         ) : (
                           <div className="text-center py-8 space-y-2 text-slate-400 text-xs">
@@ -2153,16 +2267,45 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                               </div>
                             </div>
 
-                            <button
-                              onClick={() => {
-                                setShowWebsiteTypesModal(false);
-                                onBookConsultation(`${selectedMaintenancePackage.title} [Maintenance SLA - ${currencyMode} Scope]: ${currencyMode === 'PKR' ? selectedMaintenancePackage.pkrRange : selectedMaintenancePackage.usdRange}`);
-                                triggerToast(`Proceeding with ${selectedMaintenancePackage.title} proposal request!`);
-                              }}
-                              className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-purple-500 via-indigo-400 to-purple-600 hover:from-purple-400 hover:to-indigo-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
-                            >
-                              <span>Request Proposal for this SLA Tier →</span>
-                            </button>
+                            {/* Maintenance SLA Speed Badge */}
+                            <div className="p-3 rounded-2xl bg-purple-950/50 border border-purple-800/60 flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <Clock className="w-4 h-4 text-purple-400 shrink-0" />
+                                <div>
+                                  <div className="text-[10px] font-mono uppercase text-slate-400">SLA Response Speed:</div>
+                                  <div className="text-xs font-black font-mono text-purple-300">Setup in 24–48h • SLA &lt; 15 Mins</div>
+                                </div>
+                              </div>
+                              <span className="text-[9px] font-mono bg-purple-900/80 text-purple-200 px-2 py-0.5 rounded border border-purple-700/60">
+                                24/7 Monitored
+                              </span>
+                            </div>
+
+                            {/* WhatsApp Quick-Connect & Proposal Actions */}
+                            <div className="space-y-2 mt-2">
+                              <a
+                                href={`https://wa.me/?text=${encodeURIComponent(
+                                  `Hello Volen Solution! I am interested in your Maintenance & SLA Support:\n• Tier: ${selectedMaintenancePackage.title} (${selectedMaintenancePackage.badge})\n• Billing: ${currencyMode === 'PKR' ? selectedMaintenancePackage.pkrRange : selectedMaintenancePackage.usdRange}\n• Billing Mode: ${selectedMaintenancePackage.isRecurring ? 'Monthly Continuous SLA Retainer' : 'One-Time Emergency Rescue Fee'}\n• Response SLA: Critical Incidents Under 15 Minutes\n\nI would like to discuss our infrastructure maintenance needs on WhatsApp.`
+                                )}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full py-2.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <MessageCircle className="w-4 h-4" />
+                                <span>Discuss Scope on WhatsApp →</span>
+                              </a>
+
+                              <button
+                                onClick={() => {
+                                  setShowWebsiteTypesModal(false);
+                                  onBookConsultation(`${selectedMaintenancePackage.title} [Maintenance SLA - ${currencyMode} Scope]: ${currencyMode === 'PKR' ? selectedMaintenancePackage.pkrRange : selectedMaintenancePackage.usdRange}`);
+                                  triggerToast(`Proceeding with ${selectedMaintenancePackage.title} proposal request!`);
+                                }}
+                                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-purple-500 via-indigo-400 to-purple-600 hover:from-purple-400 hover:to-indigo-300 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <span>Request Proposal for this SLA Tier →</span>
+                              </button>
+                            </div>
                           </div>
                         ) : (
                           <div className="text-center py-8 space-y-2 text-slate-400 text-xs">
