@@ -41,10 +41,12 @@ import {
   PenTool,
   Server,
   LifeBuoy,
-  MessageCircle
+  MessageCircle,
+  FileDown
 } from 'lucide-react';
+import { generatePdfQuote } from '../utils/pdfQuoteGenerator';
 
-export default function ServicesSection({ onSelectService, onBookConsultation }) {
+export default function ServicesSection({ onSelectService, onBookConsultation, onViewCaseStudy }) {
   const [activeTabCategory, setActiveTabCategory] = useState('current');
   const [filter, setFilter] = useState('all');
 
@@ -1125,7 +1127,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                       )}
 
                       {/* Deliverables List */}
-                      <div className="space-y-1.5 mb-4">
+                      <div className="space-y-1.5 mb-3">
                         {service.deliverables.map((item, idx) => (
                           <div key={idx} className="flex items-center gap-1.5 text-[11px] text-slate-700 font-medium">
                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
@@ -1133,6 +1135,19 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                           </div>
                         ))}
                       </div>
+
+                      {/* View Real Case Studies Mini-Link */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (onViewCaseStudy) onViewCaseStudy(service.title);
+                        }}
+                        className="inline-flex items-center gap-1 text-[11px] font-bold text-sky-600 hover:text-sky-800 hover:underline mb-2 cursor-pointer transition-colors"
+                      >
+                        <ExternalLink className="w-3 h-3 text-sky-500" />
+                        <span>View Real Case Studies for this type →</span>
+                      </button>
                     </div>
 
                     <div className="pt-4 border-t border-sky-100 flex items-center justify-between">
@@ -1422,6 +1437,21 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                                     </div>
                                   ))}
                                 </div>
+
+                                {/* Mini-link: View Real Case Studies for this type */}
+                                <div className="mt-2.5 pt-1.5 border-t border-slate-100">
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setShowWebsiteTypesModal(false);
+                                      if (onViewCaseStudy) onViewCaseStudy(type.title);
+                                    }}
+                                    className="text-[11px] font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 hover:underline cursor-pointer"
+                                  >
+                                    <span>View Real Case Studies for this type →</span>
+                                  </button>
+                                </div>
                               </div>
 
                               <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between">
@@ -1578,8 +1608,35 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                               </div>
                             )}
 
-                            {/* WhatsApp Quick-Connect & Proposal Actions */}
+                            {/* PDF Quote, WhatsApp Quick-Connect & Proposal Actions */}
                             <div className="space-y-2 mt-2">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  triggerToast(`Generating Official PDF Quote for ${selectedWebType.title}...`);
+                                  generatePdfQuote({
+                                    categoryTitle: 'Web & Applications',
+                                    itemTitle: selectedWebType.title,
+                                    badge: selectedWebType.badge,
+                                    currencyMode,
+                                    oneTimePrice: currencyMode === 'PKR'
+                                      ? `PKR ${totals?.pkrMin.toLocaleString()} – ${totals?.pkrMax.toLocaleString()}`
+                                      : `$${totals?.usdMin.toLocaleString()} – ${totals?.usdMax.toLocaleString()}`,
+                                    monthlyPrice: totals?.hasMonthly
+                                      ? (currencyMode === 'PKR' ? `PKR ${totals?.monthlyPkrMin.toLocaleString()} – ${totals?.monthlyPkrMax.toLocaleString()}/mo` : `$${totals?.monthlyUsdMin.toLocaleString()} – ${totals?.monthlyUsdMax.toLocaleString()}/mo`)
+                                      : '',
+                                    timeline: totals?.timelineText,
+                                    addons: selectedCustomOptions,
+                                    deliverables: selectedWebType.features,
+                                    purpose: selectedWebType.purpose
+                                  });
+                                }}
+                                className="w-full py-2.5 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <FileDown className="w-4 h-4 text-sky-400" />
+                                <span>Download Official PDF Quote 📄</span>
+                              </button>
+
                               <a
                                 href={`https://wa.me/?text=${encodeURIComponent(
                                   `Hello Volen Solution! I configured a project on your website:\n• Project: ${selectedWebType.title}\n• One-Time Budget: ${currencyMode === 'PKR' ? `PKR ${totals?.pkrMin.toLocaleString()} – ${totals?.pkrMax.toLocaleString()}` : `$${totals?.usdMin.toLocaleString()} – ${totals?.usdMax.toLocaleString()}`}${totals?.hasMonthly ? `\n• Monthly Retainer: ${currencyMode === 'PKR' ? `PKR ${totals?.monthlyPkrMin.toLocaleString()} – ${totals?.monthlyPkrMax.toLocaleString()}/mo` : `$${totals?.monthlyUsdMin.toLocaleString()} – ${totals?.monthlyUsdMax.toLocaleString()}/mo`}` : ''}\n• Est. Timeline: ${totals?.timelineText || 'Standard Sprint'}${selectedCustomOptions.length > 0 ? `\n• Add-ons (${selectedCustomOptions.length}): ${selectedCustomOptions.map(a => a.name).join(', ')}` : ''}\n\nI would like to discuss this technical scope and kick off development.`
@@ -1727,6 +1784,21 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                                     </div>
                                   ))}
                                 </div>
+
+                                {/* Mini-link: View Real Case Studies for this type */}
+                                <div className="mt-2.5 pt-1.5 border-t border-slate-100">
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setShowWebsiteTypesModal(false);
+                                      if (onViewCaseStudy) onViewCaseStudy(pkg.title);
+                                    }}
+                                    className="text-[11px] font-bold text-emerald-600 hover:text-emerald-800 flex items-center gap-1 hover:underline cursor-pointer"
+                                  >
+                                    <span>View Real Case Studies for this type →</span>
+                                  </button>
+                                </div>
                               </div>
 
                               <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between">
@@ -1835,8 +1907,31 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                               </span>
                             </div>
 
-                            {/* WhatsApp Quick-Connect & Proposal Actions */}
+                            {/* PDF Quote, WhatsApp Quick-Connect & Proposal Actions */}
                             <div className="space-y-2 mt-2">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  triggerToast(`Generating Official PDF Quote for ${selectedMarketingPackage.title}...`);
+                                  generatePdfQuote({
+                                    categoryTitle: 'Digital Marketing & Growth',
+                                    itemTitle: selectedMarketingPackage.title,
+                                    badge: selectedMarketingPackage.badge,
+                                    currencyMode,
+                                    oneTimePrice: currencyMode === 'PKR' ? selectedMarketingPackage.pkrRange : selectedMarketingPackage.usdRange,
+                                    monthlyPrice: currencyMode === 'PKR' ? selectedMarketingPackage.pkrRange : selectedMarketingPackage.usdRange,
+                                    timeline: '1st Campaign Live in 3–5 Days • Monthly Sprints',
+                                    addons: [],
+                                    deliverables: selectedMarketingPackage.features,
+                                    purpose: selectedMarketingPackage.purpose
+                                  });
+                                }}
+                                className="w-full py-2.5 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <FileDown className="w-4 h-4 text-emerald-400" />
+                                <span>Download Official PDF Quote 📄</span>
+                              </button>
+
                               <a
                                 href={`https://wa.me/?text=${encodeURIComponent(
                                   `Hello Volen Solution! I am interested in your Marketing Retainer:\n• Package: ${selectedMarketingPackage.title} (${selectedMarketingPackage.badge})\n• Monthly Growth Retainer: ${currencyMode === 'PKR' ? selectedMarketingPackage.pkrRange : selectedMarketingPackage.usdRange}\n• Launch Speed: 1st Campaign Live in 3–5 Days\n\nI would like to discuss our growth strategy on WhatsApp.`
@@ -1950,6 +2045,21 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                                     </div>
                                   ))}
                                 </div>
+
+                                {/* Mini-link: View Real Case Studies for this type */}
+                                <div className="mt-2.5 pt-1.5 border-t border-slate-100">
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setShowWebsiteTypesModal(false);
+                                      if (onViewCaseStudy) onViewCaseStudy(pkg.title);
+                                    }}
+                                    className="text-[11px] font-bold text-pink-600 hover:text-pink-800 flex items-center gap-1 hover:underline cursor-pointer"
+                                  >
+                                    <span>View Real Case Studies for this type →</span>
+                                  </button>
+                                </div>
                               </div>
 
                               <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between">
@@ -2058,8 +2168,31 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                               </span>
                             </div>
 
-                            {/* WhatsApp Quick-Connect & Proposal Actions */}
+                            {/* PDF Quote, WhatsApp Quick-Connect & Proposal Actions */}
                             <div className="space-y-2 mt-2">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  triggerToast(`Generating Official PDF Quote for ${selectedDesignPackage.title}...`);
+                                  generatePdfQuote({
+                                    categoryTitle: 'Graphic Designing & Brand Identity',
+                                    itemTitle: selectedDesignPackage.title,
+                                    badge: selectedDesignPackage.badge,
+                                    currencyMode,
+                                    oneTimePrice: currencyMode === 'PKR' ? selectedDesignPackage.pkrRange : selectedDesignPackage.usdRange,
+                                    monthlyPrice: '',
+                                    timeline: 'Initial Concepts in 3–5 Days • Final in 7–10 Days',
+                                    addons: [],
+                                    deliverables: selectedDesignPackage.features,
+                                    purpose: selectedDesignPackage.purpose
+                                  });
+                                }}
+                                className="w-full py-2.5 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <FileDown className="w-4 h-4 text-pink-400" />
+                                <span>Download Official PDF Quote 📄</span>
+                              </button>
+
                               <a
                                 href={`https://wa.me/?text=${encodeURIComponent(
                                   `Hello Volen Solution! I am interested in your Graphic Designing Package:\n• Package: ${selectedDesignPackage.title} (${selectedDesignPackage.badge})\n• Fixed Budget: ${currencyMode === 'PKR' ? selectedDesignPackage.pkrRange : selectedDesignPackage.usdRange}\n• Turnaround: Initial Concepts in 3–5 Days (Final in 7–10 Days)\n\nI would like to discuss creative direction and brand assets on WhatsApp.`
@@ -2173,6 +2306,21 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                                     </div>
                                   ))}
                                 </div>
+
+                                {/* Mini-link: View Real Case Studies for this type */}
+                                <div className="mt-2.5 pt-1.5 border-t border-slate-100">
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setShowWebsiteTypesModal(false);
+                                      if (onViewCaseStudy) onViewCaseStudy(pkg.title);
+                                    }}
+                                    className="text-[11px] font-bold text-purple-600 hover:text-purple-800 flex items-center gap-1 hover:underline cursor-pointer"
+                                  >
+                                    <span>View Real Case Studies for this type →</span>
+                                  </button>
+                                </div>
                               </div>
 
                               <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between">
@@ -2281,8 +2429,31 @@ export default function ServicesSection({ onSelectService, onBookConsultation })
                               </span>
                             </div>
 
-                            {/* WhatsApp Quick-Connect & Proposal Actions */}
+                            {/* PDF Quote, WhatsApp Quick-Connect & Proposal Actions */}
                             <div className="space-y-2 mt-2">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  triggerToast(`Generating Official PDF Quote for ${selectedMaintenancePackage.title}...`);
+                                  generatePdfQuote({
+                                    categoryTitle: 'Maintenance & 24/7 SLA',
+                                    itemTitle: selectedMaintenancePackage.title,
+                                    badge: selectedMaintenancePackage.badge,
+                                    currencyMode,
+                                    oneTimePrice: currencyMode === 'PKR' ? selectedMaintenancePackage.pkrRange : selectedMaintenancePackage.usdRange,
+                                    monthlyPrice: selectedMaintenancePackage.isRecurring ? (currencyMode === 'PKR' ? selectedMaintenancePackage.pkrRange : selectedMaintenancePackage.usdRange) : '',
+                                    timeline: 'Setup in 24–48 Hours • Incident SLA < 15 Mins',
+                                    addons: [],
+                                    deliverables: selectedMaintenancePackage.features,
+                                    purpose: selectedMaintenancePackage.purpose
+                                  });
+                                }}
+                                className="w-full py-2.5 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <FileDown className="w-4 h-4 text-purple-400" />
+                                <span>Download Official PDF Quote 📄</span>
+                              </button>
+
                               <a
                                 href={`https://wa.me/?text=${encodeURIComponent(
                                   `Hello Volen Solution! I am interested in your Maintenance & SLA Support:\n• Tier: ${selectedMaintenancePackage.title} (${selectedMaintenancePackage.badge})\n• Billing: ${currencyMode === 'PKR' ? selectedMaintenancePackage.pkrRange : selectedMaintenancePackage.usdRange}\n• Billing Mode: ${selectedMaintenancePackage.isRecurring ? 'Monthly Continuous SLA Retainer' : 'One-Time Emergency Rescue Fee'}\n• Response SLA: Critical Incidents Under 15 Minutes\n\nI would like to discuss our infrastructure maintenance needs on WhatsApp.`

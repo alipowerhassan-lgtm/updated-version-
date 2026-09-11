@@ -15,6 +15,8 @@ import ProposalModal from './components/ProposalModal';
 import BrandSplashScreen from './components/BrandSplashScreen';
 import Footer from './components/Footer';
 
+import { findProjectForService } from './data/projectsData';
+
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [activePage, setActivePage] = useState('home');
@@ -64,6 +66,18 @@ export default function App() {
     setProjectDetailOpen(true);
   };
 
+  const handleViewCaseStudy = (serviceOrProjectKey) => {
+    setServiceDetailOpen(false);
+    const project = findProjectForService(serviceOrProjectKey);
+    setActivePage('projects');
+    window.history.pushState(null, '', '#projects');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (project) {
+      setSelectedProject(project);
+      setProjectDetailOpen(true);
+    }
+  };
+
   const handleRequestProposalForService = (serviceTitle) => {
     setServiceDetailOpen(false);
     handleOpenProposal(serviceTitle);
@@ -103,6 +117,7 @@ export default function App() {
           <ServicesSection
             onSelectService={handleSelectService}
             onBookConsultation={(service) => handleOpenProposal(service)}
+            onViewCaseStudy={handleViewCaseStudy}
           />
         )}
 
@@ -147,6 +162,7 @@ export default function App() {
         isOpen={serviceDetailOpen}
         onClose={() => setServiceDetailOpen(false)}
         onRequestProposalForService={handleRequestProposalForService}
+        onViewCaseStudy={handleViewCaseStudy}
       />
 
       {/* Project Detail Modal */}

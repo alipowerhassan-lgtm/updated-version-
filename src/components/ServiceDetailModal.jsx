@@ -1,7 +1,7 @@
 import React from 'react';
 import { X, ArrowRight, CheckCircle2, Cpu, Code2, Layers } from 'lucide-react';
 
-export default function ServiceDetailModal({ service, isOpen, onClose, onRequestProposalForService }) {
+export default function ServiceDetailModal({ service, isOpen, onClose, onRequestProposalForService, onViewCaseStudy }) {
   if (!isOpen || !service) return null;
 
   return (
@@ -41,7 +41,7 @@ export default function ServiceDetailModal({ service, isOpen, onClose, onRequest
         </div>
 
         {/* Technical Specifications & Deliverables */}
-        <div className="space-y-4 mb-8">
+        <div className="space-y-4 mb-6">
           <div className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
             <Cpu className="w-3.5 h-3.5 text-sky-600" />
             <span>Technical Specifications & Deliverables</span>
@@ -82,6 +82,29 @@ export default function ServiceDetailModal({ service, isOpen, onClose, onRequest
             </div>
           )}
         </div>
+
+        {/* Proof of Capability / Case Study Mini-Banner */}
+        {onViewCaseStudy && (
+          <div className="mb-6 p-4 rounded-2xl bg-sky-50/80 border border-sky-200 flex items-center justify-between gap-3">
+            <div>
+              <div className="text-[10px] font-bold uppercase tracking-wider text-sky-700 font-mono">
+                Verified Production Case Study
+              </div>
+              <div className="text-xs font-black text-slate-900 mt-0.5">
+                See real architecture & metrics in action
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                onClose();
+                onViewCaseStudy(service.title);
+              }}
+              className="px-3.5 py-2 rounded-xl bg-white hover:bg-sky-600 hover:text-white text-sky-700 font-extrabold text-[11px] border border-sky-300 shadow-xs transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
+            >
+              <span>View Case Studies →</span>
+            </button>
+          </div>
+        )}
 
         {/* Bottom Action */}
         <div className="pt-4 border-t border-sky-100">
