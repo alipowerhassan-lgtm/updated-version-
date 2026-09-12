@@ -3,7 +3,7 @@ import WipBadge from './WipBadge';
 import CustomerPolicyModal from './CustomerPolicyModal';
 import { Lock, ShieldCheck, Award, CheckCircle2, FileText, Rocket, PhoneCall, PenTool, CreditCard, Sparkles, ExternalLink } from 'lucide-react';
 
-export default function PolicySection() {
+export default function PolicySection({ onOpenTracker }) {
   const [showPolicyModal, setShowPolicyModal] = useState(false);
 
   const customerSteps = [
@@ -77,14 +77,25 @@ export default function PolicySection() {
               </h3>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setShowPolicyModal(true)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-xs shadow-md shadow-sky-500/20 transition-all cursor-pointer self-start sm:self-auto"
-            >
-              <FileText className="w-4 h-4" />
-              <span>View Full Customer Policy & Poster →</span>
-            </button>
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={onOpenTracker}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white hover:bg-sky-50 text-sky-700 font-bold text-xs border border-sky-300 shadow-sm transition-all cursor-pointer"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Demo Project Tracker</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowPolicyModal(true)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-xs shadow-md shadow-sky-500/20 transition-all cursor-pointer"
+              >
+                <FileText className="w-4 h-4" />
+                <span>View Full Customer Policy & Poster →</span>
+              </button>
+            </div>
           </div>
 
           {/* 6 Step Grid */}

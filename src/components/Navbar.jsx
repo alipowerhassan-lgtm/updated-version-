@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import VolenLogo from './VolenLogo';
 
-export default function Navbar({ activePage, onNavigate, onRequestProposalClick }) {
+export default function Navbar({ activePage, onNavigate, onRequestProposalClick, onTrackProjectClick }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -57,13 +57,22 @@ export default function Navbar({ activePage, onNavigate, onRequestProposalClick 
           })}
         </nav>
 
-        {/* Right CTA Button */}
-        <div className="hidden xl:flex items-center gap-3 shrink-0">
+        {/* Right CTA Actions */}
+        <div className="hidden lg:flex items-center gap-2.5 shrink-0">
+          <button
+            onClick={onTrackProjectClick}
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200/80 transition-all duration-200 cursor-pointer"
+            title="Track project milestones with tracking ID"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Track Project</span>
+          </button>
+
           <button
             onClick={onRequestProposalClick}
             className="group relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-sky-600 via-sky-500 to-cyan-500 hover:from-sky-500 hover:to-cyan-400 shadow-md shadow-sky-600/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer overflow-hidden"
           >
-            <span>Request Technical Proposal</span>
+            <span>Request Proposal</span>
             <ArrowRight className="w-3.5 h-3.5 text-white group-hover:translate-x-0.5 transition-transform" />
           </button>
         </div>
@@ -98,15 +107,28 @@ export default function Navbar({ activePage, onNavigate, onRequestProposalClick 
               </a>
             ))}
 
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onRequestProposalClick();
-              }}
-              className="mt-2 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-sky-600 to-cyan-500 shadow-md text-center cursor-pointer"
-            >
-              <span>Request Technical Proposal →</span>
-            </button>
+            <div className="grid grid-cols-2 gap-2 mt-2">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onTrackProjectClick();
+                }}
+                className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold text-sky-700 bg-sky-50 border border-sky-200 shadow-xs text-center cursor-pointer"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>Track Project</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onRequestProposalClick();
+                }}
+                className="flex items-center justify-center gap-1 px-3 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-sky-600 to-cyan-500 shadow-md text-center cursor-pointer"
+              >
+                <span>Proposal →</span>
+              </button>
+            </div>
           </nav>
         </div>
       )}

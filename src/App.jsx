@@ -12,6 +12,8 @@ import ContactSection from './components/ContactSection';
 import ServiceDetailModal from './components/ServiceDetailModal';
 import ProjectDetailModal from './components/ProjectDetailModal';
 import ProposalModal from './components/ProposalModal';
+import ClientProjectTrackerModal from './components/ClientProjectTrackerModal';
+import VolenAIAssistant from './components/VolenAIAssistant';
 import BrandSplashScreen from './components/BrandSplashScreen';
 import Footer from './components/Footer';
 
@@ -21,6 +23,7 @@ export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [activePage, setActivePage] = useState('home');
   const [proposalModalOpen, setProposalModalOpen] = useState(false);
+  const [trackerModalOpen, setTrackerModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [serviceDetailOpen, setServiceDetailOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -96,11 +99,12 @@ export default function App() {
       )}
 
       {/* 1. Dual-Tier Navigation Bar (Persistent Header) */}
-      <TopUtilityBar />
+      <TopUtilityBar onTrackProjectClick={() => setTrackerModalOpen(true)} />
       <Navbar
         activePage={activePage}
         onNavigate={handleNavigate}
         onRequestProposalClick={() => handleOpenProposal()}
+        onTrackProjectClick={() => setTrackerModalOpen(true)}
       />
 
       {/* 2. Page Content Switching */}
@@ -138,7 +142,9 @@ export default function App() {
         )}
 
         {activePage === 'policy' && (
-          <PolicySection />
+          <PolicySection
+            onOpenTracker={() => setTrackerModalOpen(true)}
+          />
         )}
 
         {activePage === 'feedback' && (
@@ -178,6 +184,23 @@ export default function App() {
         isOpen={proposalModalOpen}
         onClose={() => setProposalModalOpen(false)}
         initialService={proposalServiceDomain}
+      />
+
+      {/* Client Project Tracker Modal */}
+      <ClientProjectTrackerModal
+        isOpen={trackerModalOpen}
+        onClose={() => setTrackerModalOpen(false)}
+      />
+
+      {/* Volen AI Floating Assistant & Instant Estimator */}
+      <VolenAIAssistant
+        onOpenTracker={() => setTrackerModalOpen(true)}
+        onOpenCalculator={() => {
+          setActivePage('calculator');
+          window.history.pushState(null, '', '#calculator');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onRequestProposal={() => handleOpenProposal()}
       />
     </div>
   );

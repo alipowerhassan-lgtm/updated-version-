@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TopUtilityBar() {
+export default function TopUtilityBar({ onTrackProjectClick }) {
   const whatsappUrl = "https://wa.me/?text=Hello%20Volen%20Solution,%20I%20would%20like%20to%20request%20a%20technical%20proposal.";
 
   return (
@@ -13,8 +13,18 @@ export default function TopUtilityBar() {
         <span className="text-slate-300">Serving Enterprise Clients Worldwide</span>
       </div>
 
-      {/* Right: WhatsApp Channel & Operational Status */}
-      <div className="flex items-center gap-4">
+      {/* Right: Project Tracker, WhatsApp Channel & Operational Status */}
+      <div className="flex items-center gap-3 sm:gap-4 flex-wrap justify-center">
+        <button
+          onClick={onTrackProjectClick}
+          className="inline-flex items-center gap-1.5 text-sky-400 hover:text-sky-300 transition-colors font-medium cursor-pointer hover:underline"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+          <span>Client Project Tracker</span>
+        </button>
+
+        <div className="h-3 w-px bg-slate-700 hidden sm:block"></div>
+
         <a
           href={whatsappUrl}
           target="_blank"
