@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import VolenLogo from './VolenLogo';
 
-export default function Navbar({ activePage, onNavigate, onRequestProposalClick, onTrackProjectClick }) {
+export default function Navbar({ activePage, onNavigate, onRequestProposalClick, onTrackProjectClick, onOpenScopeBuilder }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -60,6 +60,14 @@ export default function Navbar({ activePage, onNavigate, onRequestProposalClick,
         {/* Right CTA Actions */}
         <div className="hidden lg:flex items-center gap-2.5 shrink-0">
           <button
+            onClick={onOpenScopeBuilder}
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-300/80 transition-all duration-200 cursor-pointer shadow-xs"
+            title="3-Click Scope Builder & Instant Proposal"
+          >
+            <span>✨ Scope Builder</span>
+          </button>
+
+          <button
             onClick={onTrackProjectClick}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200/80 transition-all duration-200 cursor-pointer"
             title="Track project milestones with tracking ID"
@@ -107,16 +115,26 @@ export default function Navbar({ activePage, onNavigate, onRequestProposalClick,
               </a>
             ))}
 
-            <div className="grid grid-cols-2 gap-2 mt-2">
+            <div className="grid grid-cols-3 gap-1.5 mt-2">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenScopeBuilder();
+                }}
+                className="flex items-center justify-center gap-1 px-2 py-2.5 rounded-xl text-[11px] font-bold text-amber-900 bg-amber-50 border border-amber-200 shadow-xs text-center cursor-pointer"
+              >
+                <span>✨ Scope</span>
+              </button>
+
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onTrackProjectClick();
                 }}
-                className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold text-sky-700 bg-sky-50 border border-sky-200 shadow-xs text-center cursor-pointer"
+                className="flex items-center justify-center gap-1 px-2 py-2.5 rounded-xl text-[11px] font-bold text-sky-700 bg-sky-50 border border-sky-200 shadow-xs text-center cursor-pointer"
               >
-                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>Track Project</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span>Track</span>
               </button>
 
               <button
@@ -124,7 +142,7 @@ export default function Navbar({ activePage, onNavigate, onRequestProposalClick,
                   setMobileMenuOpen(false);
                   onRequestProposalClick();
                 }}
-                className="flex items-center justify-center gap-1 px-3 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-sky-600 to-cyan-500 shadow-md text-center cursor-pointer"
+                className="flex items-center justify-center gap-1 px-2 py-2.5 rounded-xl text-[11px] font-bold text-white bg-gradient-to-r from-sky-600 to-cyan-500 shadow-md text-center cursor-pointer"
               >
                 <span>Proposal →</span>
               </button>

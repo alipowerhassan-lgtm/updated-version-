@@ -24,6 +24,7 @@ import {
   Target,
   PenTool
 } from 'lucide-react';
+import ClientRoiCalculator from './ClientRoiCalculator';
 
 export default function CalculatorPage({ onRequestProposal }) {
   // Region / Market Platform data directly from Google Sheet
@@ -594,6 +595,11 @@ export default function CalculatorPage({ onRequestProposal }) {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Dynamic Client ROI & Cost-Savings Calculator Section */}
+        <div className="pt-8">
+          <ClientRoiCalculator onRequestProposal={onRequestProposal} />
         </div>
       </div>
     </section>
