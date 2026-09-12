@@ -14,6 +14,7 @@ import ProjectDetailModal from './components/ProjectDetailModal';
 import ProposalModal from './components/ProposalModal';
 import ClientProjectTrackerModal from './components/ClientProjectTrackerModal';
 import VolenAIAssistant from './components/VolenAIAssistant';
+import AdminDashboardModal from './components/AdminDashboardModal';
 import BrandSplashScreen from './components/BrandSplashScreen';
 import Footer from './components/Footer';
 
@@ -24,6 +25,7 @@ export default function App() {
   const [activePage, setActivePage] = useState('home');
   const [proposalModalOpen, setProposalModalOpen] = useState(false);
   const [trackerModalOpen, setTrackerModalOpen] = useState(false);
+  const [adminModalOpen, setAdminModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [serviceDetailOpen, setServiceDetailOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -34,7 +36,9 @@ export default function App() {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.substring(1);
-      if (['home', 'services', 'calculator', 'technologies', 'projects', 'policy', 'feedback', 'contact'].includes(hash)) {
+      if (hash === 'admin') {
+        setAdminModalOpen(true);
+      } else if (['home', 'services', 'calculator', 'technologies', 'projects', 'policy', 'feedback', 'contact'].includes(hash)) {
         setActivePage(hash);
       }
     };
@@ -160,6 +164,7 @@ export default function App() {
       <Footer
         onNavigate={handleNavigate}
         onRequestProposal={() => handleOpenProposal()}
+        onOpenAdmin={() => setAdminModalOpen(true)}
       />
 
       {/* Service Detail Modal */}
@@ -190,6 +195,12 @@ export default function App() {
       <ClientProjectTrackerModal
         isOpen={trackerModalOpen}
         onClose={() => setTrackerModalOpen(false)}
+      />
+
+      {/* Admin Applications & Payment Monitor Modal */}
+      <AdminDashboardModal
+        isOpen={adminModalOpen}
+        onClose={() => setAdminModalOpen(false)}
       />
 
       {/* Volen AI Floating Assistant & Instant Estimator */}

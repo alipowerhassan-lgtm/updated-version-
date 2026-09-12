@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import WipBadge from './WipBadge';
 import { Send, Phone, Mail, MapPin, CheckCircle2, ShieldCheck, MessageSquare } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { saveAdminProposal } from '../utils/adminStorage';
 
 export default function ContactSection() {
   const [formState, setFormState] = useState({
@@ -15,6 +16,13 @@ export default function ContactSection() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    saveAdminProposal({
+      fullName: formState.fullName,
+      email: formState.email,
+      domain: formState.subject || 'Direct Contact Inquiry',
+      details: formState.message,
+      source: 'Contact Us Form'
+    });
     setSubmitted(true);
     confetti({
       particleCount: 90,

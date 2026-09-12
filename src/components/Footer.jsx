@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowUp, ArrowRight, ShieldCheck, Mail, Phone, MapPin, Globe2 } from 'lucide-react';
 import VolenLogo from './VolenLogo';
 
-export default function Footer({ onNavigate, onRequestProposal }) {
+export default function Footer({ onNavigate, onRequestProposal, onOpenAdmin }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -122,19 +122,30 @@ export default function Footer({ onNavigate, onRequestProposal }) {
           </div>
         </div>
 
-        {/* Bottom Copyright & Back To Top */}
+        {/* Bottom Copyright & Admin / Back To Top */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 pt-2">
           <div>
             © 2026 <span className="text-slate-200 font-bold">VOLEN SOLUTION</span>. All rights reserved. <span className="text-sky-400 font-medium">Together We Build, Grow & Secure.</span>
           </div>
 
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-bold border border-slate-800 transition-colors cursor-pointer shadow-sm hover:border-sky-500/40"
-          >
-            <span>Back to Top</span>
-            <ArrowUp className="w-3.5 h-3.5 text-sky-400" />
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={onOpenAdmin}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 text-[11px] font-mono transition-colors border border-slate-800 cursor-pointer"
+              title="Volen Admin Control Tower"
+            >
+              <span>🔒 Admin Access</span>
+            </button>
+
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-bold border border-slate-800 transition-colors cursor-pointer shadow-sm hover:border-sky-500/40"
+            >
+              <span>Back to Top</span>
+              <ArrowUp className="w-3.5 h-3.5 text-sky-400" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>

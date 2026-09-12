@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { X, Check, ArrowRight, ArrowLeft, Upload, ShieldCheck, CheckCircle2, FileText } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { saveAdminProposal } from '../utils/adminStorage';
 
 export default function ProposalModal({ isOpen, onClose, initialService = '' }) {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [assignedCode, setAssignedCode] = useState('');
   const [formData, setFormData] = useState({
     domain: 'Web Development',
     scale: 'Enterprise Scale',
@@ -53,6 +55,18 @@ export default function ProposalModal({ isOpen, onClose, initialService = '' }) 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const record = saveAdminProposal({
+      fullName: formData.fullName,
+      email: formData.email,
+      domain: formData.domain,
+      scale: formData.scale,
+      timeline: formData.timeline,
+      details: formData.scopeDetails || (formData.uploadedFile ? `Attached: ${formData.uploadedFile.name}` : ''),
+      source: 'Technical Proposal Form'
+    });
+    if (record) {
+      setAssignedCode(record.trackingCode);
+    }
     setSubmitted(true);
     confetti({
       particleCount: 90,
@@ -119,7 +133,21 @@ export default function ProposalModal({ isOpen, onClose, initialService = '' }) 
                 Thank you, <span className="font-bold text-slate-900">{formData.fullName || 'Valued Client'}</span>! Our engineering team will review your specifications for <span className="font-semibold text-sky-600">{formData.domain}</span> ({formData.scale}) and deliver a detailed technical roadmap to <span className="font-mono text-slate-900">{formData.email}</span> within 2 business hours.
               </p>
 
-              <div className="mt-6 p-4 rounded-2xl bg-sky-50/80 border border-sky-200/60 text-left text-xs text-slate-700 space-y-2">
+              {assignedCode && (
+                <div className="mt-4 p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-center">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
+                    Your Official Project Tracking Code
+                  </div>
+                  <div className="text-lg font-mono font-black text-emerald-900 mt-0.5">
+                    {assignedCode}
+                  </div>
+                  <div className="text-[10px] text-emerald-600 mt-0.5">
+                    Save this code to monitor live progress & milestones via the "Track Project" portal.
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-4 p-4 rounded-2xl bg-sky-50/80 border border-sky-200/60 text-left text-xs text-slate-700 space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-slate-500 font-medium">Domain Architecture:</span>
                   <span className="font-bold text-slate-900">{formData.domain}</span>
