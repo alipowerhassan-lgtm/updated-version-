@@ -15,7 +15,6 @@ import ProposalModal from './components/ProposalModal';
 import ClientProjectTrackerModal from './components/ClientProjectTrackerModal';
 import VolenAIAssistant from './components/VolenAIAssistant';
 import AdminDashboardModal from './components/AdminDashboardModal';
-import ProjectScopeWizardModal from './components/ProjectScopeWizardModal';
 import ExitIntentModal from './components/ExitIntentModal';
 import BrandSplashScreen from './components/BrandSplashScreen';
 import Footer from './components/Footer';
@@ -28,7 +27,6 @@ export default function App() {
   const [proposalModalOpen, setProposalModalOpen] = useState(false);
   const [trackerModalOpen, setTrackerModalOpen] = useState(false);
   const [adminModalOpen, setAdminModalOpen] = useState(false);
-  const [scopeWizardOpen, setScopeWizardOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [serviceDetailOpen, setServiceDetailOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -112,7 +110,6 @@ export default function App() {
         onNavigate={handleNavigate}
         onRequestProposalClick={() => handleOpenProposal()}
         onTrackProjectClick={() => setTrackerModalOpen(true)}
-        onOpenScopeBuilder={() => setScopeWizardOpen(true)}
       />
 
       {/* 2. Page Content Switching */}
@@ -207,16 +204,9 @@ export default function App() {
         onClose={() => setAdminModalOpen(false)}
       />
 
-      {/* 3-Click Project Scope Builder & Instant Proposal Generator Modal */}
-      <ProjectScopeWizardModal
-        isOpen={scopeWizardOpen}
-        onClose={() => setScopeWizardOpen(false)}
-      />
-
       {/* Exit-Intent Free Consultation Review Popup */}
       <ExitIntentModal
         onBookConsultation={() => handleOpenProposal('Free Architectural Review')}
-        onOpenScopeBuilder={() => setScopeWizardOpen(true)}
       />
 
       {/* Volen AI Floating Assistant & Instant Estimator */}

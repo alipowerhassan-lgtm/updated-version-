@@ -5,20 +5,19 @@ import {
 } from 'lucide-react';
 import { saveAdminProposal } from '../utils/adminStorage';
 
-export default function ExitIntentModal({ onBookConsultation, onOpenScopeBuilder }) {
+export default function ExitIntentModal({ onBookConsultation }) {
   const [isOpen, setIsOpen] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    // Check session storage so it doesn't harass users repeatedly
     const seen = sessionStorage.getItem('volen_exit_intent_dismissed');
     if (seen) return;
 
     const handleMouseLeave = (e) => {
-      // Trigger when mouse moves towards browser tab bar / close button (y <= 10)
-      if (e.clientY <= 15 && !hasTriggered) {
+      // Trigger when mouse moves out of viewport towards tab / window close
+      if (e.clientY <= 20 && !hasTriggered) {
         setIsOpen(true);
         setHasTriggered(true);
         sessionStorage.setItem('volen_exit_intent_dismissed', 'true');
@@ -129,19 +128,17 @@ export default function ExitIntentModal({ onBookConsultation, onOpenScopeBuilder
               </div>
             </form>
 
-            {/* Secondary Alternative: Scope Builder */}
-            <div className="pt-1 flex items-center justify-center gap-2 text-[11px] text-slate-400">
-              <span>Or prefer instant numbers?</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsOpen(false);
-                  onOpenScopeBuilder?.();
-                }}
-                className="text-cyan-400 font-bold hover:underline cursor-pointer"
+            {/* Direct Escalation Alternative: WhatsApp */}
+            <div className="pt-1 flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
+              <span>Need immediate assistance?</span>
+              <a
+                href="https://wa.me/?text=Hello%20Volen%20Solution,%20I%20would%20like%20to%20claim%20the%20free%2015-minute%20architecture%20review."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-emerald-400 font-bold hover:underline"
               >
-                Launch 3-Click Scope Builder →
-              </button>
+                Chat on WhatsApp →
+              </a>
             </div>
           </div>
         )}
