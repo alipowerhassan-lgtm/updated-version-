@@ -37,14 +37,14 @@ export default function CalculatorPage({ onRequestProposal }) {
       symbol: 'PKR ',
       usdRate: 278, // 1 USD ~ 278 PKR
       tiers: {
-        basic: { name: 'Basic / Starter (1-5 Pages)', low: 20000, high: 50000, usdText: '$70 – $180' },
-        standard: { name: 'Standard Business (5-10 Pages)', low: 40000, high: 200000, usdText: '$145 – $720' },
-        custom: { name: 'Custom / Enterprise (10+ Pages)', low: 250000, high: 1500000, usdText: '$900 – $5,400+' }
+        basic: { name: 'Basic / Starter (1-5 Pages)', low: 11000, high: 27500, usdText: '$40 – $100' },
+        standard: { name: 'Standard Business (5-10 Pages)', low: 22000, high: 110000, usdText: '$80 – $395' },
+        custom: { name: 'Custom / Enterprise (10+ Pages)', low: 137500, high: 825000, usdText: '$495 – $2,970+' }
       },
-      perPageLow: 3000,
-      perPageHigh: 10000,
-      perPageUsdText: '$10 – $35',
-      notes: 'Project-based flat fee; content/copywriting PKR 4,000 – 6,000/page.'
+      perPageLow: 1650,
+      perPageHigh: 5500,
+      perPageUsdText: '$6 – $20',
+      notes: 'Project-based flat fee (45% promo applied); content/copywriting PKR 2,200 – 3,300/page.'
     },
     {
       id: 'uae',

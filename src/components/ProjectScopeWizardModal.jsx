@@ -7,12 +7,12 @@ import confetti from 'canvas-confetti';
 import { saveAdminProposal } from '../utils/adminStorage';
 
 const PROJECT_TYPES = [
-  { id: 'custom-saas', title: 'Custom SaaS / Web App', icon: '💻', estPkr: '400,000 – 1,200,000 PKR', estUsd: '$3,500 – $12,000', desc: 'Full-stack cloud application with RBAC, subscriptions, and database.' },
-  { id: 'ecommerce', title: 'E-Commerce Store', icon: '🛒', estPkr: '120,000 – 350,000 PKR', estUsd: '$1,500 – $4,500', desc: 'Product catalog, checkout, Stripe/Paymob, inventory, and orders.' },
-  { id: 'corporate', title: 'Corporate / Business Site', icon: '🏢', estPkr: '50,000 – 140,000 PKR', estUsd: '$700 – $2,200', desc: '5–10 pages, SEO tuned, CMS, service inquiry flows.' },
-  { id: 'landing-page', title: 'High-Conversion Landing Page', icon: '⚡', estPkr: '15,000 – 40,000 PKR', estUsd: '$200 – $600', desc: 'Single action conversion funnel, sub-second load speed, lead capture.' },
-  { id: 'ai-automation', title: 'AI Solutions & Reasoning Engine', icon: '🤖', estPkr: '300,000 – 900,000 PKR', estUsd: '$2,500 – $8,000', desc: 'RAG vectors, custom LLM agents, and business automation pipelines.' },
-  { id: 'cybersecurity', title: 'Cybersecurity & Code Audit', icon: '🛡️', estPkr: '150,000 – 450,000 PKR', estUsd: '$1,200 – $4,000', desc: 'OWASP penetration testing, vulnerability remediation, SSL & SOC-2 hardening.' }
+  { id: 'custom-saas', title: 'Custom SaaS / Web App', icon: '💻', estPkr: '220,000 – 660,000 PKR', estUsd: '$1,925 – $6,600', desc: 'Full-stack cloud application with RBAC, subscriptions, and database.' },
+  { id: 'ecommerce', title: 'E-Commerce Store', icon: '🛒', estPkr: '66,000 – 192,500 PKR', estUsd: '$825 – $2,475', desc: 'Product catalog, checkout, Stripe/Paymob, inventory, and orders.' },
+  { id: 'corporate', title: 'Corporate / Business Site', icon: '🏢', estPkr: '27,500 – 77,000 PKR', estUsd: '$385 – $1,210', desc: '5–10 pages, SEO tuned, CMS, service inquiry flows.' },
+  { id: 'landing-page', title: 'High-Conversion Landing Page', icon: '⚡', estPkr: '8,250 – 22,000 PKR', estUsd: '$110 – $330', desc: 'Single action conversion funnel, sub-second load speed, lead capture.' },
+  { id: 'ai-automation', title: 'AI Solutions & Reasoning Engine', icon: '🤖', estPkr: '165,000 – 495,000 PKR', estUsd: '$1,375 – $4,400', desc: 'RAG vectors, custom LLM agents, and business automation pipelines.' },
+  { id: 'cybersecurity', title: 'Cybersecurity & Code Audit', icon: '🛡️', estPkr: '82,500 – 247,500 PKR', estUsd: '$660 – $2,200', desc: 'OWASP penetration testing, vulnerability remediation, SSL & SOC-2 hardening.' }
 ];
 
 const TIMELINES = [

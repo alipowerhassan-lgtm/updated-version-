@@ -58,9 +58,9 @@ We engineer custom, high-speed storefronts designed for zero checkout drop-offs 
 • **Operational Dashboard:** Real-time stock synchronization, multi-variant matrix, bulk order dispatch portal, and automated SMS/WhatsApp alerts.
 • **Security & Scale:** SSL/TLS encryption, anti-fraud rate limiting, and automated daily cloud backups.
 
-💵 **Estimated Investment & Timeline:**
-• **Local (PKR):** 120,000 – 350,000 PKR
-• **International (USD):** $1,500 – $4,500 USD
+💵 **Estimated Investment & Timeline (45% Reduced Package):**
+• **Local (PKR):** 66,000 – 192,500 PKR
+• **International (USD):** $825 – $2,475 USD
 • **Delivery:** 24 business days (Agile sprint staging reviews)
 • **Payment Framework:** 50% Kickoff | 30% Staging QA Review | 20% Handover.`,
     chips: [
@@ -86,9 +86,9 @@ We transform software ideas into investor-ready, scalable products with clean co
 • **Auth & Recurring Billing:** Enterprise Role-Based Access Control (RBAC), multi-tenant JWT security, and Stripe subscription billing (recurring tiers, metered billing, invoices).
 • **Code Ownership:** 100% intellectual property transfer with clean Git repositories and automated CI/CD pipelines.
 
-💵 **Estimated Investment & Timeline:**
-• **Local (PKR):** 400,000 – 1,200,000+ PKR
-• **International (USD):** $3,500 – $12,000+ USD
+💵 **Estimated Investment & Timeline (45% Reduced Package):**
+• **Local (PKR):** 220,000 – 660,000+ PKR
+• **International (USD):** $1,925 – $6,600+ USD
 • **Delivery:** 35 – 45 business days
 • **Payment Framework:** 50% Advance | 30% Milestone Approval | 20% Final Release.`,
     chips: [
@@ -114,9 +114,9 @@ We build lightning-fast, psychologically structured landing pages engineered to 
 • **Instant Lead Sync:** Automated routing of leads directly to your WhatsApp Business number and CRM/Email within 3 seconds.
 • **Analytics Ready:** Meta Pixel, Google Analytics 4, and server-side tracking pre-configured.
 
-💵 **Estimated Investment & Timeline:**
-• **Local (PKR):** 15,000 – 40,000 PKR
-• **International (USD):** $200 – $600 USD
+💵 **Estimated Investment & Timeline (45% Reduced Package):**
+• **Local (PKR):** 8,250 – 22,000 PKR
+• **International (USD):** $110 – $330 USD
 • **Delivery:** 5 business days
 • **Payment Framework:** 50% Kickoff | 50% Live Handover.`,
     chips: [
@@ -141,9 +141,9 @@ We replace inefficient manual spreadsheets and messy paperwork with automated, c
 • **Automations:** Instant PDF invoice generation, automated receipt dispatch, SMS/WhatsApp order updates, and dynamic real-time reporting.
 • **Integrations:** Direct sync with accounting software, Google Workspace, payment gateways, and custom REST APIs.
 
-💵 **Estimated Investment & Timeline:**
-• **Local (PKR):** 250,000 – 800,000 PKR
-• **International (USD):** $2,500 – $8,000 USD
+💵 **Estimated Investment & Timeline (45% Reduced Package):**
+• **Local (PKR):** 137,500 – 440,000 PKR
+• **International (USD):** $1,375 – $4,400 USD
 • **Delivery:** 20 – 30 business days.`,
     chips: [
       "Open Cost Calculator",
@@ -167,9 +167,9 @@ We rescue slow, outdated, or vulnerable websites and rebuild them into cyber-gra
 • **Cyber Defense:** OWASP Top 10 mitigation, SSL/TLS A+ rating, automated DDoS filtering, and sanitized SQL/API inputs.
 • **Mobile Ergonomics:** 100% fluid mobile responsiveness across all devices and screen sizes.
 
-💵 **Estimated Investment & Timeline:**
-• **Local (PKR):** 50,000 – 180,000 PKR
-• **International (USD):** $500 – $2,000 USD
+💵 **Estimated Investment & Timeline (45% Reduced Package):**
+• **Local (PKR):** 27,500 – 99,000 PKR
+• **International (USD):** $275 – $1,100 USD
 • **Delivery:** 7 – 14 business days.`,
     chips: [
       "Request Technical Proposal",
@@ -191,9 +191,9 @@ We develop sleek, native-feel mobile applications that engage users directly on 
 • **Native Features:** Biometric authentication (FaceID/Fingerprint), push notification campaigns, offline data caching, and GPS/camera integrations.
 • **Store Deployment:** Complete handling of Apple App Store and Google Play Store compliance, review, and publishing.
 
-💵 **Estimated Investment & Timeline:**
-• **Local (PKR):** 300,000 – 900,000 PKR
-• **International (USD):** $3,000 – $9,000 USD
+💵 **Estimated Investment & Timeline (45% Reduced Package):**
+• **Local (PKR):** 165,000 – 495,000 PKR
+• **International (USD):** $1,650 – $4,950 USD
 • **Delivery:** 30 – 45 business days.`,
     chips: [
       "Request Technical Proposal",
@@ -215,9 +215,9 @@ We build intelligent AI agents that automate customer inquiries, qualify high-va
 • **Omnichannel Embedding:** Deployed directly on your website or integrated into WhatsApp Business API.
 • **Staff Escalation:** Smooth handoff logic that notifies your sales team when a prospect is ready to close.
 
-💵 **Estimated Investment & Timeline:**
-• **Local (PKR):** 80,000 – 250,000 PKR
-• **International (USD):** $800 – $3,000 USD
+💵 **Estimated Investment & Timeline (45% Reduced Package):**
+• **Local (PKR):** 44,000 – 137,500 PKR
+• **International (USD):** $440 – $1,650 USD
 • **Delivery:** 10 – 18 business days.`,
     chips: [
       "Request Technical Proposal",
@@ -253,12 +253,12 @@ We operate on a strictly transparent milestone structure to guarantee client pea
       /cost/i, /price/i, /pricing/i, /quote/i, /quotation/i, /rates/i,
       /charges/i, /how much/i, /pkr/i, /usd/i, /dollar/i, /budget/i, /cheap/i, /expensive/i
     ],
-    response: `💰 **Transparent Investment Guide (Dual-Currency):**
+    response: `💰 **Transparent Investment Guide (Dual-Currency - 45% Off Standard Rates):**
 
-• **Landing Pages & Sales Funnels:** 15,000 – 40,000 PKR ($200 – $600 USD) | 5 Days
-• **E-Commerce & Online Stores:** 120,000 – 350,000 PKR ($1,500 – $4,500 USD) | 24 Days
-• **Custom SaaS MVPs & Portals:** 400,000 – 1,200,000+ PKR ($3,500 – $12,000+ USD) | 35–45 Days
-• **Business Process Automation & ERP:** 250,000 – 800,000 PKR ($2,500 – $8,000 USD) | 20–30 Days
+• **Landing Pages & Sales Funnels:** 8,250 – 22,000 PKR ($110 – $330 USD) | 5 Days
+• **E-Commerce & Online Stores:** 66,000 – 192,500 PKR ($825 – $2,475 USD) | 24 Days
+• **Custom SaaS MVPs & Portals:** 220,000 – 660,000+ PKR ($1,925 – $6,600+ USD) | 35–45 Days
+• **Business Process Automation & ERP:** 137,500 – 440,000 PKR ($1,375 – $4,400 USD) | 20–30 Days
 
 All projects are protected by our **50/30/20 payment framework**. You can calculate an instant itemized estimate using our interactive Cost Calculator.`,
     chips: [
@@ -582,25 +582,25 @@ export default function VolenAIAssistant({ onOpenTracker, onOpenCalculator, onRe
           const des = consultation.design || 'Modern Cyber-Grade';
           const time = query;
 
-          let pkrBudget = '180,000 – 320,000';
-          let usdBudget = '$1,800 – $3,500';
+          let pkrBudget = '99,000 – 176,000';
+          let usdBudget = '$990 – $1,925';
           let sprintWeeks = '3–4 weeks';
 
           if (/saas|mvp|app/i.test(type)) {
-            pkrBudget = '450,000 – 1,100,000';
-            usdBudget = '$4,000 – $11,000';
+            pkrBudget = '247,500 – 605,000';
+            usdBudget = '$2,200 – $6,050';
             sprintWeeks = '5–6 weeks';
           } else if (/landing|funnel/i.test(type)) {
-            pkrBudget = '20,000 – 45,000';
-            usdBudget = '$250 – $550';
+            pkrBudget = '11,000 – 24,750';
+            usdBudget = '$140 – $300';
             sprintWeeks = '1 week';
           } else if (/corporate|business/i.test(type)) {
-            pkrBudget = '90,000 – 180,000';
-            usdBudget = '$950 – $2,000';
+            pkrBudget = '49,500 – 99,000';
+            usdBudget = '$520 – $1,100';
             sprintWeeks = '2–3 weeks';
           } else if (/portfolio|agency/i.test(type)) {
-            pkrBudget = '60,000 – 120,000';
-            usdBudget = '$600 – $1,300';
+            pkrBudget = '33,000 – 66,000';
+            usdBudget = '$330 – $715';
             sprintWeeks = '1–2 weeks';
           }
 
