@@ -7,15 +7,14 @@ const INITIAL_MESSAGES = [
   {
     id: 1,
     sender: 'bot',
-    text: "👋 **Hello & Welcome to Volen Solution!**\n\nI am your Senior Technical Solutions Architect. I am trained to understand your business purpose, diagnose technical bottlenecks, and prescribe the exact software engineering solution for your project.\n\n**What is your primary goal or challenge today?**\nChoose an option below or type your project requirement directly:",
+    text: "👋 **Hello & Welcome to Volen Solution!**\n\nI am your Senior Technical Solutions Architect. I am trained to discuss your website requirements in detail, architect a custom sprint execution plan, and provide an executive itemized budget.\n\n**How can I assist you today?**\nClick an option below or type *\"I want a website\"* to start your technical discovery:",
     timestamp: 'Just now',
     chips: [
-      "🛍️ Launch an E-Commerce Store",
-      "💡 Build a SaaS or Startup MVP",
-      "📈 Get more leads & sales",
-      "⚙️ Automate business operations",
-      "🛡️ Redesign slow / insecure site",
-      "💰 View pricing & 50/30/20 policy"
+      "🚀 Plan My Website (Step-by-Step)",
+      "🛍️ Build an E-Commerce Store",
+      "💡 Architect a SaaS / Startup MVP",
+      "💰 Pricing & 50/30/20 Safe Policy",
+      "Talk to an engineer on WhatsApp"
     ]
   }
 ];
@@ -368,6 +367,15 @@ export default function VolenAIAssistant({ onOpenTracker, onOpenCalculator, onRe
   const [messages, setMessages] = useState(INITIAL_MESSAGES);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [consultation, setConsultation] = useState({
+    active: false,
+    step: 0, // 1: type, 2: features, 3: design, 4: timeline
+    projectType: '',
+    features: '',
+    design: '',
+    timeline: '',
+    lastPlan: null
+  });
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -395,6 +403,7 @@ export default function VolenAIAssistant({ onOpenTracker, onOpenCalculator, onRe
     setInputValue('');
     setIsTyping(true);
 
+    // Direct Action Shortcuts
     if (query === "Open Cost Calculator" && onOpenCalculator) {
       setTimeout(() => {
         setIsTyping(false);
@@ -411,10 +420,10 @@ export default function VolenAIAssistant({ onOpenTracker, onOpenCalculator, onRe
       }, 500);
       return;
     }
-    if (query === "Request Technical Proposal" && onRequestProposal) {
+    if ((query === "Request Technical Proposal" || query.includes("Formal Technical Proposal")) && onRequestProposal) {
       setTimeout(() => {
         setIsTyping(false);
-        onRequestProposal();
+        onRequestProposal(consultation.projectType ? `Custom ${consultation.projectType} Proposal` : undefined);
         setIsOpen(false);
       }, 500);
       return;
@@ -422,11 +431,332 @@ export default function VolenAIAssistant({ onOpenTracker, onOpenCalculator, onRe
     if (query === "Talk to an engineer on WhatsApp") {
       window.open("https://wa.me/?text=Hello%20Volen%20Solution,%20I%20would%20like%20to%20consult%20an%20engineer%20about%20my%20project.", "_blank");
     }
+    if (query.includes("Open WhatsApp with this Plan Pre-Filled")) {
+      const plan = consultation.lastPlan;
+      const text = plan
+        ? `Hello Volen Solution! I have finalized my website plan with Volen AI:%0A%0A• Project: ${encodeURIComponent(plan.projectType)}%0A• Features: ${encodeURIComponent(plan.features)}%0A• Design: ${encodeURIComponent(plan.design)}%0A• Timeline: ${encodeURIComponent(plan.timeline)}%0A• Estimated Budget: ${encodeURIComponent(plan.pkrBudget)} PKR / ${encodeURIComponent(plan.usdBudget)} USD%0A%0AI would like to schedule kickoff and reserve our sprint.`
+        : `Hello Volen Solution, I would like to consult an engineer about my project.`;
+      window.open(`https://wa.me/?text=${text}`, "_blank");
+    }
+    if (query === "🔄 Plan Another Website" || query === "Plan Another Project") {
+      setConsultation({
+        active: true,
+        step: 1,
+        projectType: '',
+        features: '',
+        design: '',
+        timeline: '',
+        lastPlan: null
+      });
+      setTimeout(() => {
+        const botMsg = {
+          id: Date.now() + 1,
+          sender: 'bot',
+          text: `Awesome, let's architect another project!\n\n**What type of website would you like to build?**`,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          chips: [
+            "🛍️ E-Commerce & Online Store",
+            "🏢 Corporate & Business Showcase",
+            "🚀 Custom SaaS / Web Portal",
+            "🎯 High-Conversion Landing Page",
+            "💼 Portfolio & Creative Agency"
+          ]
+        };
+        setMessages((prev) => [...prev, botMsg]);
+        setIsTyping(false);
+      }, 500);
+      return;
+    }
+
+    // Checking if user is triggering website consultation from cold start:
+    const isPlanTrigger = /(plan my website|i\s*(want|need|require|looking for)\s*(a|an)?\s*(new)?\s*(website|web site|site|app|web app|store|ecommerce|e-commerce|platform|software|landing)|build\s*(me)?\s*(a|an)?\s*(website|site|store|app)|make\s*(me)?\s*(a|an)?\s*(website|site|store|app))/i.test(query);
 
     setTimeout(() => {
-      // Clean query to match keywords even if emojis are present in chips
-      const cleanQuery = query.replace(/[^\w\s-]/gi, ' ').trim();
+      // 1. If currently in interactive consultation flow:
+      if (consultation.active) {
+        // Step 1: User just selected / typed project type
+        if (consultation.step === 1) {
+          let chosenType = query.replace(/[^\w\s-]/gi, '').trim();
+          if (/ecommerce|e-commerce|store|shop|sell online/i.test(query)) chosenType = 'E-Commerce & Online Store';
+          else if (/saas|startup|mvp|platform|web app/i.test(query)) chosenType = 'Custom SaaS / Web Application';
+          else if (/corporate|business|company/i.test(query)) chosenType = 'Corporate & Business Showcase';
+          else if (/landing|funnel|single page/i.test(query)) chosenType = 'High-Conversion Landing Page';
+          else if (/portfolio|agency|showcase/i.test(query)) chosenType = 'Creative Portfolio / Agency';
 
+          setConsultation((prev) => ({ ...prev, step: 2, projectType: chosenType }));
+
+          let featureChips = [
+            "💳 Multi-Gateway Checkout (Stripe, JazzCash, COD)",
+            "📦 Inventory Sync & Bulk Dispatch Portal",
+            "👤 Customer Accounts & Order Tracking",
+            "✨ Complete Turnkey Store (All of the above)"
+          ];
+
+          if (chosenType.includes('SaaS')) {
+            featureChips = [
+              "🔐 Multi-Tier Auth & Role-Based Access Control (RBAC)",
+              "💳 Stripe Recurring Subscription Billing",
+              "📊 Interactive Analytics & Admin Control Portal",
+              "✨ Complete End-to-End MVP Architecture"
+            ];
+          } else if (chosenType.includes('Corporate')) {
+            featureChips = [
+              "📅 Consultation & Appointment Booking",
+              "🌐 Multi-Language & Case Studies Portfolio",
+              "⚡ WhatsApp CRM Lead Routing",
+              "✨ Full Corporate Business Suite"
+            ];
+          } else if (chosenType.includes('Landing')) {
+            featureChips = [
+              "⚡ Sub-Second Load Speed (Lighthouse 90+)",
+              "📲 3-Second Instant WhatsApp & CRM Routing",
+              "📊 Meta Pixel & GA4 Conversion Tracking",
+              "✨ Complete High-Conversion Funnel"
+            ];
+          } else if (chosenType.includes('Portfolio')) {
+            featureChips = [
+              "✨ Interactive 3D / WebGL Showcase",
+              "📁 Project Case Studies & Client Reviews",
+              "📩 Direct Inquiry & Booking System",
+              "✨ Complete Premium Agency Portfolio"
+            ];
+          }
+
+          const botMsg = {
+            id: Date.now() + 1,
+            sender: 'bot',
+            text: `Understood! An **${chosenType}** requires high buyer trust, rapid response times, and seamless user experience.\n\nTo tailor the architecture to your business goals, **what core features or capabilities must this website include?**`,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            chips: featureChips
+          };
+          setMessages((prev) => [...prev, botMsg]);
+          setIsTyping(false);
+          return;
+        }
+
+        // Step 2: User just selected / typed features
+        if (consultation.step === 2) {
+          setConsultation((prev) => ({ ...prev, step: 3, features: query }));
+
+          const botMsg = {
+            id: Date.now() + 1,
+            sender: 'bot',
+            text: `Got it! Incorporating **${query}** into the technical specifications.\n\nNext, **what design tone and visual aesthetic best represents your brand?**`,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            chips: [
+              "⚡ Ultra-Modern & Cyber-Grade (like Volen)",
+              "🎨 Clean, Minimalist & Luxury Corporate",
+              "🔥 High-Volume Retail & Dynamic Visuals",
+              "📱 Mobile-First App-Like Simplicity"
+            ]
+          };
+          setMessages((prev) => [...prev, botMsg]);
+          setIsTyping(false);
+          return;
+        }
+
+        // Step 3: User just selected / typed design style
+        if (consultation.step === 3) {
+          setConsultation((prev) => ({ ...prev, step: 4, design: query }));
+
+          const botMsg = {
+            id: Date.now() + 1,
+            sender: 'bot',
+            text: `That aesthetic will look world-class and set your business apart from competitors.\n\nLastly, **what is your target launch timeline?**`,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            chips: [
+              "⚡ Priority Sprint (1–2 Weeks)",
+              "📅 Standard Agile Delivery (3–4 Weeks)",
+              "⏳ Flexible Timeline (1–2 Months)"
+            ]
+          };
+          setMessages((prev) => [...prev, botMsg]);
+          setIsTyping(false);
+          return;
+        }
+
+        // Step 4: User just provided timeline ➔ Synthesize Architectural Plan & Budget!
+        if (consultation.step === 4) {
+          const type = consultation.projectType || 'Custom Web Platform';
+          const feats = consultation.features || 'Full Feature Suite';
+          const des = consultation.design || 'Modern Cyber-Grade';
+          const time = query;
+
+          let pkrBudget = '180,000 – 320,000';
+          let usdBudget = '$1,800 – $3,500';
+          let sprintWeeks = '3–4 weeks';
+
+          if (/saas|mvp|app/i.test(type)) {
+            pkrBudget = '450,000 – 1,100,000';
+            usdBudget = '$4,000 – $11,000';
+            sprintWeeks = '5–6 weeks';
+          } else if (/landing|funnel/i.test(type)) {
+            pkrBudget = '20,000 – 45,000';
+            usdBudget = '$250 – $550';
+            sprintWeeks = '1 week';
+          } else if (/corporate|business/i.test(type)) {
+            pkrBudget = '90,000 – 180,000';
+            usdBudget = '$950 – $2,000';
+            sprintWeeks = '2–3 weeks';
+          } else if (/portfolio|agency/i.test(type)) {
+            pkrBudget = '60,000 – 120,000';
+            usdBudget = '$600 – $1,300';
+            sprintWeeks = '1–2 weeks';
+          }
+
+          const planData = {
+            projectType: type,
+            features: feats,
+            design: des,
+            timeline: time,
+            pkrBudget,
+            usdBudget,
+            sprintWeeks
+          };
+
+          setConsultation({
+            active: false,
+            step: 0,
+            projectType: type,
+            features: feats,
+            design: des,
+            timeline: time,
+            lastPlan: planData
+          });
+
+          const planResponse = `📋 **Executive Architectural Plan & Budget Specification**
+
+🎯 **Project Scope:** ${type}
+⚙️ **Core Requirements:** ${feats}
+🎨 **Design Profile:** ${des} (Lighthouse 90+ Target)
+⏱️ **Target Timeline:** ${time} (${sprintWeeks})
+
+---
+### 🛠️ Recommended Technology Architecture:
+• **Frontend:** React 19 / Next.js 15, TailwindCSS 4, Framer Motion (Sub-second edge loading)
+• **Backend & APIs:** Node.js (NestJS / Express) or Python (FastAPI) microservices
+• **Database & Cloud:** PostgreSQL relational schema + Redis cache, Cloudflare Edge CDN & AWS S3
+• **Security:** SSL A+ Grade, OWASP Top 10 mitigation, CSRF/XSS input sanitization
+
+---
+### 🗺️ 4-Stage Agile Execution Roadmap:
+• **Sprint 1 (Architecture & UI/UX):** Wireframes, database schema design, and technical PRD approval.
+• **Sprint 2 (Core Engineering):** Frontend component assembly, responsive styling & business logic.
+• **Sprint 3 (Integrations & QA):** APIs, payment gateways, admin portal, and staging link client review.
+• **Sprint 4 (Production Deployment):** Cloud deployment, DNS pointing, speed audit & 100% IP code handover.
+
+---
+### 💰 Professional Investment Breakdown:
+• **Local Market (PKR):** ${pkrBudget} PKR
+• **International (USD):** ${usdBudget} USD
+*(Includes complete custom UI/UX design, frontend + backend engineering, payment gateway setup, 30 days post-launch support & zero vendor lock-in)*
+
+---
+### 🛡️ Payment Schedule (Volen 50/30/20 Safe Policy):
+1. **50% Advance:** Initiates Sprint 1 kickoff & private Git repository creation.
+2. **30% Milestone Review:** Billed ONLY after you test the staging link and approve revisions.
+3. **20% Handover:** Billed upon live release, domain pointing & complete IP code repository transfer.
+
+---
+How would you like to proceed with your project?`;
+
+          const botMsg = {
+            id: Date.now() + 1,
+            sender: 'bot',
+            text: planResponse,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            chips: [
+              "📲 Open WhatsApp with this Plan Pre-Filled",
+              "📄 Request Formal Technical Proposal",
+              "🧮 Open Interactive Cost Calculator",
+              "🔄 Plan Another Website"
+            ]
+          };
+          setMessages((prev) => [...prev, botMsg]);
+          setIsTyping(false);
+          return;
+        }
+      }
+
+      // 2. If user initiated planning from cold start:
+      if (isPlanTrigger) {
+        // Check if user already mentioned specific type in the sentence
+        let prefilledType = '';
+        if (/ecommerce|e-commerce|store|shop|sell online/i.test(query)) prefilledType = 'E-Commerce & Online Store';
+        else if (/saas|startup|mvp|platform|web app/i.test(query)) prefilledType = 'Custom SaaS / Web Application';
+        else if (/corporate|business|company/i.test(query)) prefilledType = 'Corporate & Business Showcase';
+        else if (/landing|funnel|single page/i.test(query)) prefilledType = 'High-Conversion Landing Page';
+        else if (/portfolio|agency|showcase/i.test(query)) prefilledType = 'Creative Portfolio / Agency';
+
+        if (prefilledType) {
+          setConsultation({
+            active: true,
+            step: 2,
+            projectType: prefilledType,
+            features: '',
+            design: '',
+            timeline: '',
+            lastPlan: null
+          });
+
+          let featureChips = [
+            "💳 Multi-Gateway Checkout (Stripe, JazzCash, COD)",
+            "📦 Inventory Sync & Bulk Dispatch Portal",
+            "👤 Customer Accounts & Order Tracking",
+            "✨ Complete Turnkey Store (All of the above)"
+          ];
+          if (prefilledType.includes('SaaS')) {
+            featureChips = [
+              "🔐 Multi-Tier Auth & Role-Based Access Control (RBAC)",
+              "💳 Stripe Recurring Subscription Billing",
+              "📊 Interactive Analytics & Admin Control Portal",
+              "✨ Complete End-to-End MVP Architecture"
+            ];
+          }
+
+          const botMsg = {
+            id: Date.now() + 1,
+            sender: 'bot',
+            text: `I would be thrilled to architect your **${prefilledType}**! Let's discuss your project in detail so we can generate an exact technical plan and budget.\n\n**What core features and capabilities will your project need?**`,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            chips: featureChips
+          };
+          setMessages((prev) => [...prev, botMsg]);
+          setIsTyping(false);
+          return;
+        }
+
+        // General website inquiry -> Start Step 1
+        setConsultation({
+          active: true,
+          step: 1,
+          projectType: '',
+          features: '',
+          design: '',
+          timeline: '',
+          lastPlan: null
+        });
+
+        const botMsg = {
+          id: Date.now() + 1,
+          sender: 'bot',
+          text: `I would be thrilled to architect your website! To make sure we hit your business goals, maximize conversions, and engineer the right stack, let's discuss your project step by step.\n\nFirst, **what type of website are you looking to build?**`,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          chips: [
+            "🛍️ E-Commerce & Online Store",
+            "🏢 Corporate & Business Showcase",
+            "🚀 Custom SaaS / Web Portal",
+            "🎯 High-Conversion Landing Page",
+            "💼 Portfolio & Creative Agency"
+          ]
+        };
+        setMessages((prev) => [...prev, botMsg]);
+        setIsTyping(false);
+        return;
+      }
+
+      // 3. Fall back to standard pre-programmed knowledge (Greetings, Policies, Stack, etc.)
+      const cleanQuery = query.replace(/[^\w\s-]/gi, ' ').trim();
       let matched = PRE_PROGRAMMED_KNOWLEDGE.find((item) =>
         item.match.some((regex) => regex.test(query) || regex.test(cleanQuery))
       );
@@ -438,13 +768,12 @@ export default function VolenAIAssistant({ onOpenTracker, onOpenCalculator, onRe
         replyText = matched.response;
         replyChips = matched.chips;
       } else {
-        replyText = `🎯 **Client Purpose Analysis:**\nThank you for sharing your requirement: *"${query}"*.\n\nAt Volen Solution, our engineering approach starts by diagnosing your exact business objectives and ROI before architecting code.\n\n**To recommend the most precise technical solution, timeline, and quote, which category best matches your project?**`;
+        replyText = `🎯 **Client Requirement Analysis:**\nThank you for sharing: *"${query}"*.\n\nAt Volen Solution, we don't just quote numbers—we discuss your goals in detail, draft a technical roadmap, and deliver an itemized budget.\n\n**Would you like to start planning your custom website now?**`;
         replyChips = [
-          "🛍️ Launch an E-Commerce Store",
+          "🚀 Plan My Website (Step-by-Step)",
+          "🛍️ E-Commerce & Online Store",
           "💡 Build a SaaS or Startup MVP",
-          "📈 Get more leads & sales",
-          "⚙️ Automate business operations",
-          "🛡️ Redesign slow / insecure site",
+          "💰 View pricing & 50/30/20 policy",
           "Talk to an engineer on WhatsApp"
         ];
       }
@@ -489,7 +818,18 @@ export default function VolenAIAssistant({ onOpenTracker, onOpenCalculator, onRe
 
             <div className="flex items-center gap-1">
               <button
-                onClick={() => setMessages(INITIAL_MESSAGES)}
+                onClick={() => {
+                  setMessages(INITIAL_MESSAGES);
+                  setConsultation({
+                    active: false,
+                    step: 0,
+                    projectType: '',
+                    features: '',
+                    design: '',
+                    timeline: '',
+                    lastPlan: null
+                  });
+                }}
                 title="Reset Conversation"
                 className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
               >
