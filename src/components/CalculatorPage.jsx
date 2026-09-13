@@ -182,9 +182,13 @@ export default function CalculatorPage({ onRequestProposal }) {
 
   const optionalAddons = [
     { id: 'bilingual', name: 'Arabic/English Bilingual Localization', rateFactor: 0.25 },
-    { id: 'ecommerce-payment', name: 'Stripe & Regional Payment Gateway Sync', rateFactor: 0.2 },
-    { id: 'ai-chatbot', name: 'AI Reasoning Chatbot Agent', rateFactor: 0.30 },
-    { id: 'security', name: 'Zero-Trust WAF & Pen Testing Audit', rateFactor: 0.20 }
+    { id: 'ecommerce-payment', name: 'Stripe & Regional Payment Gateway Sync', rateFactor: 0.20 },
+    { id: 'fast-track', name: '⚡ Express 48–72h Priority Delivery (Fiverr Fast)', rateFactor: 0.25 },
+    { id: 'ai-chatbot', name: '🤖 24/7 AI Chatbot & WhatsApp Auto-Responder', rateFactor: 0.25 },
+    { id: 'logo-brand-kit', name: '🎨 Vector Logo & Complete Brand Assets Kit', rateFactor: 0.20 },
+    { id: 'copywriting-upload', name: '📝 Pro Copywriting & Content Upload', rateFactor: 0.15 },
+    { id: 'ga4-pixel', name: '📈 GA4, Meta Ads Pixel & Heatmap Tracking', rateFactor: 0.15 },
+    { id: 'security', name: '🔒 Cyber Security Hardening & SSL A+ Audit', rateFactor: 0.20 }
   ];
 
   const toggleAddon = (name) => {

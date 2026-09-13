@@ -323,6 +323,85 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
       usdMin: 85,
       usdMax: 220,
       isRecurring: true
+    },
+    // 6 Popular Fiverr & Freelance Platform Style Gig Extras:
+    {
+      id: 'fast-track-delivery',
+      name: '⚡ Express 48–72h Priority Delivery (Fiverr Extra Fast)',
+      scope: 'Dedicated round-the-clock developer sprint pod assigned to prioritize, build, and deploy your website MVP in 48 to 72 hours.',
+      pkrRange: '12,500 – 28,000 PKR',
+      usdRange: '$120 – $280',
+      pkrMin: 12500,
+      pkrMax: 28000,
+      usdMin: 120,
+      usdMax: 280,
+      isRecurring: false,
+      badge: '⚡ Express 48h'
+    },
+    {
+      id: 'ai-chatbot-autoresponder',
+      name: '🤖 24/7 AI Chatbot & WhatsApp Auto-Responder',
+      scope: 'Custom conversational AI assistant or WhatsApp Business automation flow embedded to qualify client leads and answer FAQs 24/7.',
+      pkrRange: '15,000 – 35,000 PKR',
+      usdRange: '$150 – $350',
+      pkrMin: 15000,
+      pkrMax: 35000,
+      usdMin: 150,
+      usdMax: 350,
+      isRecurring: false,
+      badge: '🤖 AI Agent'
+    },
+    {
+      id: 'vector-logo-branding',
+      name: '🎨 Vector Logo & Complete Brand Assets Kit',
+      scope: '3 bespoke vector logo concepts, official corporate brand color palette, font typography guide, favicon, and social media banners.',
+      pkrRange: '11,000 – 27,500 PKR',
+      usdRange: '$110 – $275',
+      pkrMin: 11000,
+      pkrMax: 27500,
+      usdMin: 110,
+      usdMax: 275,
+      isRecurring: false,
+      badge: '🎨 Brand Kit'
+    },
+    {
+      id: 'pro-copywriting-upload',
+      name: '📝 Pro Conversion Copywriting & Content Upload (Up to 15 Pages/Products)',
+      scope: 'High-converting persuasive sales copy written by senior copywriters + complete uploading & formatting of up to 15 products or blog articles.',
+      pkrRange: '8,250 – 19,250 PKR',
+      usdRange: '$85 – $200',
+      pkrMin: 8250,
+      pkrMax: 19250,
+      usdMin: 85,
+      usdMax: 200,
+      isRecurring: false,
+      badge: '📝 Pro Copy'
+    },
+    {
+      id: 'ga4-pixel-heatmaps',
+      name: '📈 Google Analytics 4, Meta Pixel & Hotjar Heatmap Setup',
+      scope: 'Full server-side conversion API, custom event tracking (Purchase, Lead, Call), Meta Ads Pixel, and Hotjar/Clarity visitor session recording.',
+      pkrRange: '6,500 – 16,500 PKR',
+      usdRange: '$65 – $170',
+      pkrMin: 6500,
+      pkrMax: 16500,
+      usdMin: 65,
+      usdMax: 170,
+      isRecurring: false,
+      badge: '📈 Tracking'
+    },
+    {
+      id: 'security-hardening-audit',
+      name: '🔒 Cyber Security Hardening & SSL A+ Security Audit',
+      scope: 'OWASP Top 10 mitigation, Cloudflare DDoS edge firewall, anti-bot rate limiting, SQL/XSS input sanitization, and automated encrypted daily cloud backups.',
+      pkrRange: '9,500 – 22,000 PKR',
+      usdRange: '$95 – $220',
+      pkrMin: 9500,
+      pkrMax: 22000,
+      usdMin: 95,
+      usdMax: 220,
+      isRecurring: false,
+      badge: '🛡️ Cyber Shield'
     }
   ];
 
@@ -1884,14 +1963,14 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
                             <Sliders className="w-4 h-4 text-sky-600" />
-                            <span>Add-on Customizer Options</span>
+                            <span>Popular Gig Extras & Custom Add-ons</span>
                           </span>
                           <span className="text-[10px] font-mono text-sky-700 bg-sky-100 px-2 py-0.5 rounded-full font-bold">
-                            10 Options Available
+                            {customizationAddons.length} Options Available
                           </span>
                         </div>
                         <p className="text-[11px] text-slate-600 leading-snug">
-                          Toggle optional capabilities to dynamically calculate the live project bill in the side taskbar.
+                          Toggle optional capabilities and freelance gig extras to dynamically calculate the live project bill in the side taskbar.
                         </p>
 
                         <div className="space-y-2.5 pt-1 max-h-[460px] overflow-y-auto pr-1">
@@ -1910,11 +1989,18 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
                                 <div className="space-y-0.5 flex-1">
                                   <div className="text-xs font-black text-slate-900 flex items-center justify-between gap-1">
                                     <span>{addon.name}</span>
-                                    {addon.isRecurring && (
-                                      <span className="text-[9px] font-mono font-bold bg-purple-100 text-purple-800 px-1.5 py-0.2 rounded">
-                                        Recurring
-                                      </span>
-                                    )}
+                                    <div className="flex items-center gap-1 shrink-0">
+                                      {addon.badge && (
+                                        <span className="text-[9px] font-mono font-bold bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded border border-amber-300/40">
+                                          {addon.badge}
+                                        </span>
+                                      )}
+                                      {addon.isRecurring && (
+                                        <span className="text-[9px] font-mono font-bold bg-purple-100 text-purple-800 px-1.5 py-0.2 rounded border border-purple-300/40">
+                                          Recurring
+                                        </span>
+                                      )}
+                                    </div>
                                   </div>
                                   <div className="text-[11px] text-slate-500 leading-tight">
                                     {addon.scope}
