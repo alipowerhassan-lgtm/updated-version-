@@ -46,13 +46,16 @@ import {
 } from 'lucide-react';
 import { generatePdfQuote } from '../utils/pdfQuoteGenerator';
 import CustomerPolicyModal from './CustomerPolicyModal';
+import PricingSection from './PricingSection';
+import PriceCalculatorModal from './PriceCalculatorModal';
 
 export default function ServicesSection({ onSelectService, onBookConsultation, onViewCaseStudy }) {
-  const [activeTabCategory, setActiveTabCategory] = useState('current');
+  const [activeTabCategory, setActiveTabCategory] = useState('pricing'); // Default to pricing matrix so user immediately sees the 6 departments
   const [filter, setFilter] = useState('all');
 
   // Services Catalog Modal & Customizer State
   const [showWebsiteTypesModal, setShowWebsiteTypesModal] = useState(false);
+  const [showPriceCalculatorModal, setShowPriceCalculatorModal] = useState(false);
   const [modalActiveCategory, setModalActiveCategory] = useState('web-apps'); // 'web-apps' | 'marketing' | 'graphic-design' | 'maintenance'
   const [selectedWebType, setSelectedWebType] = useState(null);
   const [selectedCustomOptions, setSelectedCustomOptions] = useState([]);
@@ -1183,6 +1186,13 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
               <Wrench className="w-3.5 h-3.5 text-purple-400" />
               <span>Maintenance (4 SLAs)</span>
             </button>
+            <button
+              onClick={() => setActiveTabCategory('pricing')}
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs shadow-lg flex items-center gap-2 cursor-pointer shrink-0 border border-amber-300"
+            >
+              <Calculator className="w-3.5 h-3.5 text-slate-950 stroke-[2.5]" />
+              <span>Official Rates (6 Depts) 🧮</span>
+            </button>
             <a
               href="#calculator"
               target="_blank"
@@ -1196,8 +1206,20 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
           </div>
         </div>
 
-        {/* TWO MAIN CATEGORY TABS: CURRENT SERVICES vs UPCOMING SERVICES */}
+        {/* MAIN CATEGORY TABS: PRICING MATRIX vs CURRENT SERVICES vs UPCOMING SERVICES */}
         <div className="flex flex-wrap justify-center gap-3">
+          <button
+            onClick={() => setActiveTabCategory('pricing')}
+            className={`px-6 py-3.5 rounded-2xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
+              activeTabCategory === 'pricing'
+                ? 'bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white shadow-xl border border-sky-400/50 ring-2 ring-sky-400/30'
+                : 'bg-white text-slate-700 border border-slate-200 hover:bg-sky-50'
+            }`}
+          >
+            <Calculator className="w-4 h-4 text-amber-400" />
+            <span>Official Rates & Pricing Matrix (6 Departments) 🧮</span>
+          </button>
+
           <button
             onClick={() => setActiveTabCategory('current')}
             className={`px-6 py-3.5 rounded-2xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
@@ -1207,7 +1229,7 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
             }`}
           >
             <Layers className="w-4 h-4 text-sky-400" />
-            <span>Current Services</span>
+            <span>Current Services Overview</span>
           </button>
 
           <button
@@ -1222,6 +1244,16 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
             <span>Upcoming Services (AI & R&D)</span>
           </button>
         </div>
+
+        {/* OFFICIAL PRICING & REGIONAL RATES VIEW (ALL 6 DEPARTMENTS) */}
+        {activeTabCategory === 'pricing' && (
+          <div className="space-y-6 animate-in fade-in duration-300">
+            <PricingSection
+              onOpenCalculator={() => setShowPriceCalculatorModal(true)}
+              onSelectServiceForModal={(service) => onSelectService(service)}
+            />
+          </div>
+        )}
 
         {/* CURRENT SERVICES VIEW */}
         {activeTabCategory === 'current' && (
@@ -2843,6 +2875,12 @@ export default function ServicesSection({ onSelectService, onBookConsultation, o
         <CustomerPolicyModal
           isOpen={showCustomerPolicyModal}
           onClose={() => setShowCustomerPolicyModal(false)}
+        />
+
+        {/* Interactive Price Calculator Modal (6 Departments, 5 Currencies) */}
+        <PriceCalculatorModal
+          isOpen={showPriceCalculatorModal}
+          onClose={() => setShowPriceCalculatorModal(false)}
         />
       </div>
     </section>
